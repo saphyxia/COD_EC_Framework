@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "bsp_tick.h": "c",
+        "main.h": "c",
+        "spi.h": "c",
+        "tim.h": "c"
+    }
+}
