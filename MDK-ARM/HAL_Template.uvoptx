@@ -319,8 +319,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\Components\Algorithm\Src\kalman_filter.c</PathWithFileName>
-      <FilenameWithoutPath>kalman_filter.c</FilenameWithoutPath>
+      <PathWithFileName>..\Components\Algorithm\Src\kalman.c</PathWithFileName>
+      <FilenameWithoutPath>kalman.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -331,8 +331,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\Components\Algorithm\Src\lowpass_filter.c</PathWithFileName>
-      <FilenameWithoutPath>lowpass_filter.c</FilenameWithoutPath>
+      <PathWithFileName>..\Components\Algorithm\Src\lpf.c</PathWithFileName>
+      <FilenameWithoutPath>lpf.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

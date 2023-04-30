@@ -13,7 +13,8 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
-#include "lowpass_filter.h"
+#include "lpf.h"
+#include "string.h"
 
 /**
   * @brief first order low-pass filter init
@@ -45,7 +46,7 @@ float lpf_first_order_calc(lpf_first_order_t *lpf,float input)
   */
 void lpf_second_order_init(lpf_second_order_t *lpf,float alpha[3])
 {
-  memcpy(lpf->alpha,alpha,sizeof(alpha));
+  memcpy(lpf->alpha,alpha,sizeof(lpf->alpha));
   lpf->input = 0;
   memset(lpf->output,0,sizeof(lpf->output));
 }

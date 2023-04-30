@@ -436,14 +436,14 @@
           <GroupName>Components/Algorithm</GroupName>
           <Files>
             <File>
-              <FileName>kalman_filter.c</FileName>
+              <FileName>kalman.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Components\Algorithm\Src\kalman_filter.c</FilePath>
+              <FilePath>..\Components\Algorithm\Src\kalman.c</FilePath>
             </File>
             <File>
-              <FileName>lowpass_filter.c</FileName>
+              <FileName>lpf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Components\Algorithm\Src\lowpass_filter.c</FilePath>
+              <FilePath>..\Components\Algorithm\Src\lpf.c</FilePath>
             </File>
             <File>
               <FileName>ramp.c</FileName>
