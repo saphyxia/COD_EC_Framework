@@ -1,5 +1,6 @@
-hal_template/bsp_tick.o: ..\Bsp\Src\bsp_tick.c ..\Bsp\Inc\bsp_tick.h \
-  ..\Core\Inc\main.h ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
+hal_template/ramp.o: ..\Components\Algorithm\Src\ramp.c \
+  ..\Components\Algorithm\Inc\ramp.h ..\Core\Inc\main.h \
+  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\Core\Inc\stm32f4xx_hal_conf.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h \

@@ -7,7 +7,7 @@
   * @date           : 2023/04/27
   * @version        : v1.0
   ******************************************************************************
-  * @attention      : HAL clock source is TIM2
+  * @attention      : use the TIM2 as the HAL TimeBase
   ******************************************************************************
   */
 /* USER CODE END Header */
@@ -18,7 +18,7 @@
 
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f4xx.h"
+#include "main.h"
 
 
 /* Exported functions prototypes ---------------------------------------------*/

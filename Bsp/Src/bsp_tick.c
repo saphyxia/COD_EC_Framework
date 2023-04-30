@@ -38,15 +38,21 @@ static uint32_t Micros(void)
     return haltick;
 }
 
-// microsecond delay
+/**
+  * @brief  microsecond delay
+  * @retval noen
+  */
 void Delay_us(uint32_t us)
 {
-    uint32_t now = micros();
+    uint32_t now = Micros();
 
-    while((micros() - now) < us);
+    while((Micros() - now) < us);
 }
 
-// millisecond delay
+/**
+  * @brief  millisecond delay
+  * @retval noen
+  */
 void Delay_ms(uint32_t ms)
 {
     uint32_t now = HAL_GetTick();

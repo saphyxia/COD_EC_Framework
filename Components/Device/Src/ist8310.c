@@ -1,8 +1,8 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file           : bsp_spi.c
-  * @brief          : bsp spi functions 
+  * @file           : ist8310.c
+  * @brief          : ist8310 interfaces functions 
   * @author         : Yan Yuanbin
   * @date           : 2023/04/27
   * @version        : v1.0
@@ -13,6 +13,5 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
-#include "bsp_spi.h"
-
+#include "ist8310.h"
 

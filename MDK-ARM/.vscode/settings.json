@@ -3,6 +3,24 @@
         "bsp_tick.h": "c",
         "main.h": "c",
         "spi.h": "c",
-        "tim.h": "c"
+        "tim.h": "c",
+        "bsp_gpio.h": "c",
+        "bsp_mcu.h": "c",
+        "bsp_can.h": "c",
+        "bsp_iic.h": "c",
+        "bsp_spi.h": "c",
+        "bsp_tim.h": "c",
+        "bsp_uart.h": "c",
+        "kalman_filter.h": "c",
+        "lowpass_filter.h": "c",
+        "pid.h": "c",
+        "minipc.h": "c",
+        "motor.h": "c",
+        "referee_info.h": "c",
+        "remote_control.h": "c",
+        "bmi088.h": "c",
+        "ist8310.h": "c",
+        "ramp.h": "c",
+        "arm_math.h": "c"
     }
 }
