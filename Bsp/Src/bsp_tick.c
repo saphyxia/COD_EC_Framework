@@ -22,7 +22,7 @@
  * HalTick uses TIM2 in this project (TIM2->CNT can provide microsecond delay)
  * # delay_us and delay_ms will not cause task scheduling (blocking type)
  * */
-static uint32_t Micros(void)
+static uint32_t Haltick(void)
 {
     uint32_t haltick = 0;
     register uint32_t ms = 0, us= 0;
@@ -44,9 +44,9 @@ static uint32_t Micros(void)
   */
 void Delay_us(uint32_t us)
 {
-    uint32_t now = Micros();
+    uint32_t now = Haltick();
 
-    while((Micros() - now) < us);
+    while((Haltick() - now) < us);
 }
 
 /**
