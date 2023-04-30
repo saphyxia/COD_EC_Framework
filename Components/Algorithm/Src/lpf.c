@@ -20,7 +20,7 @@
   * @brief first order low-pass filter init
   * @retval none
   */
-void lpf_first_order_init(lpf_first_order_t *lpf,float alpha,float frame_period)
+void LPF_First_Order_Init(LPF_FIRST_ORDER_t *lpf,float alpha,float frame_period)
 {
   lpf->alpha = alpha;
   lpf->frame_period = frame_period;
@@ -31,7 +31,7 @@ void lpf_first_order_init(lpf_first_order_t *lpf,float alpha,float frame_period)
   * @brief first order low-pass filter calculate
   * @retval filter output
   */
-float lpf_first_order_calc(lpf_first_order_t *lpf,float input)
+float LPF_First_Order_Calc(LPF_FIRST_ORDER_t *lpf,float input)
 {
   lpf->input = input;
 
@@ -44,7 +44,7 @@ float lpf_first_order_calc(lpf_first_order_t *lpf,float input)
   * @brief second order low-pass filter init
   * @retval none
   */
-void lpf_second_order_init(lpf_second_order_t *lpf,float alpha[3])
+void LPF_Second_Order_Init(LPF_SECOND_ORDER_t *lpf,float alpha[3])
 {
   memcpy(lpf->alpha,alpha,sizeof(lpf->alpha));
   lpf->input = 0;
@@ -54,7 +54,7 @@ void lpf_second_order_init(lpf_second_order_t *lpf,float alpha[3])
   * @brief second order low-pass filter calculate
   * @retval filter output
   */
-float lpf_second_order_calc(lpf_second_order_t *lpf,float input)
+float LPF_Second_Order_Calc(LPF_SECOND_ORDER_t *lpf,float input)
 {
 	lpf->input = input;
 	lpf->output[0] = lpf->output[1];

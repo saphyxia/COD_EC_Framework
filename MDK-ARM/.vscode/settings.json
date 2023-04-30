@@ -21,6 +21,8 @@
         "bmi088.h": "c",
         "ist8310.h": "c",
         "ramp.h": "c",
-        "arm_math.h": "c"
+        "arm_math.h": "c",
+        "kalman.h": "c",
+        "lpf.h": "c"
     }
 }

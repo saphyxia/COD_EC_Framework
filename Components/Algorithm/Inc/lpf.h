@@ -27,19 +27,19 @@ typedef struct
     float output;       //output value
     float alpha;        //filter coefficient
     float frame_period; //frame perood
-}lpf_first_order_t;
+}LPF_FIRST_ORDER_t;
 
 typedef struct 
 {
     float input;      //input value
     float output[3];  //output value
     float alpha[3];   //filter coefficient
-}lpf_second_order_t;
+}LPF_SECOND_ORDER_t;
 
 /* Exported functions prototypes ---------------------------------------------*/
-extern void lpf_first_order_init(lpf_first_order_t *lpf,float alpha,float frame_period);
-extern float lpf_first_order_calc(lpf_first_order_t *lpf,float input);
-extern void lpf_second_order_init(lpf_second_order_t *lpf,float alpha[3]);
-extern float lpf_second_order_calc(lpf_second_order_t *lpf,float input);
+extern void LPF_First_Order_Init(LPF_FIRST_ORDER_t *lpf,float alpha,float frame_period);
+extern float LPF_First_Order_Calc(LPF_FIRST_ORDER_t *lpf,float input);
+extern void LPF_Second_Order_Init(LPF_SECOND_ORDER_t *lpf,float alpha[3]);
+extern float LPF_Second_Order_Calc(LPF_SECOND_ORDER_t *lpf,float input);
 
 #endif //LOWPASS_FILTER_H
