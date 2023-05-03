@@ -23,6 +23,7 @@
         "ramp.h": "c",
         "arm_math.h": "c",
         "kalman.h": "c",
-        "lpf.h": "c"
+        "lpf.h": "c",
+        "stdint.h": "c"
     }
 }

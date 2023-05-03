@@ -17,20 +17,23 @@
 
 
 /**
-  * @brief ramp calculate
-  * @retval ramp value
+  * @brief Update the floating-point ramp filter.
+  * @param input: the filter input variables
+  * @param target: the input variables target value
+  * @param ramp: the filter ramp
+  * @retval the filter output
   */
-float f_ramp_calc(float input,float target,float ramp)
+float f_Ramp_Update(float input,float target,float ramp)
 {
-    float buffer = target - input;
+    float error = target - input;
     float output = input;
 
-	if (buffer > 0){
-        if (buffer > ramp){output += ramp;}   
-        else{output += buffer;}
+	if (error > 0){
+        if (error > ramp){output += ramp;}   
+        else{output += error;}
     }else{
-        if (buffer < -ramp){output += -ramp;}
-        else{output += buffer;}
+        if (error < -ramp){output += -ramp;}
+        else{output += error;}
     }
 
     return output;

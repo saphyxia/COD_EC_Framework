@@ -22,7 +22,10 @@
 
 
 /* Exported functions prototypes ---------------------------------------------*/
-extern float f_ramp_calc(float input,float target,float ramp);
+/**
+  * @brief update the floating-point ramp filter.
+  */
+extern float f_Ramp_Update(float input,float target,float ramp);
 
 #endif //RAMP_H
 
