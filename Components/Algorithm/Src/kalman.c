@@ -20,10 +20,8 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "kalman.h"
-
 #include "math.h"
-#include "stdint.h"
-#include "stdlib.h"
+#include "string.h"
 
 uint16_t sizeof_float, sizeof_double;
 

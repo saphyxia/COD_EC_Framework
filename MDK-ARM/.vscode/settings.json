@@ -27,6 +27,8 @@
         "stdint.h": "c",
         "limits": "c",
         "cmsis_os.h": "c",
-        "cstddef": "c"
+        "cstddef": "c",
+        "string.h": "c",
+        "stdlib.h": "c"
     }
 }
