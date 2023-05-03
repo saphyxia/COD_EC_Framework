@@ -45,8 +45,8 @@ float LPF_First_Order_Update(LPF_First_Order_TypeDef *lpf,float input)
 {
   lpf->input = input;
 
-  lpf->output = lpf->alpha/(lpf->alpha+lpf->frame_period)*lpf->output 
-              + lpf->frame_period/(lpf->alpha+lpf->frame_period)*lpf->input;
+  lpf->output = lpf->alpha / (lpf->alpha + lpf->frame_period) * lpf->output 
+              + lpf->frame_period / (lpf->alpha + lpf->frame_period) * lpf->input;
 
   return lpf->output;
 }
@@ -78,9 +78,10 @@ void LPF_Second_Order_Init(LPF_Second_Order_TypeDef *lpf,float alpha[3])
 float LPF_Second_Order_Update(LPF_Second_Order_TypeDef *lpf,float input)
 {
 	lpf->input = input;
+  
 	lpf->output[0] = lpf->output[1];
 	lpf->output[1] = lpf->output[2];
-  lpf->output[2] = lpf->alpha[0]*lpf->output[1] + lpf->alpha[1]*lpf->output[0] + lpf->alpha[2]*lpf->input;
+  lpf->output[2] = lpf->alpha[0] * lpf->output[0] + lpf->alpha[1] * lpf->output[1] + lpf->alpha[2] * lpf->input;
 
 	return lpf->output[2];
 }
