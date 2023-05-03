@@ -44,7 +44,7 @@ static uint32_t Haltick(void)
 
 /**
   * @brief  microsecond delay
-  * @param  us : delay microsecond 
+  * @param  us: delay microsecond 
   * @retval none
   */
 void Delay_us(uint32_t us)
@@ -56,7 +56,7 @@ void Delay_us(uint32_t us)
 
 /**
   * @brief  millisecond delay
-  * @param  ms : delay millisecond
+  * @param  ms: delay millisecond
   * @retval none
   */
 void Delay_ms(uint32_t ms)
@@ -65,4 +65,5 @@ void Delay_ms(uint32_t ms)
 
     while((HAL_GetTick()-now) < ms);
 }
+
 

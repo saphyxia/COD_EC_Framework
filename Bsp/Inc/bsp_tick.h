@@ -22,7 +22,13 @@
 
 
 /* Exported functions prototypes ---------------------------------------------*/
+/**
+  * @brief  microsecond delay
+  */
 extern void Delay_us(uint32_t us);
+/**
+  * @brief  millisecond delay
+  */
 extern void Delay_ms(uint32_t ms);
 
 #endif //BSP_TICK_H
