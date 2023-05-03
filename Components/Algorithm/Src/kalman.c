@@ -30,7 +30,7 @@ uint16_t sizeof_float, sizeof_double;
 /**
   * @brief Initializes the kalman filter according to the specified parameters in the
   *         Kalman_Filter_Info_TypeDef.
-  * @param kf: pointer to an Kalman_Filter_Info_TypeDef structure that
+  * @param kf: pointer to a Kalman_Filter_Info_TypeDef structure that
   *         contains the information  for the kalman filter.
   * @param xhatSize: state vector dimension
   * @param uSize: control vector dimension
@@ -171,7 +171,7 @@ arm_status Kalman_Filter_Init(Kalman_Filter_Info_TypeDef *kf,uint8_t xhatSize,ui
 
 /**
   * @brief Update the Measuerment Information
-  * @param kf: pointer to an Kalman_Filter_Info_TypeDef structure that
+  * @param kf: pointer to a Kalman_Filter_Info_TypeDef structure that
   *         contains the information  for the kalman filter.
   * @retval none
   */
@@ -189,7 +189,7 @@ static void Kalman_Filter_Measurement_Update(Kalman_Filter_Info_TypeDef *kf)
 
 /**
   * @brief Update the Priori EstiMate
-  * @param kf: pointer to an Kalman_Filter_Info_TypeDef structure that
+  * @param kf: pointer to a Kalman_Filter_Info_TypeDef structure that
   *         contains the information  for the kalman filter.
   * @note xhatminus = A xhat(k-1) + B u(k-1)
   * @retval none
@@ -221,7 +221,7 @@ static void Kalman_Filter_xhatminus_Update(Kalman_Filter_Info_TypeDef *kf)
 
 /**
   * @brief Update the Priori Error Covariance Matrix
-  * @param kf: pointer to an Kalman_Filter_Info_TypeDef structure that
+  * @param kf: pointer to a Kalman_Filter_Info_TypeDef structure that
   *         contains the information  for the kalman filter.
   * @note Pminus = A P(k-1) AT + Q
   * @retval none
@@ -245,7 +245,7 @@ static void Kalman_Filter_Pminus_Update(Kalman_Filter_Info_TypeDef *kf)
 
 /**
   * @brief Update the Kalman Gain
-  * @param kf: pointer to an Kalman_Filter_Info_TypeDef structure that
+  * @param kf: pointer to a Kalman_Filter_Info_TypeDef structure that
   *         contains the information  for the kalman filter.
   * @note K = H·Pminus / (H·Pminus·HT + R)
   * @retval none
@@ -284,7 +284,7 @@ static void Kalman_Filter_K_Update(Kalman_Filter_Info_TypeDef *kf)
 
 /**
   * @brief Update the Posteriori EstiMate
-  * @param kf: pointer to an Kalman_Filter_Info_TypeDef structure that
+  * @param kf: pointer to a Kalman_Filter_Info_TypeDef structure that
   *         contains the information  for the kalman filter.
   * @note xhat = xhatminus + K(k)·(z(k) - H·xhatminus)
   * @retval none
@@ -311,7 +311,7 @@ static void Kalman_Filter_xhat_Update(Kalman_Filter_Info_TypeDef *kf)
 }
 /**
   * @brief Update the Posteriori Error Covariance Matrix
-  * @param kf: pointer to an Kalman_Filter_Info_TypeDef structure that
+  * @param kf: pointer to a Kalman_Filter_Info_TypeDef structure that
   *         contains the information  for the kalman filter.
   * @note P = (I - K(k)·H)·Pminus
   * @retval none
@@ -335,7 +335,7 @@ static void Kalman_Filter_P_Update(Kalman_Filter_Info_TypeDef *kf)
 /**
   * @brief Update the Kalman Filter according to the specified parameters in the
   *         Kalman_Filter_Info_TypeDef.
-  * @param kf: pointer to an Kalman_Filter_Info_TypeDef structure that
+  * @param kf: pointer to a Kalman_Filter_Info_TypeDef structure that
   *         contains the information  for the kalman filter.
   * @retval pointer of kalman filter output
   * @note kalman filter formula:

@@ -21,7 +21,7 @@
 #include "main.h"
 #include "arm_math.h"
 
-/* Exported macro ------------------------------------------------------------*/
+/* Exported defines -----------------------------------------------------------*/
 /**
  * @brief macro definition of the user_malloc that returns a pointer to the memory of the allocated size.
  */

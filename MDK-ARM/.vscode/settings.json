@@ -24,6 +24,9 @@
         "arm_math.h": "c",
         "kalman.h": "c",
         "lpf.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "limits": "c",
+        "cmsis_os.h": "c",
+        "cstddef": "c"
     }
 }
