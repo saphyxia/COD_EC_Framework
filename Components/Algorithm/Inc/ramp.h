@@ -23,9 +23,13 @@
 
 /* Exported functions prototypes ---------------------------------------------*/
 /**
-  * @brief update the floating-point ramp filter.
+  * @brief Calculate the floating-point ramp filter.
   */
-extern float f_Ramp_Update(float input,float target,float ramp);
+extern float f_Ramp_Calc(float input,float target,float ramp);
+/**
+  * @brief Calculate the floating-point logistic curves.
+  */
+extern float f_LogisticCurves_Calc(float x , float k ,float x0);
 
 #endif //RAMP_H
 
