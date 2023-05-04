@@ -30,6 +30,7 @@
         "cstddef": "c",
         "string.h": "c",
         "stdlib.h": "c",
-        "bmi088_reg.h": "c"
+        "bmi088_reg.h": "c",
+        "stdbool.h": "c"
     }
 }

@@ -22,7 +22,7 @@
 
 /* Exported defines -----------------------------------------------------------*/
 
-/*---------------------------------- Accelerometer register address ----------------------------------*/
+/*---------------------------------- accelerator register address ----------------------------------*/
 #define BMI088_ACC_CHIP_ID 0x00 // the register is  " Who am I "
 #define BMI088_ACC_CHIP_ID_VALUE 0x1E
 
@@ -36,7 +36,7 @@
 #define BMI088_ACCEL_DRDY_SHFITS 0x7
 #define BMI088_ACCEL_DRDY (1 << BMI088_ACCEL_DRDY_SHFITS)
 
-#define BMI088_ACCEL_XOUT_L 0x12   /*!< Accelerometer Triaxial Output Register */
+#define BMI088_ACCEL_XOUT_L 0x12   /*!< Accelerator Triaxial Output Register */
 #define BMI088_ACCEL_XOUT_M 0x13
 #define BMI088_ACCEL_YOUT_L 0x14
 #define BMI088_ACCEL_YOUT_M 0x15
@@ -55,8 +55,7 @@
 
 #define BMI088_TEMP_L 0x23
 
-#define BMI088_ACC_CONF 0x40    /*!< Accelerometer Config Register */
-
+#define BMI088_ACC_CONF 0x40    /*!< accelerator config register */
 
 /**
  * @brief bit7-bit4,sampling frequency.
@@ -80,16 +79,16 @@
 #define BMI088_ACC_800_HZ (0xB << BMI088_ACC_ODR_SHFITS)   //800hz
 #define BMI088_ACC_1600_HZ (0xC << BMI088_ACC_ODR_SHFITS)  //1.6khz
 
-#define BMI088_ACC_RANGE        0x41  /*!< Accelerometer Scoping Register */
+#define BMI088_ACC_RANGE        0x41  /*!< accelerator scoping register */
 #define BMI088_ACC_RANGE_SHFITS 0x00  /*!< number of shift */
 #define BMI088_ACC_RANGE_3G     (0x0 << BMI088_ACC_RANGE_SHFITS)  //+-3g
 #define BMI088_ACC_RANGE_6G     (0x1 << BMI088_ACC_RANGE_SHFITS)  //+-6g
 #define BMI088_ACC_RANGE_12G    (0x2 << BMI088_ACC_RANGE_SHFITS)  //+-12g
 #define BMI088_ACC_RANGE_24G    (0x3 << BMI088_ACC_RANGE_SHFITS)  //+-24g
 
-#define BMI088_INT1_IO_CTRL 0x53    /*!< Configure INT1 input and output pins */
+#define BMI088_INT1_IO_CTRL 0x53    /*!< configure INT1 input and output pins */
 #define BMI088_ACC_INT1_IO_ENABLE_SHFITS 0x3
-#define BMI088_ACC_INT1_IO_ENABLE (0x1 << BMI088_ACC_INT1_IO_ENABLE_SHFITS)  /*!< Configure INT1 as output pins */
+#define BMI088_ACC_INT1_IO_ENABLE (0x1 << BMI088_ACC_INT1_IO_ENABLE_SHFITS)  /*!< configure INT1 as output pins */
 #define BMI088_ACC_INT1_GPIO_MODE_SHFITS 0x2
 #define BMI088_ACC_INT1_GPIO_PP (0x0 << BMI088_ACC_INT1_GPIO_MODE_SHFITS)  /*!< push-pull output */
 #define BMI088_ACC_INT1_GPIO_OD (0x1 << BMI088_ACC_INT1_GPIO_MODE_SHFITS)  /*!< open-drain output */
@@ -123,18 +122,18 @@
 #define BMI088_ACC_SELF_TEST_NEGATIVE_SIGNAL 0x09
 
 /**
- * @brief Switches the accelerometer into suspend mode, where data collection stops.
+ * @brief Switches the accelerator into suspend mode, while data collection stops.
  */
 #define BMI088_ACC_PWR_CONF 0x7C
 #define BMI088_ACC_PWR_SUSPEND_MODE 0x03  /*!< pause */
 #define BMI088_ACC_PWR_ACTIVE_MODE 0x00   /*!< start */
 
 /**
- * @brief Turn on or off the accelerometer, the value below should be set.
+ * @brief Turn on or off the accelerator, the value below should be set.
  */
 #define BMI088_ACC_PWR_CTRL 0x7D  
-#define BMI088_ACC_ENABLE_ACC_OFF 0x00   /*!< Turn off the accelerometer */
-#define BMI088_ACC_ENABLE_ACC_ON 0x04    /*!< Turn on  the accelerometer */
+#define BMI088_ACC_ENABLE_ACC_OFF 0x00   /*!< Turn off the accelerator */
+#define BMI088_ACC_ENABLE_ACC_ON 0x04    /*!< Turn on  the accelerator */
 
 #define BMI088_ACC_SOFTRESET 0x7E   /*!< Software Reset Register */
 #define BMI088_ACC_SOFTRESET_VALUE 0xB6  /*!< The value written by the software reset register */
@@ -143,12 +142,12 @@
 #define BMI088_GYRO_CHIP_ID 0x00
 #define BMI088_GYRO_CHIP_ID_VALUE 0x0F
 
-#define BMI088_GYRO_X_L 0x02
-#define BMI088_GYRO_X_H 0x03
-#define BMI088_GYRO_Y_L 0x04
-#define BMI088_GYRO_Y_H 0x05
-#define BMI088_GYRO_Z_L 0x06
-#define BMI088_GYRO_Z_H 0x07
+#define BMI088_GYRO_XOUT_L 0x02
+#define BMI088_GYRO_XOUT_H 0x03
+#define BMI088_GYRO_YOUT_L 0x04
+#define BMI088_GYRO_YOUT_H 0x05
+#define BMI088_GYRO_ZOUT_L 0x06
+#define BMI088_GYRO_ZOUT_H 0x07
 
 #define BMI088_GYRO_INT_STAT_1 0x0A
 #define BMI088_GYRO_DYDR_SHFITS 0x7

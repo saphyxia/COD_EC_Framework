@@ -20,6 +20,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "bmi088_reg.h"
+#include "stdbool.h"
 
 /* Exported defines -----------------------------------------------------------*/
 #define BMI088_USE_SPI 
@@ -89,19 +90,19 @@ typedef enum
 }BMI088_ERRORType_e;
 
 /**
- * @brief typedef structure that contains the information for the Receive data.
+ * @brief typedef structure that contains the information for the received data.
  */
 typedef struct
 {
-	int16_t accelx;
-	int16_t accely;
-	int16_t accelz;
+	int16_t accelx;   /*!< received x-axis angular acceleration data */
+	int16_t accely;   /*!< received y-axis angular acceleration data */
+	int16_t accelz;   /*!< received z-axis angular acceleration data */
 
-	int16_t gyrox;
-	int16_t gyroy;
-	int16_t gyroz;
+	int16_t gyrox;    /*!< received x-axis angular velocity data */
+	int16_t gyroy;    /*!< received y-axis angular velocity data */
+	int16_t gyroz;    /*!< received z-axis angular velocity data */
 
-	int16_t temperature;
+	int16_t temperature; /*!< received temperature data */
 }MPU_Info_Typedef;
 
 /**
@@ -109,14 +110,28 @@ typedef struct
  */
 typedef struct
 {
-    float accel[3];
-    float gyro[3];
-    float temperature;
+    bool offsets_init;    /*!< Initializes the offset flag */
 
-    MPU_Info_Typedef mpu_info;
+    float accel[3];       /*!< converted accelerator data */
+    float gyro[3];        /*!< converted gyro data */
+    float temperature;    /*!< converted temperature data */
+
+    MPU_Info_Typedef mpu_info;/*!< bmi088 received data */
+
+    float gyrox_offsets;   /*!< offsets of x-axis angular velocity */
+    float gyroy_offsets;   /*!< offsets of y-axis angular velocity */
+    float gyroz_offsets;   /*!< offsets of z-axis angular velocity */
 }BMI088_Info_Typedef;
 
-
 /* Exported functions prototypes ---------------------------------------------*/
+/**
+  * @brief Initializes the BMI088 according to writing the specified data 
+  *        to the internal configuration registers of the sensor.
+  */
+extern uint8_t BMI088_Init(void);
+/**
+  * @brief Updates the BMI088 Information.
+  */
+extern void BMI088_Info_Update(BMI088_Info_Typedef *BMI088_Info);
 
 #endif //DEVICE_BMI088_H
