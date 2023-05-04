@@ -1,7 +1,7 @@
 --cpu=Cortex-M4.fp.sp
+"hal_template\ins_task.o"
 "hal_template\bsp_can.o"
 "hal_template\bsp_gpio.o"
-"hal_template\bsp_iic.o"
 "hal_template\bsp_mcu.o"
 "hal_template\bsp_spi.o"
 "hal_template\bsp_tick.o"
@@ -12,7 +12,6 @@
 "hal_template\ramp.o"
 "hal_template\pid.o"
 "hal_template\bmi088.o"
-"hal_template\ist8310.o"
 "hal_template\minipc.o"
 "hal_template\motor.o"
 "hal_template\referee_info.o"

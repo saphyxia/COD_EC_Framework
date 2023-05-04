@@ -27,6 +27,7 @@
                 "C:\\Keil_v5\\ARM\\ARMCLANG\\include\\arm_linux",
                 "C:\\Keil_v5\\ARM\\ARMCLANG\\include\\arm_linux_compat",
                 "C:\\Keil_v5\\ARM\\ARMCLANG\\include\\libcxx",
+                "c:\\EC\\WorkSpace\\HAL_Template\\Application\\Tasks\\Src",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Bsp\\Src",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Components\\Algorithm\\Src",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Components\\Controller\\Src",

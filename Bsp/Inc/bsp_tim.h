@@ -1,7 +1,7 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file           : bsp_tim.c
+  * @file           : bsp_tim.h
   * @brief          : bsp tim functions 
   * @author         : Yan Yuanbin
   * @date           : 2023/04/27

@@ -386,6 +386,13 @@
         </Group>
         <Group>
           <GroupName>Application/Tasks</GroupName>
+          <Files>
+            <File>
+              <FileName>INS_Task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\Tasks\Src\INS_Task.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>Bsp</GroupName>
@@ -399,11 +406,6 @@
               <FileName>bsp_gpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Bsp\Src\bsp_gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_iic.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Bsp\Src\bsp_iic.c</FilePath>
             </File>
             <File>
               <FileName>bsp_mcu.c</FileName>
@@ -469,11 +471,6 @@
               <FileName>bmi088.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Components\Device\Src\bmi088.c</FilePath>
-            </File>
-            <File>
-              <FileName>ist8310.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Components\Device\Src\ist8310.c</FilePath>
             </File>
             <File>
               <FileName>minipc.c</FileName>
