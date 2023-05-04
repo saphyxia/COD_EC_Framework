@@ -22,5 +22,9 @@
 
 
 /* Exported functions prototypes ---------------------------------------------*/
+/**
+  * @brief returns the spi receive data after transmiting the specified data 
+  */
+extern uint8_t BMI088_Read_Write_Byte(uint8_t txdata);
 
 #endif //BSP_SPI_H

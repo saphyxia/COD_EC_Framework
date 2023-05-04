@@ -18,8 +18,10 @@
 #include "math.h"
 
 /* Private define ------------------------------------------------------------*/
+/**
+  * @brief Euler's Number
+  */
 #define Euler_Number 2.718281828459045f
-
 
 /**
   * @brief Calculate the floating-point ramp filter.

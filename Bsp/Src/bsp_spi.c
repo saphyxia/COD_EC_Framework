@@ -15,4 +15,20 @@
 /* Includes ------------------------------------------------------------------*/
 #include "bsp_spi.h"
 
+#include "spi.h"
+
+/**
+  * @brief returns the spi receive data after transmiting the specified data 
+  * @param txdata: the specified data
+  * @retval the spi receive data
+  */
+uint8_t BMI088_Read_Write_Byte(uint8_t txdata)
+{
+    uint8_t rxdata = 0;
+
+		HAL_SPI_TransmitReceive(&hspi1,&txdata,&rxdata,1,1000);
+
+    return rxdata;
+}
+
 

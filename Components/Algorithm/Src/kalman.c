@@ -23,7 +23,10 @@
 #include "math.h"
 #include "string.h"
 
-uint16_t sizeof_float, sizeof_double;
+/**
+  * @brief size of float/double
+  */
+static uint16_t sizeof_float, sizeof_double;
 
 /**
   * @brief Initializes the kalman filter according to the specified parameters in the

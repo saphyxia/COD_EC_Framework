@@ -37,4 +37,8 @@ hal_template/bmi088.o: ..\Components\Device\Src\bmi088.c \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_ll_usb.h \
-  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd_ex.h
+  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd_ex.h \
+  ..\Components\Device\Inc\bmi088_reg.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h ..\Bsp\Inc\bsp_gpio.h \
+  ..\Bsp\Inc\bsp_spi.h ..\Bsp\Inc\bsp_tick.h \
+  ..\Components\Controller\Inc\pid.h
