@@ -18,7 +18,7 @@
 
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
+#include "stdint.h"
 #include "arm_math.h"
 #include "stdlib.h"
 

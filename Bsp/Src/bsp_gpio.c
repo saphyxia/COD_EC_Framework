@@ -14,7 +14,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "bsp_gpio.h"
-
+#include "main.h"
 
 /**
   * @brief RESET the BMI088_ACCEL_NS

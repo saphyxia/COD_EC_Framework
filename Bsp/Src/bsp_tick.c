@@ -14,7 +14,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "bsp_tick.h"
-
+#include "stm32f4xx.h"
 
 /**
   * @brief  report the microsecond haltick

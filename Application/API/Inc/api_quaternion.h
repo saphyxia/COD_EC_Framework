@@ -17,9 +17,16 @@
 #define API_QUATERNION_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
+#include "stdint.h"
+#include "kalman.h"
 
 /* Exported functions prototypes ---------------------------------------------*/
+
+typedef struct 
+{
+    Kalman_Filter_Info_TypeDef kalman_filter;
+}Quaternion_Info_Typedef;
+
 
 #endif //API_QUATERNION_H
 
