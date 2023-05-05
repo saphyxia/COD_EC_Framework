@@ -57,6 +57,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define Heat_Power_Pin GPIO_PIN_6
+#define Heat_Power_GPIO_Port GPIOF
 #define BUZZER_Pin GPIO_PIN_14
 #define BUZZER_GPIO_Port GPIOD
 #define CS1_ACCEL_Pin GPIO_PIN_4

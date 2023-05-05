@@ -22,5 +22,13 @@
 
 
 /* Exported functions prototypes ---------------------------------------------*/
+/**
+  * @brief  Starts the PWM signal generation.
+  */
+extern void Bsp_Tim_Init(void);
+/**
+  * @brief  Set the BMI088 Heat_Power TIM Capture Compare Register value.
+  */
+extern void Heat_Power_Control(uint16_t compare);
 
 #endif //BSP_TIM_H
