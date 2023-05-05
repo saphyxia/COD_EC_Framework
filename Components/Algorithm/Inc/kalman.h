@@ -51,7 +51,7 @@
 /**
  * @brief typedef structure that contains the information  for the kalman filter.
  */
-typedef struct 
+typedef struct KF_Info_TypeDef
 {
   uint8_t xhatSize;   /*!< state vector dimension */
   uint8_t uSize;      /*!< control vector dimension */
@@ -104,6 +104,23 @@ typedef struct
     float *cache_matrix[2];   /*!< calculate cache matrix memory pointer */
     float *cache_vector[2];   /*!< calculate cache vector memory pointer */
   }Memory_t;
+
+
+  uint8_t SkipStep1 : 1;      /*!< flag to skip the first step of kalman filter updating */
+  uint8_t SkipStep2 : 1;      /*!< flag to skip the second step of kalman filter updating */
+  uint8_t SkipStep3 : 1;      /*!< flag to skip the third step of kalman filter updating */
+  uint8_t SkipStep4 : 1;      /*!< flag to skip the fourth step of kalman filter updating */
+  uint8_t SkipStep5 : 1;      /*!< flag to skip the fifth step of kalman filter updating */
+  /**
+   * @brief user functions that can replace any step of kalman filter updating.
+   */
+  void (*User_Function0)(struct KF_Info_TypeDef *kf);
+  void (*User_Function1)(struct KF_Info_TypeDef *kf);
+  void (*User_Function2)(struct KF_Info_TypeDef *kf);
+  void (*User_Function3)(struct KF_Info_TypeDef *kf);
+  void (*User_Function4)(struct KF_Info_TypeDef *kf);
+  void (*User_Function5)(struct KF_Info_TypeDef *kf);
+  void (*User_Function6)(struct KF_Info_TypeDef *kf);
 
   float *Output;  /*!< kalman filter output */
 

@@ -31,7 +31,7 @@ typedef struct
     float alpha;          /*!< filter coefficient */
     float frame_period;   /*!< frame perood */
 
-}LPF_First_Order_TypeDef;
+}LowPassFilter1p_Info_TypeDef;
 
 /**
  * @brief typedef structure that contains the information  for the second order lowpass filter.
@@ -42,28 +42,28 @@ typedef struct
     float output[3];   /*!< output value */
     float alpha[3];    /*!< filter coefficient */
 
-}LPF_Second_Order_TypeDef;
+}LowPassFilter2p_Info_TypeDef;
 
 /* Exported functions prototypes ---------------------------------------------*/
 /**
   * @brief Initializes the first order lowpass filter according to the specified parameters in the
-  *         LPF_First_Order_TypeDef.
+  *         LowPassFilter1p_Info_TypeDef.
   */
-extern void LPF_First_Order_Init(LPF_First_Order_TypeDef *lpf,float alpha,float frame_period);
+extern void LowPassFilter1p_Init(LowPassFilter1p_Info_TypeDef *lpf,float alpha,float frame_period);
 /**
   * @brief Update the first order lowpass filter according to the specified parameters in the
-  *         LPF_First_Order_TypeDef.
+  *         LowPassFilter1p_Info_TypeDef.
   */
-extern float LPF_First_Order_Update(LPF_First_Order_TypeDef *lpf,float input);
+extern float LowPassFilter1p_Update(LowPassFilter1p_Info_TypeDef *lpf,float input);
 /**
   * @brief Initializes the Second order lowpass filter according to the specified parameters in the
-  *         LPF_Second_Order_TypeDef.
+  *         LowPassFilter2p_Info_TypeDef.
   */
-extern void LPF_Second_Order_Init(LPF_Second_Order_TypeDef *lpf,float alpha[3]);
+extern void LowPassFilter2p_Init(LowPassFilter2p_Info_TypeDef *lpf,float alpha[3]);
 /**
   * @brief Update the Second order lowpass filter according to the specified parameters in the
-  *         LPF_Second_Order_TypeDef.
+  *         LowPassFilter2p_Info_TypeDef.
   */
-extern float LPF_Second_Order_Update(LPF_Second_Order_TypeDef *lpf,float input);
+extern float LowPassFilter2p_Update(LowPassFilter2p_Info_TypeDef *lpf,float input);
 
 #endif //LOWPASS_FILTER_H

@@ -43,6 +43,12 @@ arm_status Kalman_Filter_Init(Kalman_Filter_Info_TypeDef *kf,uint8_t xhatSize,ui
     /* Update the size of float/double */
     sizeof_float = sizeof(float);
     sizeof_double = sizeof(double);
+
+    /* judge the length of vector */
+    if(xhatSize == 0 || zSize == 0)
+    {
+        return ARM_MATH_LENGTH_ERROR;  
+    }
     
     /* Initializes the state vector dimension */
     kf->xhatSize = xhatSize;
@@ -51,15 +57,7 @@ arm_status Kalman_Filter_Init(Kalman_Filter_Info_TypeDef *kf,uint8_t xhatSize,ui
     kf->uSize = uSize;
 
     /**< Initializes the measurement vector dimension */      
-    kf->zSize = zSize;          
-
-    /* judge the length of vector */
-    if(kf->xhatSize == 0 || kf->zSize == 0)
-    {
-        return ARM_MATH_LENGTH_ERROR;  
-    }
-
-    /*Initializes the matrix of kalman filter ----------------------------------*/
+    kf->zSize = zSize;
 
     /* Initializes the external measure vector */
     kf->MeasuredVector = (float *)user_malloc(sizeof_float * zSize);
@@ -84,7 +82,7 @@ arm_status Kalman_Filter_Init(Kalman_Filter_Info_TypeDef *kf,uint8_t xhatSize,ui
     memset(kf->Memory_t.z, 0, sizeof_float * zSize);
     Matrix_Init(&kf->Mat_t.z, kf->zSize, 1, (float *)kf->Memory_t.z);
 
-    if (uSize != 0)
+    if (kf->uSize != 0)
     {
         /* Initializes the control vector */ 
         kf->Memory_t.u = (float *)user_malloc(sizeof_float * uSize);
@@ -184,8 +182,11 @@ static void Kalman_Filter_Measurement_Update(Kalman_Filter_Info_TypeDef *kf)
     /* clear the external measuerment vector */
     memset(kf->MeasuredVector, 0, sizeof_float * kf->zSize);
 
-    /* update the control vector from the external control vector */
-    memcpy(kf->Memory_t.u, kf->ControlVector, sizeof_float * kf->uSize);
+    if(kf->uSize > 0)
+    {
+      /* update the control vector from the external control vector */
+      memcpy(kf->Memory_t.u, kf->ControlVector, sizeof_float * kf->uSize);
+    }
 }
 
 /**
@@ -197,7 +198,13 @@ static void Kalman_Filter_Measurement_Update(Kalman_Filter_Info_TypeDef *kf)
   */
 static void Kalman_Filter_xhatminus_Update(Kalman_Filter_Info_TypeDef *kf)
 {
-    if (kf->uSize > 0)
+    /* skip this step,replaced with user function */
+    if(kf->SkipStep1 == 1)
+    {
+      return;
+    }
+
+    if(kf->uSize > 0)
     {
         /* cache_vector[0] = A xhat(k-1) */ 
         kf->Mat_t.cache_vector[0].numRows = kf->xhatSize;
@@ -229,6 +236,12 @@ static void Kalman_Filter_xhatminus_Update(Kalman_Filter_Info_TypeDef *kf)
   */
 static void Kalman_Filter_Pminus_Update(Kalman_Filter_Info_TypeDef *kf)
 {
+    /* skip this step,replaced with user function */
+    if(kf->SkipStep2 == 1)
+    {
+      return;
+    }
+
     /* AT */
     kf->MatStatus = Matrix_Transpose(&kf->Mat_t.A, &kf->Mat_t.AT); 
 
@@ -253,6 +266,12 @@ static void Kalman_Filter_Pminus_Update(Kalman_Filter_Info_TypeDef *kf)
   */
 static void Kalman_Filter_K_Update(Kalman_Filter_Info_TypeDef *kf)
 {
+    /* skip this step,replaced with user function */
+    if(kf->SkipStep3 == 1)
+    {
+      return;
+    }
+
     /* HT */
     kf->MatStatus = Matrix_Transpose(&kf->Mat_t.H, &kf->Mat_t.HT); 
 
@@ -292,6 +311,12 @@ static void Kalman_Filter_K_Update(Kalman_Filter_Info_TypeDef *kf)
   */
 static void Kalman_Filter_xhat_Update(Kalman_Filter_Info_TypeDef *kf)
 {
+    /* skip this step,replaced with user function */
+    if(kf->SkipStep4 == 1)
+    {
+      return;
+    }
+
     /* cache_vector[0] = H xhatminus */
     kf->Mat_t.cache_vector[0].numRows = kf->Mat_t.H.numRows;
     kf->Mat_t.cache_vector[0].numCols = 1;
@@ -319,6 +344,12 @@ static void Kalman_Filter_xhat_Update(Kalman_Filter_Info_TypeDef *kf)
   */
 static void Kalman_Filter_P_Update(Kalman_Filter_Info_TypeDef *kf)
 {
+    /* skip this step,replaced with user function */
+    if(kf->SkipStep5 == 1)
+    {
+      return;
+    }
+
     /* cache_vector[0] = K(k)·H */
     kf->Mat_t.cache_vector[0].numRows = kf->Mat_t.K.numRows;
     kf->Mat_t.cache_vector[0].numCols = kf->Mat_t.H.numCols;
@@ -350,21 +381,57 @@ float *Kalman_Filter_Update(Kalman_Filter_Info_TypeDef *kf)
 {
     /* Update the Measuerment Information */
     Kalman_Filter_Measurement_Update(kf);
+    /* User Function 0 */
+    if(kf->User_Function0 != NULL)
+    {
+      kf->User_Function0(kf);
+    }
 
     /* Update the Priori EstiMate */
     Kalman_Filter_xhatminus_Update(kf);
+    /* User Function 1 */
+    if(kf->User_Function1 != NULL)
+    {
+      kf->User_Function1(kf);
+    }
 
     /* Update the Priori Error Covariance Matrix */
     Kalman_Filter_Pminus_Update(kf);
+    /* User Function 2 */
+    if(kf->User_Function2 != NULL)
+    {
+      kf->User_Function2(kf);
+    }
 
     /* Update the kalman filter */
     Kalman_Filter_K_Update(kf);
+    /* User Function 3 */
+    if(kf->User_Function3 != NULL)
+    {
+      kf->User_Function3(kf);
+    }
 
     /* Update the Posteriori EstiMate */
     Kalman_Filter_xhat_Update(kf);
+    /* User Function 4 */
+    if(kf->User_Function4 != NULL)
+    {
+      kf->User_Function4(kf);
+    }
 
     /* Update the Posteriori Error Covariance Matrix */
     Kalman_Filter_P_Update(kf);
+    /* User Function 5 */
+    if(kf->User_Function5 != NULL)
+    {
+      kf->User_Function5(kf);
+    }
+
+    /* User Function 6 */
+    if(kf->User_Function6 != NULL)
+    {
+      kf->User_Function6(kf);
+    }
 
     /* Update the kalman filter output */
     memcpy(kf->Output, kf->Memory_t.xhat, sizeof_float * kf->xhatSize);

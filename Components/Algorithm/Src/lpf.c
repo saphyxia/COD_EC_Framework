@@ -18,14 +18,14 @@
 
 /**
   * @brief Initializes the first order lowpass filter according to the specified parameters in the
-  *         LPF_First_Order_TypeDef.
-  * @param lpf: pointer to an LPF_First_Order_TypeDef structure that
+  *         LowPassFilter1p_Info_TypeDef.
+  * @param lpf: pointer to an LowPassFilter1p_Info_TypeDef structure that
   *         contains the information  for the first order lowpass filter.
   * @param alpha: filter coefficient
   * @param frame_period: frame perood
   * @retval none
   */
-void LPF_First_Order_Init(LPF_First_Order_TypeDef *lpf,float alpha,float frame_period)
+void LowPassFilter1p_Init(LowPassFilter1p_Info_TypeDef *lpf,float alpha,float frame_period)
 {
   lpf->alpha = alpha;
   lpf->frame_period = frame_period;
@@ -35,13 +35,13 @@ void LPF_First_Order_Init(LPF_First_Order_TypeDef *lpf,float alpha,float frame_p
 
 /**
   * @brief Update the first order lowpass filter according to the specified parameters in the
-  *         LPF_First_Order_TypeDef.
-  * @param kf: pointer to an LPF_First_Order_TypeDef structure that
+  *         LowPassFilter1p_Info_TypeDef.
+  * @param kf: pointer to an LowPassFilter1p_Info_TypeDef structure that
   *         contains the information  for the first order lowpass filter.
   * @param input: the filter input
-  * @retval first order lowpass filter output
+  * @retval lowpass filter output
   */
-float LPF_First_Order_Update(LPF_First_Order_TypeDef *lpf,float input)
+float LowPassFilter1p_Update(LowPassFilter1p_Info_TypeDef *lpf,float input)
 {
   lpf->input = input;
 
@@ -53,14 +53,14 @@ float LPF_First_Order_Update(LPF_First_Order_TypeDef *lpf,float input)
 
 /**
   * @brief Initializes the Second order lowpass filter according to the specified parameters in the
-  *         LPF_Second_Order_TypeDef.
-  * @param lpf: pointer to an LPF_Second_Order_TypeDef structure that
+  *         LowPassFilter2p_Info_TypeDef.
+  * @param lpf: pointer to an LowPassFilter2p_Info_TypeDef structure that
   *         contains the information  for the Second order lowpass filter.
-  * @param alpha: filter coefficient
+  * @param alpha: the floating-point array of filter coefficient
   * @param frame_period: frame perood
   * @retval none
   */
-void LPF_Second_Order_Init(LPF_Second_Order_TypeDef *lpf,float alpha[3])
+void LowPassFilter2p_Init(LowPassFilter2p_Info_TypeDef *lpf,float alpha[3])
 {
   memcpy(lpf->alpha,alpha,sizeof(lpf->alpha));
   lpf->input = 0;
@@ -69,13 +69,13 @@ void LPF_Second_Order_Init(LPF_Second_Order_TypeDef *lpf,float alpha[3])
 
 /**
   * @brief Update the Second order lowpass filter according to the specified parameters in the
-  *         LPF_Second_Order_TypeDef.
-  * @param kf: pointer to an LPF_Second_Order_TypeDef structure that
+  *         LowPassFilter2p_Info_TypeDef.
+  * @param kf: pointer to an LowPassFilter2p_Info_TypeDef structure that
   *         contains the information  for the Second order lowpass filter.
   * @param input: the filter input
-  * @retval Second order lowpass filter output
+  * @retval lowpass filter output
   */
-float LPF_Second_Order_Update(LPF_Second_Order_TypeDef *lpf,float input)
+float LowPassFilter2p_Update(LowPassFilter2p_Info_TypeDef *lpf,float input)
 {
 	lpf->input = input;
   
