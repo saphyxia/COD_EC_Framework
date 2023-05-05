@@ -495,26 +495,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Third_Party/AHRS</GroupName>
-          <Files>
-            <File>
-              <FileName>AHRS_middleware.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Third_Party\AHRS\Src\AHRS_middleware.c</FilePath>
-            </File>
-            <File>
-              <FileName>user_lib.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Third_Party\AHRS\Src\user_lib.c</FilePath>
-            </File>
-            <File>
-              <FileName>AHRS.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\Third_Party\AHRS\AHRS.lib</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Application/User/Core</GroupName>
           <Files>
             <File>

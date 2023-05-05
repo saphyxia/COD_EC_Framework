@@ -32,8 +32,6 @@
                 "c:\\EC\\WorkSpace\\HAL_Template\\Components\\Algorithm\\Src",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Components\\Controller\\Src",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Components\\Device\\Src",
-                "c:\\EC\\WorkSpace\\HAL_Template\\Third_Party\\AHRS\\Src",
-                "c:\\EC\\WorkSpace\\HAL_Template\\Third_Party\\AHRS",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Core\\Src",
                 "c:\\EC\\WorkSpace\\HAL_Template\\MDK-ARM",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Middlewares\\Third_Party\\FreeRTOS\\Source",
