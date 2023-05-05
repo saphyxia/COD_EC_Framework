@@ -34,7 +34,7 @@ typedef struct
 }LowPassFilter1p_Info_TypeDef;
 
 /**
- * @brief typedef structure that contains the information  for the second order lowpass filter.
+ * @brief typedef structure that contains the information for the second order lowpass filter.
  */
 typedef struct 
 {

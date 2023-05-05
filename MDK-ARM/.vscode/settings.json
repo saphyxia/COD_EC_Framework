@@ -33,6 +33,7 @@
         "bmi088_reg.h": "c",
         "stdbool.h": "c",
         "ins_task.h": "c",
-        "api_quaternion.h": "c"
+        "api_quaternion.h": "c",
+        "math.h": "c"
     }
 }

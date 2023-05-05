@@ -124,17 +124,17 @@ typedef struct KF_Info_TypeDef
 
   float *Output;  /*!< kalman filter output */
 
-}Kalman_Filter_Info_TypeDef;
+}KalmanFilter_Info_TypeDef;
 
 /* Exported functions prototypes ---------------------------------------------*/
 /**
-  * @brief Initializes the kalman filter according to the specified parameters in the Kalman_Filter_Info_TypeDef.
+  * @brief Initializes the kalman filter according to the specified parameters in the KalmanFilter_Info_TypeDef.
   */
-extern arm_status Kalman_Filter_Init(Kalman_Filter_Info_TypeDef *kf,uint8_t xhatSize,uint8_t uSize,uint8_t zSize);
+extern arm_status Kalman_Filter_Init(KalmanFilter_Info_TypeDef *kf,uint8_t xhatSize,uint8_t uSize,uint8_t zSize);
 /**
-  * @brief Update the Kalman Filter according to the specified parameters in the Kalman_Filter_Info_TypeDef.
+  * @brief Update the Kalman Filter according to the specified parameters in the KalmanFilter_Info_TypeDef.
   */
-extern float *Kalman_Filter_Update(Kalman_Filter_Info_TypeDef *kf);
+extern float *Kalman_Filter_Update(KalmanFilter_Info_TypeDef *kf);
 
 #endif //KALMAN_FILTER_H
 
