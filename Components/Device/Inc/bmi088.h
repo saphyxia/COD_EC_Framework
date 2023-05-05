@@ -118,9 +118,9 @@ typedef struct
 
     MPU_Info_Typedef mpu_info;/*!< bmi088 received data */
 
-    float gyrox_offsets;   /*!< offsets of x-axis angular velocity */
-    float gyroy_offsets;   /*!< offsets of y-axis angular velocity */
-    float gyroz_offsets;   /*!< offsets of z-axis angular velocity */
+    float offsets_gyrox;   /*!< offsets of x-axis angular velocity */
+    float offsets_gyroy;   /*!< offsets of y-axis angular velocity */
+    float offsets_gyroz;   /*!< offsets of z-axis angular velocity */
 }BMI088_Info_Typedef;
 
 /* Exported functions prototypes ---------------------------------------------*/

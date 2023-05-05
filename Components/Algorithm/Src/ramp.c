@@ -67,4 +67,32 @@ float f_LogisticCurves_Calc(float x , float k ,float x0)
 	return y;
 }
 
+/**
+  * @brief Calculate the floating-point moving average filter.
+  * @param input: the input variable
+  * @param filter_buff: pointer to the floating-point filter array
+  * @param length: the length of moving average array
+  * @retval the filter output
+  */
+float f_MovingAverage_Filter(float input,float *filter_buff,int16_t length)
+{
+    float sum = 0.f;
+
+    /* moving the filter buff */
+    for(int16_t i = 0; i < length-1; i++)
+    {
+        filter_buff[i+1] = filter_buff[i];
+    }
+
+    /* update the filter input */
+    filter_buff[0] = input;
+
+    /* calculate the average */
+    for(int16_t i = 0; i < length-1; i++)
+    {
+        sum += filter_buff[i];
+    }
+
+    return (float)(sum/length);
+}
 

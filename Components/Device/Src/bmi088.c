@@ -357,9 +357,9 @@ static void BMI088_Offset_Update(BMI088_Info_Typedef *BMI088_Info)
       BMI088_Info->mpu_info.gyroz = (int16_t)((buf[7]) << 8) | buf[6];
 
       /* update the gyro offsets */
-      BMI088_Info->gyrox_offsets += BMI088_GYRO_SEN * BMI088_Info->mpu_info.gyrox;
-      BMI088_Info->gyroy_offsets += BMI088_GYRO_SEN * BMI088_Info->mpu_info.gyroy;
-      BMI088_Info->gyroz_offsets += BMI088_GYRO_SEN * BMI088_Info->mpu_info.gyroz;
+      BMI088_Info->offsets_gyrox += BMI088_GYRO_SEN * BMI088_Info->mpu_info.gyrox;
+      BMI088_Info->offsets_gyroy += BMI088_GYRO_SEN * BMI088_Info->mpu_info.gyroy;
+      BMI088_Info->offsets_gyroz += BMI088_GYRO_SEN * BMI088_Info->mpu_info.gyroz;
     }
 	}
 	
@@ -440,9 +440,9 @@ void BMI088_Info_Update(BMI088_Info_Typedef *BMI088_Info)
     }
 
     /* converts the gyro data */
-		BMI088_Info->gyro[0] = BMI088_GYRO_SEN * BMI088_Info->mpu_info.gyrox;
-	  BMI088_Info->gyro[1] = BMI088_GYRO_SEN * BMI088_Info->mpu_info.gyroy;
-	  BMI088_Info->gyro[2] = BMI088_GYRO_SEN * BMI088_Info->mpu_info.gyroz;
+		BMI088_Info->gyro[0] = BMI088_GYRO_SEN * BMI088_Info->mpu_info.gyrox - BMI088_Info->offsets_gyrox;
+	  BMI088_Info->gyro[1] = BMI088_GYRO_SEN * BMI088_Info->mpu_info.gyroy - BMI088_Info->offsets_gyroy;
+	  BMI088_Info->gyro[2] = BMI088_GYRO_SEN * BMI088_Info->mpu_info.gyroz - BMI088_Info->offsets_gyroz;
 }
 
 #if defined(BMI088_USE_SPI)
