@@ -14,6 +14,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "bsp_mcu.h"
-
-
+#include "bsp_can.h"
+#include "bsp_tim.h"
+#include "bsp_uart.h"
 

@@ -93,7 +93,7 @@ void PID_Init(PID_Info_TypeDef *Pid,PID_Type_e type,float para[PID_PARAMETER_NUM
   */
 static void PID_ErrorHandle(PID_Info_TypeDef *Pid)
 {
-		/* judge NANINF */
+		/* Judge NAN/INF */
 		if(isnan(Pid->Output) == true || isinf(Pid->Output)==true)
 		{
 				Pid->ERRORHandler.ERRORType = PID_ERROR_NANINF;

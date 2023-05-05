@@ -1,5 +1,6 @@
-hal_template/bsp_mcu.o: ..\Bsp\Src\bsp_mcu.c ..\Bsp\Inc\bsp_mcu.h \
-  ..\Core\Inc\main.h ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
+hal_template/api_quaternion.o: ..\Application\API\Src\api_quaternion.c \
+  ..\Application\API\Inc\api_quaternion.h ..\Core\Inc\main.h \
+  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\Core\Inc\stm32f4xx_hal_conf.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h \
@@ -36,5 +37,4 @@ hal_template/bsp_mcu.o: ..\Bsp\Src\bsp_mcu.c ..\Bsp\Inc\bsp_mcu.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_ll_usb.h \
-  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd_ex.h \
-  ..\Bsp\Inc\bsp_can.h ..\Bsp\Inc\bsp_tim.h ..\Bsp\Inc\bsp_uart.h
+  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd_ex.h
