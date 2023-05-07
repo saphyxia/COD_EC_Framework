@@ -38,8 +38,7 @@ typedef enum
  */
 typedef struct 
 {
-  uint16_t MAlength;    /*!< the length of MovingAverage */
-  float alpha[3];       /*!< lpf coefficients */
+  float alpha[3];     /*!< LPF coefficients */
 
   uint8_t xhatSize;   /*!<  state vector dimension */
   uint8_t uSize;      /*!<  control vector dimension */
@@ -55,13 +54,13 @@ typedef struct
 {
   Quaternion_Settings_Typedef settings;   /*!< the Settings of Quaternion */
 
-  LowPassFilter2p_Info_TypeDef LPF2p;  /*!< the second order lowpass filter. */
-  float *MABuff;   /*!< pointer to cache of MovingAverage */
+  float q[4];   /*!< the array of Quaternion */
 
-  KalmanFilter_Info_TypeDef Quaternion_KF;   /*!< Quaternion kalman filter */
+  LowPassFilter2p_Info_TypeDef accel_LPF2p;  /*!< the second order lowpass filter. */
+
+  KalmanFilter_Info_TypeDef Quaternion_EKF;   /*!< Quaternion external kalman filter */
 
 }Quaternion_Info_Typedef;
-
 
 /* Exported functions prototypes ---------------------------------------------*/
 

@@ -119,12 +119,17 @@ static void BMI088_Read_Multi_Reg(uint8_t reg, uint8_t *buf, uint8_t len);
 /**
   * @brief 3 times sampling frequency  Accelerator 
   */
-static float BMI088_ACCEL_SEN = BMI088_ACCEL_3G_SEN;  
+static float BMI088_ACCEL_SEN = BMI088_ACCEL_6G_SEN;  
 
 /**
   * @brief 2000 byte length gyro
   */
-static float BMI088_GYRO_SEN = BMI088_GYRO_2000_SEN;  
+static float BMI088_GYRO_SEN = BMI088_GYRO_2000_SEN;
+
+/**
+  * @brief structure that contains the information of BMI088
+  */
+BMI088_Info_Typedef BMI088_Info;
 
 /**
   * @brief BMI088 Accelerator configuration data and Error Status
@@ -141,7 +146,7 @@ static uint8_t Accel_Register_ConfigurationData_ErrorStatus[BMI088_WRITE_ACCEL_R
     {BMI088_ACC_CONF,  (BMI088_ACC_NORMAL| BMI088_ACC_800_HZ | BMI088_ACC_CONF_MUST_Set), BMI088_ACC_CONF_ERROR}, 
 
     /* Accelerometer setting range */ 
-    {BMI088_ACC_RANGE, BMI088_ACC_RANGE_3G, BMI088_ACC_RANGE_ERROR},  
+    {BMI088_ACC_RANGE, BMI088_ACC_RANGE_6G, BMI088_ACC_RANGE_ERROR},  
 
     /* INT1 Configuration input and output pin */ 
     {BMI088_INT1_IO_CTRL, (BMI088_ACC_INT1_IO_ENABLE | BMI088_ACC_INT1_GPIO_PP | BMI088_ACC_INT1_GPIO_LOW), BMI088_INT1_IO_CTRL_ERROR}, 
@@ -151,15 +156,39 @@ static uint8_t Accel_Register_ConfigurationData_ErrorStatus[BMI088_WRITE_ACCEL_R
 };
 
 /**
+  * @brief BMI088 Gyro configuration data and Error Status
+  */
+static uint8_t Gyro_Register_ConfigurationData_ErrorStatus[BMI088_WRITE_GYRO_REG_NUM][3] =
+{
+    /* Angular rate and resolution */
+    {BMI088_GYRO_RANGE, BMI088_GYRO_2000, BMI088_GYRO_RANGE_ERROR}, 
+
+    /* Data Transfer Rate and Bandwidth Settings */
+    {BMI088_GYRO_BANDWIDTH, (BMI088_GYRO_2000_230_HZ | BMI088_GYRO_BANDWIDTH_MUST_Set), BMI088_GYRO_BANDWIDTH_ERROR}, 
+
+    /* Power Mode Selection Register */
+    {BMI088_GYRO_LPM1, BMI088_GYRO_NORMAL_MODE, BMI088_GYRO_LPM1_ERROR},   
+
+    /* Data Interrupt Trigger Register */
+    {BMI088_GYRO_CTRL, BMI088_DRDY_ON, BMI088_GYRO_CTRL_ERROR},   
+
+    /* Interrupt Pin Trigger Register */
+    {BMI088_GYRO_INT3_INT4_IO_CONF, (BMI088_GYRO_INT3_GPIO_PP | BMI088_GYRO_INT3_GPIO_LOW), BMI088_GYRO_INT3_INT4_IO_CONF_ERROR},  
+
+    /* interrupt map register */
+    {BMI088_GYRO_INT3_INT4_IO_MAP, BMI088_GYRO_DRDY_IO_INT3, BMI088_GYRO_INT3_INT4_IO_MAP_ERROR}   
+};
+
+
+/**
   * @brief Initializes the accelerator according to writing the specified data 
   *        to the internal configuration registers of the sensor.
   * @param None
   * @retval None
   */
-static uint8_t BMI088_Accel_Init(void)
+static BMI088_Status_e BMI088_Accel_Init(void)
 {
     uint8_t res = 0;
-    uint8_t write_reg_num = 0;
 
     /* check the communication ------------------------------------------------*/
     /* read the accelerator ID address */
@@ -190,7 +219,7 @@ static uint8_t BMI088_Accel_Init(void)
     }
 
     /* config the accelerator sensor */
-    for (write_reg_num = 0; write_reg_num < BMI088_WRITE_ACCEL_REG_NUM; write_reg_num++)
+    for (uint8_t write_reg_num = 0; write_reg_num < BMI088_WRITE_ACCEL_REG_NUM; write_reg_num++)
     {
 				/* Write the configuration values in the internal configuration registers of the sensor : */
 				/*!< [0][0]  BMI088_ACC_PWR_CTRL 0x7D                Turn on or off the accelerator register */
@@ -230,39 +259,14 @@ static uint8_t BMI088_Accel_Init(void)
 }
 
 /**
-  * @brief BMI088 Gyro configuration data and Error Status
-  */
-static uint8_t Gyro_Register_ConfigurationData_ErrorStatus[BMI088_WRITE_GYRO_REG_NUM][3] =
-{
-    /* Angular rate and resolution */
-    {BMI088_GYRO_RANGE, BMI088_GYRO_2000, BMI088_GYRO_RANGE_ERROR}, 
-
-    /* Data Transfer Rate and Bandwidth Settings */
-    {BMI088_GYRO_BANDWIDTH, (BMI088_GYRO_1000_116_HZ | BMI088_GYRO_BANDWIDTH_MUST_Set), BMI088_GYRO_BANDWIDTH_ERROR}, 
-
-    /* Power Mode Selection Register */
-    {BMI088_GYRO_LPM1, BMI088_GYRO_NORMAL_MODE, BMI088_GYRO_LPM1_ERROR},   
-
-    /* Data Interrupt Trigger Register */
-    {BMI088_GYRO_CTRL, BMI088_DRDY_ON, BMI088_GYRO_CTRL_ERROR},   
-
-    /* Interrupt Pin Trigger Register */
-    {BMI088_GYRO_INT3_INT4_IO_CONF, (BMI088_GYRO_INT3_GPIO_PP | BMI088_GYRO_INT3_GPIO_LOW), BMI088_GYRO_INT3_INT4_IO_CONF_ERROR},  
-
-    /* interrupt map register */
-    {BMI088_GYRO_INT3_INT4_IO_MAP, BMI088_GYRO_DRDY_IO_INT3, BMI088_GYRO_INT3_INT4_IO_MAP_ERROR}   
-};
-
-/**
   * @brief Initializes the gyro according to writing the specified data 
   *        to the internal configuration registers of the sensor.
   * @param None
   * @retval None
   */
-static uint8_t BMI088_Gyro_Init(void)
+static BMI088_Status_e BMI088_Gyro_Init(void)
 {
     uint8_t res = 0;
-    uint8_t write_reg_num = 0;
 
     /* check the communication ------------------------------------------------*/
     /* read the gyro ID address */
@@ -293,7 +297,7 @@ static uint8_t BMI088_Gyro_Init(void)
     }
 
     /* config the gyro sensor */
-    for (write_reg_num = 0; write_reg_num < BMI088_WRITE_GYRO_REG_NUM; write_reg_num++)
+    for (uint8_t write_reg_num = 0; write_reg_num < BMI088_WRITE_GYRO_REG_NUM; write_reg_num++)
     {
 				/* Write the configuration values in the internal configuration registers of the sensor : */
 				/*!< [0][0]  BMI088_GYRO_RANGE 0x0F                angular rate range and resolution register */
@@ -339,16 +343,16 @@ static void BMI088_Offset_Update(BMI088_Info_Typedef *BMI088_Info)
 {
 	uint8_t buf[8] = {0,};
 
-	for(int i=0;i<1000;i++)
-	{
+  for(uint16_t i = 0; i < 5000; i++)
+  {
     /* read the accelerator multi data */
-		BMI088_Accel_Read_Multi_Reg(BMI088_ACCEL_XOUT_L, buf, 6);
+    BMI088_Accel_Read_Multi_Reg(BMI088_ACCEL_XOUT_L, buf, 6);
     BMI088_Info->mpu_info.accelx = (int16_t)((buf[1]) << 8) | buf[0];
     BMI088_Info->mpu_info.accely = (int16_t)((buf[3]) << 8) | buf[2];
     BMI088_Info->mpu_info.accelz = (int16_t)((buf[5]) << 8) | buf[4];
 
     /* read the gyro multi data */
-		BMI088_Gyro_Read_Multi_Reg(BMI088_GYRO_CHIP_ID, buf, 8);
+    BMI088_Gyro_Read_Multi_Reg(BMI088_GYRO_CHIP_ID, buf, 8);
     /* check the ID */
     if(buf[1] == BMI088_GYRO_CHIP_ID_VALUE)   
     {
@@ -361,34 +365,46 @@ static void BMI088_Offset_Update(BMI088_Info_Typedef *BMI088_Info)
       BMI088_Info->offsets_gyroy += BMI088_GYRO_SEN * BMI088_Info->mpu_info.gyroy;
       BMI088_Info->offsets_gyroz += BMI088_GYRO_SEN * BMI088_Info->mpu_info.gyroz;
     }
-	}
+    /* waiting 400us */
+    Delay_us(400);
+  }
+
+  BMI088_Info->offsets_gyrox = BMI088_Info->offsets_gyrox / 5000.f;
+  BMI088_Info->offsets_gyroy = BMI088_Info->offsets_gyroy / 5000.f; 
+  BMI088_Info->offsets_gyroz = BMI088_Info->offsets_gyroz / 5000.f;
 	
-  // BMI088_Info->gyrox_offsets = ;
-  // BMI088_Info->gyrox_offsets = ;
-  // BMI088_Info->gyrox_offsets = ;
+  // BMI088_Info->offsets_gyrox = ;
+  // BMI088_Info->offsets_gyroy = ;
+  // BMI088_Info->offsets_gyroz = ;
+
+  /* set the offset init flag */
+  BMI088_Info->offsets_init = true;
 }
 
 /**
+ * 
   * @brief Initializes the BMI088 according to writing the specified data 
   *        to the internal configuration registers of the sensor.
   * @param None
-  * @retval Error Status
+  * @retval Status
   */
-uint8_t BMI088_Init(void)
+void BMI088_Init(void)
 {
-    uint8_t error = BMI088_NO_ERROR;
+  BMI088_Status_e status = BMI088_NO_ERROR;
 
-    /* judge the accelerator configuration */
-    error |= BMI088_Accel_Init();
+  /* Initializes the BMI088 */
+  do
+  {
+    /* Judge the accelerator configuration */
+    status |= BMI088_Accel_Init();
+    /* Judge the gyro configuration */
+    status |= BMI088_Gyro_Init();
+    /* waiting 2ms */
+    Delay_ms(2);
+  }while(status);
 
-    /* judge the gyro configuration */
-    error |= BMI088_Gyro_Init();
-
-    /* waiting 5ms */
-    Delay_ms(5);
-
-    /* return the error status */
-    return error;
+  /* update the bmi088 offset */
+  BMI088_Offset_Update(&BMI088_Info);
 }
 
 /**
@@ -400,15 +416,6 @@ uint8_t BMI088_Init(void)
 void BMI088_Info_Update(BMI088_Info_Typedef *BMI088_Info)
 {
     uint8_t buf[8] = {0, 0, 0, 0, 0, 0};
-
-    /* Update BMI088 offsets */
-    if(BMI088_Info->offsets_init != true)
-    {
-       /* update the BMI088 offsets */
-       BMI088_Offset_Update(BMI088_Info);
-
-       BMI088_Info->offsets_init = true;
-    }
 
     /* read the accelerator multi data */
 		BMI088_Accel_Read_Multi_Reg(BMI088_ACCEL_XOUT_L, buf, 6);

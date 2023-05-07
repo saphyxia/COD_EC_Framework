@@ -53,19 +53,19 @@
 //#define BMI088_GYRO_RANGE_125
 
 #define BMI088_ACCEL_3G_SEN 0.0008974358974f
-// #define BMI088_ACCEL_6G_SEN 0.00179443359375f
-// #define BMI088_ACCEL_12G_SEN 0.0035888671875f
-// #define BMI088_ACCEL_24G_SEN 0.007177734375f
+#define BMI088_ACCEL_6G_SEN 0.00179443359375f
+#define BMI088_ACCEL_12G_SEN 0.0035888671875f
+#define BMI088_ACCEL_24G_SEN 0.007177734375f
 
 #define BMI088_GYRO_2000_SEN 0.00106526443603169529841533860381f
-// #define BMI088_GYRO_1000_SEN 0.00053263221801584764920766930190693f
-// #define BMI088_GYRO_500_SEN 0.00026631610900792382460383465095346f
-// #define BMI088_GYRO_250_SEN 0.00013315805450396191230191732547673f
-// #define BMI088_GYRO_125_SEN 0.000066579027251980956150958662738366f
+#define BMI088_GYRO_1000_SEN 0.00053263221801584764920766930190693f
+#define BMI088_GYRO_500_SEN 0.00026631610900792382460383465095346f
+#define BMI088_GYRO_250_SEN 0.00013315805450396191230191732547673f
+#define BMI088_GYRO_125_SEN 0.000066579027251980956150958662738366f
 
 /* Exported types ------------------------------------------------------------*/
 /**
- * @brief typedef enum that contains the Error Type for the BMI088.
+ * @brief typedef enum that contains the status for the BMI088.
  */
 typedef enum
 {
@@ -87,7 +87,7 @@ typedef enum
     BMI088_SELF_TEST_ACCEL_ERROR        = 0x80,
     BMI088_SELF_TEST_GYRO_ERROR         = 0x40,
     BMI088_NO_SENSOR                    = 0xFF,
-}BMI088_ERRORType_e;
+}BMI088_Status_e;
 
 /**
  * @brief typedef structure that contains the information for the received data.
@@ -128,7 +128,7 @@ typedef struct
   * @brief Initializes the BMI088 according to writing the specified data 
   *        to the internal configuration registers of the sensor.
   */
-extern uint8_t BMI088_Init(void);
+extern void BMI088_Init(void);
 /**
   * @brief Updates the BMI088 Information.
   */
