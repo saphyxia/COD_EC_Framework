@@ -22,16 +22,11 @@ Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
 C:\EC\WorkSpace\HAL_Template\MDK-ARM\HAL_Template.uvprojx
-Project File Date:  05/06/2023
+Project File Date:  05/08/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'HAL_Template'
-compiling api_quaternion.c...
-compiling bmi088.c...
-linking...
-Program Size: Code=22478 RO-data=470 RW-data=16 ZI-data=29016  
-FromELF: creating hex file...
 "HAL_Template\HAL_Template.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
@@ -42,6 +37,12 @@ Package Vendor: ARM
                 CMSIS (Common Microcontroller Software Interface Standard)
    * Component: CORE Version: 5.6.0
 
+Package Vendor: ARM
+                https://www.keil.com/pack/ARM.CMSIS-DSP.1.14.4.pack
+                ARM.CMSIS-DSP.1.14.4
+                CMSIS Embedded Compute Library
+   * Component: Compute Graph Version: 1.14.4
+
 Package Vendor: Keil
                 https://www.keil.com/pack/Keil.STM32F4xx_DFP.2.17.0.pack
                 Keil.STM32F4xx_DFP.2.17.0
@@ -49,6 +50,8 @@ Package Vendor: Keil
 
 <h2>Collection of Component include folders:</h2>
   ./RTE/_HAL_Template
+  C:/Users/21069/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.14.4/ComputeGraph/cg/nodes/cpp
+  C:/Users/21069/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.14.4/ComputeGraph/cg/src
   C:/Users/21069/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
   C:/Users/21069/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.17.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include
 
@@ -56,7 +59,10 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.6.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Build Time Elapsed:  00:00:00
+
+   * Component: ARM::CMSIS:DSP:Compute Graph:1.14.4
+      Include file:  ComputeGraph/cg/src/GenericNodes.h
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

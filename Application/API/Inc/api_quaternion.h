@@ -55,6 +55,7 @@ typedef struct
   Quaternion_Settings_Typedef settings;   /*!< the Settings of Quaternion */
 
   float q[4];   /*!< the array of Quaternion */
+  float deviate[3];   /*!< the deviate of Gyro */
 
   LowPassFilter2p_Info_TypeDef accel_LPF2p;  /*!< the second order lowpass filter. */
 
