@@ -80,7 +80,7 @@ typedef struct KF_Info_TypeDef
     matrix K_denominator;     /*!< K_denominator matrix (K_denominator = H Pminus HT + R) */
     matrix cache_matrix[2];   /*!< calculate cache matrix */
     matrix cache_vector[2];   /*!< calculate cache vector */
-  }Mat_t;
+  }Mat;
 
   arm_status MatStatus;   /*!< Error status. */
 
@@ -103,7 +103,7 @@ typedef struct KF_Info_TypeDef
     float *K_denominator;     /*!< K_denominator matrix memory pointer */
     float *cache_matrix[2];   /*!< calculate cache matrix memory pointer */
     float *cache_vector[2];   /*!< calculate cache vector memory pointer */
-  }Memory_t;
+  }Memory;
 
 
   uint8_t SkipStep1 : 1;      /*!< flag to skip the first step of kalman filter updating */
