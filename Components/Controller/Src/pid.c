@@ -47,7 +47,8 @@ static PID_ErrorType_e PID_Param_Init(PID_Info_TypeDef *Pid,float para[PID_PARAM
 
     return PID_ERROR_NONE;
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
  * @brief Clear the Pid Calculation.
@@ -65,7 +66,8 @@ static void PID_Calc_Clear(PID_Info_TypeDef *Pid)
 	Pid->Dout = 0;
 	Pid->Output = 0;
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
  * @brief Initializes the PID Controller.
@@ -86,7 +88,8 @@ void PID_Init(PID_Info_TypeDef *Pid,PID_Type_e type,float para[PID_PARAMETER_NUM
 		Pid->PID_Calc_Clear(Pid);
     Pid->ERRORHandler.ERRORType = Pid->PID_Param_Init(Pid, para);
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
   * @brief  Judge the pid error status
@@ -102,82 +105,7 @@ static void PID_ErrorHandle(PID_Info_TypeDef *Pid)
 				Pid->ERRORHandler.ERRORType = PID_ERROR_NANINF;
 		}
 }
-//-------------------------------------------------------------------------------------------------------
-
-/**
-  * @brief  Caculate the POSITION PID Controller
-  * @param  *pid pointer to a PID_TypeDef_t structure that contains
-  *              the configuration information for the specified PID. 
-  * @retval the Pid Output
-  */
-float f_PID_POSITION_Calc(PID_Info_TypeDef *Pid)
-{
-  /* judge the pid controller type */
-  if(Pid->type != PID_POSITION)
-  {
-    return 0;
-  }
-	
-	/* update the error */
-	Pid->Err[1] = Pid->Err[0];
-	Pid->Err[0] = Pid->target - Pid->measure;
-
-  if(ABS(Pid->Err[0]) > Pid->param.Deadband)
-  {
-    /* Update the PID Integral */
-    if(Pid->param.ki != 0)
-      Pid->Integral += Pid->Err[0];
-    else
-      Pid->Integral = 0;
-
-    VAL_LIMIT(Pid->Integral,-Pid->param.limitIntegral,Pid->param.limitIntegral);
-    
-    /* Update the Proportional Output,Integral Output,Derivative Output */
-    Pid->Pout = Pid->param.kp * Pid->Err[0];
-    Pid->Iout = Pid->param.ki * Pid->Integral;
-    Pid->Dout = Pid->param.kd * (Pid->Err[0] - Pid->Err[1]);
-    
-    /* update the PID output */
-    Pid->Output = Pid->Pout + Pid->Iout + Pid->Dout;
-	  VAL_LIMIT(Pid->Output,-Pid->param.limitOutput,Pid->param.limitOutput);
-  }
-  return Pid->Output;
-}
-//-------------------------------------------------------------------------------------------------------
-
-/**
-  * @brief  Caculate the VELOCITY PID Controller
-  * @param  *pid pointer to a PID_TypeDef_t structure that contains
-  *              the configuration information for the specified PID. 
-  * @retval the Pid Output
-  */
-float f_PID_VELOCITY_Calc(PID_Info_TypeDef *Pid)
-{
-  /* judge the pid controller type */
-  if(Pid->type != PID_VELOCITY)
-  {
-    return 0;
-  }
-	
-	/* update the error */
-	Pid->Err[2] = Pid->Err[1];
-	Pid->Err[1] = Pid->Err[0];
-	Pid->Err[0] = Pid->target - Pid->measure;
-
-  if(ABS(Pid->Err[0]) > Pid->param.Deadband)
-  {
-    /* Update the Proportional Output,Integral Output,Derivative Output */
-    Pid->Pout = Pid->param.kp * (Pid->Err[0] - Pid->Err[1]);
-    Pid->Iout = Pid->param.ki * (Pid->Err[0]);
-    Pid->Dout = Pid->param.kd * (Pid->Err[0] - 2.f*Pid->Err[1] + Pid->Err[2]);
-
-    /* update the PID output */
-    Pid->Output += Pid->Pout + Pid->Iout + Pid->Dout;
-	  VAL_LIMIT(Pid->Output,-Pid->param.limitOutput,Pid->param.limitOutput);
-  }
-  return Pid->Output;
-}
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 
 /**
   * @brief  Caculate the PID Controller
@@ -189,28 +117,59 @@ float f_PID_VELOCITY_Calc(PID_Info_TypeDef *Pid)
   */
 float f_PID_Calculate(PID_Info_TypeDef *Pid, float target,float measure)
 {		
-    /* update the pid error status */
-		PID_ErrorHandle(Pid);
-		if(Pid->ERRORHandler.ERRORType != PID_ERROR_NONE)
-		{
-			Pid->PID_Calc_Clear(Pid);
-			return 0;
-		}
+  /* update the pid error status */
+  PID_ErrorHandle(Pid);
+  if(Pid->ERRORHandler.ERRORType != PID_ERROR_NONE)
+  {
+    Pid->PID_Calc_Clear(Pid);
+    return 0;
+  }
+  
+  /* update the target/measure */
+  Pid->target = target;
+  Pid->measure = measure;
+
+  /* update the error */
+	Pid->Err[2] = Pid->Err[1];
+	Pid->Err[1] = Pid->Err[0];
+	Pid->Err[0] = Pid->target - Pid->measure;
 		
-		/* update the target/measure */
-		Pid->target = target;
-		Pid->measure = measure;
-		
+  if(ABS(Pid->Err[0]) > Pid->param.Deadband)
+  {
 		/* update the pid controller output */
 		if(Pid->type == PID_POSITION)
 		{
-      f_PID_POSITION_Calc(Pid);
+      /* Update the PID Integral */
+      if(Pid->param.ki != 0)
+        Pid->Integral += Pid->Err[0];
+      else
+        Pid->Integral = 0;
+
+      VAL_LIMIT(Pid->Integral,-Pid->param.limitIntegral,Pid->param.limitIntegral);
+      
+      /* Update the Proportional Output,Integral Output,Derivative Output */
+      Pid->Pout = Pid->param.kp * Pid->Err[0];
+      Pid->Iout = Pid->param.ki * Pid->Integral;
+      Pid->Dout = Pid->param.kd * (Pid->Err[0] - Pid->Err[1]);
+      
+      /* update the PID output */
+      Pid->Output = Pid->Pout + Pid->Iout + Pid->Dout;
+      VAL_LIMIT(Pid->Output,-Pid->param.limitOutput,Pid->param.limitOutput);
 		}
 		else if(Pid->type == PID_VELOCITY)
 		{
-      f_PID_VELOCITY_Calc(Pid);
-		}
+      /* Update the Proportional Output,Integral Output,Derivative Output */
+      Pid->Pout = Pid->param.kp * (Pid->Err[0] - Pid->Err[1]);
+      Pid->Iout = Pid->param.ki * (Pid->Err[0]);
+      Pid->Dout = Pid->param.kd * (Pid->Err[0] - 2.f*Pid->Err[1] + Pid->Err[2]);
 
-		return Pid->Output;
+      /* update the PID output */
+      Pid->Output += Pid->Pout + Pid->Iout + Pid->Dout;
+      VAL_LIMIT(Pid->Output,-Pid->param.limitOutput,Pid->param.limitOutput);
+		}
+  }
+
+  return Pid->Output;
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+

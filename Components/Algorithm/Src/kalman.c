@@ -164,7 +164,8 @@ void Kalman_Filter_Init(KalmanFilter_Info_TypeDef *kf,uint8_t xhatSize,uint8_t u
     kf->Output = (float *)user_malloc(kf->sizeof_float * xhatSize);
     memset(kf->Output, 0, kf->sizeof_float * xhatSize);
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
   * @brief Update the Measuerment Information
@@ -186,7 +187,8 @@ static void Kalman_Filter_Measurement_Update(KalmanFilter_Info_TypeDef *kf)
       memcpy(kf->Memory.u, kf->ControlVector, kf->sizeof_float * kf->uSize);
     }
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
   * @brief Update the Priori EstiMate
@@ -225,7 +227,8 @@ static void Kalman_Filter_xhatminus_Update(KalmanFilter_Info_TypeDef *kf)
         kf->MatStatus = Matrix_Multiply(&kf->Mat.A, &kf->Mat.xhat, &kf->Mat.xhatminus);   
     }
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
   * @brief Update the Priori Covariance Matrix
@@ -256,7 +259,8 @@ static void Kalman_Filter_Pminus_Update(KalmanFilter_Info_TypeDef *kf)
     /* Pminus = A P(k-1) AT + Q */
     kf->MatStatus = Matrix_Add(&kf->Mat.cache_matrix[0], &kf->Mat.Q, &kf->Mat.Pminus);  
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
   * @brief Update the Kalman Gain
@@ -302,7 +306,8 @@ static void Kalman_Filter_K_Update(KalmanFilter_Info_TypeDef *kf)
     /* K = H·Pminus / (H·Pminus·HT + R) */
     kf->MatStatus = Matrix_Multiply(&kf->Mat.cache_matrix[0], &kf->Mat.cache_matrix[1], &kf->Mat.K);
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
   * @brief Update the Posteriori EstiMate
@@ -337,7 +342,8 @@ static void Kalman_Filter_xhat_Update(KalmanFilter_Info_TypeDef *kf)
     /* xhat = xhatminus + K(k)·(z(k) - H·xhatminus) */
     kf->MatStatus = Matrix_Add(&kf->Mat.xhatminus, &kf->Mat.cache_vector[0], &kf->Mat.xhat); 
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
   * @brief Update the Posteriori Covariance Matrix
@@ -367,7 +373,8 @@ static void Kalman_Filter_P_Update(KalmanFilter_Info_TypeDef *kf)
     /* P = (I - K(k)·H)·Pminus */
     kf->MatStatus = Matrix_Subtract(&kf->Mat.Pminus, &kf->Mat.cache_vector[1], &kf->Mat.P); 
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
   * @brief Update the Kalman Filter according to the specified parameters in the

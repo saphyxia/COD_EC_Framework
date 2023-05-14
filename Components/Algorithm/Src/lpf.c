@@ -32,7 +32,8 @@ void LowPassFilter1p_Init(LowPassFilter1p_Info_TypeDef *lpf,float alpha,float fr
   lpf->input = 0;
   lpf->output = 0;
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
   * @brief Update the first order lowpass filter according to the specified parameters in the
@@ -57,7 +58,8 @@ float LowPassFilter1p_Update(LowPassFilter1p_Info_TypeDef *lpf,float input)
 
   return lpf->output;
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
   * @brief Initializes the Second order lowpass filter according to the specified parameters in the
@@ -74,7 +76,8 @@ void LowPassFilter2p_Init(LowPassFilter2p_Info_TypeDef *lpf,float alpha[3])
   lpf->input = 0;
   memset(lpf->output,0,sizeof(lpf->output));
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
   * @brief Update the Second order lowpass filter according to the specified parameters in the
@@ -102,4 +105,5 @@ float LowPassFilter2p_Update(LowPassFilter2p_Info_TypeDef *lpf,float input)
 
 	return lpf->output[2];
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+

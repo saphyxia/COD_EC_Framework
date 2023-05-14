@@ -34,7 +34,8 @@ void Bsp_Tim_Init(void)
 	//Heat_Power_Tim Start
 	HAL_TIM_PWM_Start(&htim10, TIM_CHANNEL_1);
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
   * @brief  Set the BMI088 Heat_Power TIM Capture Compare Register value.
@@ -45,7 +46,8 @@ void Heat_Power_Control(uint16_t compare)
 {
     User_Tim_SetCompare(&htim10,TIM_CHANNEL_1,compare);
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
   * @brief  Set the TIM Capture Compare Register value.
@@ -82,5 +84,6 @@ static void User_Tim_SetCompare(TIM_HandleTypeDef *htim,uint32_t Channel,uint16_
     default:break;
   }
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 

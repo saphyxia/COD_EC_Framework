@@ -139,14 +139,6 @@ typedef struct _PID_TypeDef
  */
 extern void PID_Init(PID_Info_TypeDef *Pid,PID_Type_e type,float para[PID_PARAMETER_NUM]);
 /**
-  * @brief  Caculate the POSITION PID Controller.
-  */
-extern float f_PID_POSITION_Calc(PID_Info_TypeDef *Pid);
-/**
-  * @brief  Caculate the VELOCITY PID Controller.
-  */
-extern float f_PID_VELOCITY_Calc(PID_Info_TypeDef *Pid);
-/**
   * @brief  Caculate the PID Controller
   */
 extern float f_PID_Calculate(PID_Info_TypeDef *Pid, float target,float measure);

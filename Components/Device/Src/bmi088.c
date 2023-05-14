@@ -24,15 +24,15 @@
 /**
   * @brief Write the single register value to the sensor
   */
-static void BMI088_Write_Single_Reg(uint8_t reg, uint8_t data);
+static void BMI088_Write_Single_Reg(uint8_t, uint8_t);
 /**
   * @brief Read the single register value to the sensor
   */
-static void BMI088_Read_Single_Reg(uint8_t reg, uint8_t *return_data);
+static void BMI088_Read_Single_Reg(uint8_t, uint8_t *);
 /**
   * @brief Read the multi register value to the sensor
   */
-static void BMI088_Read_Multi_Reg(uint8_t reg, uint8_t *buf, uint8_t len);
+static void BMI088_Read_Multi_Reg(uint8_t, uint8_t *, uint8_t);
 
 /**
  * @brief macro definition of the BMI088_Accel_Write_Single_Reg that write a single data in the specified accelerator register
@@ -46,7 +46,8 @@ static void BMI088_Read_Multi_Reg(uint8_t reg, uint8_t *buf, uint8_t len);
         BMI088_Write_Single_Reg((reg), (data));  \
         BMI088_ACCEL_NS_H();                     \
     }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
  * @brief macro definition of the BMI088_Accel_Read_Single_Reg that read a single data in the specified accelerator register
@@ -62,7 +63,8 @@ static void BMI088_Read_Multi_Reg(uint8_t reg, uint8_t *buf, uint8_t len);
         (data) = BMI088_Read_Write_Byte(0x55);  \
         BMI088_ACCEL_NS_H();                    \
     }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
  * @brief macro definition of the BMI088_Accel_Read_Multi_Reg that read multi datas in the specified accelerator register
@@ -78,7 +80,8 @@ static void BMI088_Read_Multi_Reg(uint8_t reg, uint8_t *buf, uint8_t len);
         BMI088_Read_Multi_Reg(reg, data, len);      \
         BMI088_ACCEL_NS_H();                       \
     }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
  * @brief macro definition of the BMI088_Gyro_Write_Single_Reg that write a single data in the specified gyro register
@@ -92,7 +95,8 @@ static void BMI088_Read_Multi_Reg(uint8_t reg, uint8_t *buf, uint8_t len);
         BMI088_Write_Single_Reg((reg), (data)); \
         BMI088_GYRO_NS_H();                     \
     }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
  * @brief macro definition of the BMI088_Gyro_Read_Single_Reg that read a single data in the specified gyro register
@@ -106,7 +110,8 @@ static void BMI088_Read_Multi_Reg(uint8_t reg, uint8_t *buf, uint8_t len);
         BMI088_Read_Single_Reg((reg), &(data)); \
         BMI088_GYRO_NS_H();                     \
     }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
  * @brief macro definition of the BMI088_Gyro_Read_Multi_Reg that read multi datas in the specified gyro register
@@ -121,7 +126,8 @@ static void BMI088_Read_Multi_Reg(uint8_t reg, uint8_t *buf, uint8_t len);
         BMI088_Read_Multi_Reg((reg), (data), (len)); \
         BMI088_GYRO_NS_H();                         \
     }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 #endif
 
@@ -268,7 +274,8 @@ static BMI088_Status_e BMI088_Accel_Init(void)
     /* no error */
     return BMI088_NO_ERROR;  
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
   * @brief Initializes the gyro according to writing the specified data 
@@ -344,7 +351,8 @@ static BMI088_Status_e BMI088_Gyro_Init(void)
     /* no error */
     return BMI088_NO_ERROR;
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
   * @brief Updates the BMI088 offsets.
@@ -393,7 +401,8 @@ static void BMI088_Offset_Update(BMI088_Info_Typedef *BMI088_Info)
   /* set the offset init flag */
   BMI088_Info->offsets_init = true;
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
  * 
@@ -420,7 +429,8 @@ void BMI088_Init(void)
   /* update the bmi088 offset */
   BMI088_Offset_Update(&BMI088_Info);
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
   * @brief Updates the BMI088 Information.
@@ -466,7 +476,8 @@ void BMI088_Info_Update(BMI088_Info_Typedef *BMI088_Info)
 	  BMI088_Info->gyro[1] = BMI088_GYRO_SEN * BMI088_Info->mpu_info.gyroy - BMI088_Info->offsets_gyroy;
 	  BMI088_Info->gyro[2] = BMI088_GYRO_SEN * BMI088_Info->mpu_info.gyroz - BMI088_Info->offsets_gyroz;
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 #if defined(BMI088_USE_SPI)
 /**
@@ -483,7 +494,8 @@ static void BMI088_Write_Single_Reg(uint8_t reg, uint8_t data)
     /* write the register value to the sensor */
     BMI088_Read_Write_Byte(data);
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
   * @brief Read the single register value to the sensor
@@ -503,7 +515,8 @@ static void BMI088_Read_Single_Reg(uint8_t reg, uint8_t *return_data)
     /* write/read the register value to the sensor */
     *return_data = BMI088_Read_Write_Byte(0x55);
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
   * @brief Read the multi register value to the sensor
@@ -525,7 +538,8 @@ static void BMI088_Read_Multi_Reg(uint8_t reg, uint8_t *buf, uint8_t len)
         len--;
     }
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 #endif
 

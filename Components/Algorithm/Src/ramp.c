@@ -46,7 +46,8 @@ float f_Ramp_Calc(float input,float target,float ramp)
 
     return output;
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
   * @brief Calculate the floating-point logistic curves.
@@ -68,7 +69,8 @@ float f_LogisticCurves_Calc(float x , float k ,float x0)
 	
 	return y;
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
   * @brief Initializes the moving average filter according to the specified parameters in the
@@ -96,7 +98,8 @@ void MovingAverage_Init(MovingAverage_Info_TypeDef *MA,uint16_t length)
 
   MA->init = true;
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 /**
   * @brief Calculate the floating-point moving average filter.
@@ -131,5 +134,6 @@ float MovingAverage_Update(MovingAverage_Info_TypeDef *MA,float input)
 
   return MA->output;
 }
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 

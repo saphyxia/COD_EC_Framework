@@ -4,6 +4,7 @@
         "api_quaternion.h": "c",
         "ramp.h": "c",
         "string.h": "c",
-        "lpf.h": "c"
+        "lpf.h": "c",
+        "pid.h": "c"
     }
 }
