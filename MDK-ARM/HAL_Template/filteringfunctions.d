@@ -1,0 +1,17 @@
+hal_template\filteringfunctions.o: C:/Users/21069/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.14.4/Source/FilteringFunctions/FilteringFunctions.c
+hal_template\filteringfunctions.o: C:/Users/21069/AppData/Local/Arm/Packs/ARM/CMSIS-DSP/1.14.4/Source/FilteringFunctions/arm_biquad_cascade_df1_32x64_init_q31.c
+hal_template\filteringfunctions.o: C:\Users\21069\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.14.4\Include\dsp/filtering_functions.h
+hal_template\filteringfunctions.o: C:\Users\21069\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.14.4\Include\arm_math_types.h
+hal_template\filteringfunctions.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
+hal_template\filteringfunctions.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\stdint.h
+hal_template\filteringfunctions.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
+hal_template\filteringfunctions.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\string.h
+hal_template\filteringfunctions.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\math.h
+hal_template\filteringfunctions.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\float.h
+hal_template\filteringfunctions.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\limits.h
+hal_template\filteringfunctions.o: C:\Users\21069\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.14.4\Include\arm_math_memory.h
+hal_template\filteringfunctions.o: C:\Users\21069\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.14.4\Include\dsp/none.h
+hal_template\filteringfunctions.o: C:\Users\21069\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.14.4\Include\dsp/utils.h
+hal_template\filteringfunctions.o: C:\Users\21069\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.14.4\Include\dsp/support_functions.h
+hal_template\filteringfunctions.o: C:\Users\21069\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.14.4\Include\dsp/fast_math_functions.h
+hal_template\filteringfunctions.o: C:\Users\21069\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.14.4\Include\dsp/basic_math_functions.h

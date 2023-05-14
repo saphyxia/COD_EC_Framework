@@ -21,6 +21,7 @@
 #include "stdint.h"
 #include "arm_math.h"
 #include "stdlib.h"
+#include "stdbool.h"
 
 /* Exported defines -----------------------------------------------------------*/
 /**
@@ -28,9 +29,9 @@
  */
 #ifndef user_malloc
 #ifdef _CMSIS_OS_H
-#define user_malloc pvPortMalloc
+	#define user_malloc pvPortMalloc
 #else
-#define user_malloc malloc
+	#define user_malloc malloc
 #endif
 #endif
 
@@ -49,16 +50,34 @@
 
 /* Exported types ------------------------------------------------------------*/
 /**
+ * @brief typedef structure that contains the information  for the Chi Square Test.
+ */
+typedef struct
+{
+  bool TestFlag;    /*!< Enable/Disable Flag */
+  matrix ChiSquare_Matrix;   /*!< chi square test matrix */
+  float ChiSquare_Data[1];    /*!< chi square test matrix data */
+  float ChiSquareTestThresholds;    /*!< chi square test matrix Thresholds */
+  uint8_t ChiSquareCnt;   /*!< chi square test count */
+  bool result;   /*!< chi square test result */
+}ChiSquareTest_Typedef;
+
+/**
  * @brief typedef structure that contains the information  for the kalman filter.
  */
 typedef struct KF_Info_TypeDef
 {
+  uint16_t sizeof_float, sizeof_double; /*!< size of float/double */
+
   uint8_t xhatSize;   /*!< state vector dimension */
   uint8_t uSize;      /*!< control vector dimension */
   uint8_t zSize;      /*!< measurement vector dimension */
 
+  float dt;   /*!< update cycle */
   float *MeasuredVector; /*!< external measure vector pointer */
   float *ControlVector;  /*!< external control vector pointer */
+
+  ChiSquareTest_Typedef ChiSquareTest;  /*!< Chi Square Test */
 
   /**
    * @brief Instance structure for the floating-point matrix structure.
@@ -72,8 +91,8 @@ typedef struct KF_Info_TypeDef
     matrix B;                 /*!< control matrix */ 
     matrix A,AT;              /*!< state transition matrix */
     matrix H,HT;              /*!< measurement matrix */
-    matrix P;                 /*!< posteriori error covariance matrix */
-    matrix Pminus;            /*!< priori error covariance matrix */
+    matrix P;                 /*!< posteriori covariance matrix */
+    matrix Pminus;            /*!< priori covariance matrix */
     matrix Q;                 /*!< process noise covariance matrix */ 
     matrix R;                 /*!< measurement noise covariance matrix */ 
     matrix K;                 /*!< kalman gain matrix */
@@ -95,8 +114,8 @@ typedef struct KF_Info_TypeDef
     float *B;                 /*!< control matrix memory pointer */ 
     float *A,*AT;             /*!< state transition matrix memory pointer */
     float *H,*HT;             /*!< measurement matrix memory pointer */
-    float *P;                 /*!< posteriori error covariance matrix memory pointer */
-    float *Pminus;            /*!< priori error covariance matrix memory pointer */
+    float *P;                 /*!< posteriori covariance matrix memory pointer */
+    float *Pminus;            /*!< priori covariance matrix memory pointer */
     float *Q;                 /*!< process noise covariance matrix memory pointer */ 
     float *R;                 /*!< measurement noise covariance matrix memory pointer */ 
     float *K;                 /*!< kalman gain matrix memory pointer */
@@ -105,12 +124,13 @@ typedef struct KF_Info_TypeDef
     float *cache_vector[2];   /*!< calculate cache vector memory pointer */
   }Memory;
 
+  uint8_t SkipStep1 : 1;  /*!< flag to skip the first step of kalman filter updating */
+  uint8_t SkipStep2 : 1;  /*!< flag to skip the second step of kalman filter updating */
+  uint8_t SkipStep3 : 1;  /*!< flag to skip the third step of kalman filter updating */
+  uint8_t SkipStep4 : 1;  /*!< flag to skip the fourth step of kalman filter updating */
+  uint8_t SkipStep5 : 1;  /*!< flag to skip the fifth step of kalman filter updating */
+  uint8_t reserve   : 3;
 
-  uint8_t SkipStep1 : 1;      /*!< flag to skip the first step of kalman filter updating */
-  uint8_t SkipStep2 : 1;      /*!< flag to skip the second step of kalman filter updating */
-  uint8_t SkipStep3 : 1;      /*!< flag to skip the third step of kalman filter updating */
-  uint8_t SkipStep4 : 1;      /*!< flag to skip the fourth step of kalman filter updating */
-  uint8_t SkipStep5 : 1;      /*!< flag to skip the fifth step of kalman filter updating */
   /**
    * @brief user functions that can replace any step of kalman filter updating.
    */
@@ -130,7 +150,7 @@ typedef struct KF_Info_TypeDef
 /**
   * @brief Initializes the kalman filter according to the specified parameters in the KalmanFilter_Info_TypeDef.
   */
-extern arm_status Kalman_Filter_Init(KalmanFilter_Info_TypeDef *kf,uint8_t xhatSize,uint8_t uSize,uint8_t zSize);
+extern void Kalman_Filter_Init(KalmanFilter_Info_TypeDef *kf,uint8_t xhatSize,uint8_t uSize,uint8_t zSize);
 /**
   * @brief Update the Kalman Filter according to the specified parameters in the KalmanFilter_Info_TypeDef.
   */

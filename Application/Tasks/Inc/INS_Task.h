@@ -16,9 +16,30 @@
 #ifndef INS_TASK_H
 #define INS_TASK_H
 
-
 /* Includes ------------------------------------------------------------------*/
 #include "stdint.h"
+
+/* Exported types ------------------------------------------------------------*/
+/**
+ * @brief typedef structure that contains the information for the INS.
+ */
+typedef struct 
+{
+	float pit_angle;
+	float yaw_angle;
+	float yaw_tolangle;
+	float rol_angle;
+
+  float pit_gyro;
+  float yaw_gyro;
+  float rol_gyro;
+
+	float gyro[3];	
+	float accel[3];
+	
+	float last_yawangle;
+	int16_t YawRoundCount;
+}INS_Info_Typedef;
 
 
 /* Exported functions prototypes ---------------------------------------------*/

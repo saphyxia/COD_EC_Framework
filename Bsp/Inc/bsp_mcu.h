@@ -22,6 +22,10 @@
 
 
 /* Exported functions prototypes ---------------------------------------------*/
+/**
+  * @brief Initializes the MCU.
+  */
+extern void MCU_Init(void);
 
 #endif //BSP_MCU_H
 

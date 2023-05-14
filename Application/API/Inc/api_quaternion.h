@@ -18,40 +18,11 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stdint.h"
-#include "stdbool.h"
 #include "kalman.h"
 #include "lpf.h"
 
 
 /* Exported types ------------------------------------------------------------*/
-/**
- * @brief typedef enum that contains the type of CoordinateSystem.
- */
-typedef enum
-{
-  CoordinateSystem_NWU = 0x00U,     /*!< North-West-Up World Coordinate System */
-  CoordinateSystem_ENU = 0x01U,     /*!< East-North-Up Coordinate System */
-  CoordinateSystem_NED = 0x02U,     /*!< North-East-Down Coordinate System */
-  CoordinateSystem_Type_NUM,
-}CoordinateSystem_Type_e;
-
-/**
- * @brief typedef structure that contains the Settings of Quaternion.
- */
-typedef struct 
-{
-  float alpha[3];     /*!< LPF coefficients */
-
-  uint8_t xhatSize;   /*!<  state vector dimension */
-  uint8_t uSize;      /*!<  control vector dimension */
-  uint8_t zSize;      /*!<  measurement vector dimension */
-
-  float ProcessNoise; /*!<  Process Noise */
-  float MeasureNoise; /*!<  Measurement Noise */
-
-  CoordinateSystem_Type_e CoordinateSystem;  /*!< the type of CoordinateSystem */
-}Quaternion_Settings_Typedef;
-
 /**
  * @brief typedef structure that contains the Information of Quaternion.
  */
@@ -59,24 +30,9 @@ typedef struct
 {
   bool init; /*!< Initialized flag */
 
-  Quaternion_Settings_Typedef settings;   /*!< the Settings of Quaternion */
-  LowPassFilter2p_Info_TypeDef AcceLPF2p[3];  /*!< the second order lowpass filter. */
-  KalmanFilter_Info_TypeDef QuaternionEKF;   /*!< Quaternion external kalman filter */
+  float quat[4];       /*!< the data of quaternion */
+  float deviate[3];    /*!< the deviate of Gyro */
 
-  float q[4];   /*!< the array of Quaternion */
-  float deviate[3];   /*!< the deviate of Gyro */
-
-  float accelNorm[3];   /*!< accel norm */
-  float halfgyrodt[3];  /*!< half*gyro*dt */
-  float halfv[3];       /*!< direction of gravity */
-  float qInverseSqrt;   /*!< The inverse square root of the quaternion norm */
-
-  float Euler[3];   /*!< Euler angle */
-  float dt;   /*!< update cycle */
-
-  matrix ChiSquare;   /* chi square test matrix */
-  float ChiSquare_Data[1];    /* chi square test matrix data */
-  float ChiSquareTestThresholds;    /* chi square test matrix Thresholds */
 
 }Quaternion_Info_Typedef;
 

@@ -123,6 +123,8 @@ typedef struct
     float offsets_gyroz;   /*!< offsets of z-axis angular velocity */
 }BMI088_Info_Typedef;
 
+extern BMI088_Info_Typedef BMI088_Info;
+
 /* Exported functions prototypes ---------------------------------------------*/
 /**
   * @brief Initializes the BMI088 according to writing the specified data 

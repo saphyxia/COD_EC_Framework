@@ -17,4 +17,17 @@
 #include "bsp_can.h"
 #include "bsp_tim.h"
 #include "bsp_uart.h"
+#include "bmi088.h"
+#include "INS_Task.h"
 
+/**
+  * @brief Initializes the MCU.
+  */
+void MCU_Init(void)
+{
+  /* ----------------------- BSP Init ----------------------- */
+  Bsp_Tim_Init();
+  /* ----------------------- Device Init ----------------------- */
+  BMI088_Init();
+}
+//-------------------------------------------------------------------------------------------------------

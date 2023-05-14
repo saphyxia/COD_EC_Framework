@@ -32,6 +32,7 @@ void LowPassFilter1p_Init(LowPassFilter1p_Info_TypeDef *lpf,float alpha,float fr
   lpf->input = 0;
   lpf->output = 0;
 }
+//-------------------------------------------------------------------------------------------------------
 
 /**
   * @brief Update the first order lowpass filter according to the specified parameters in the
@@ -45,11 +46,18 @@ float LowPassFilter1p_Update(LowPassFilter1p_Info_TypeDef *lpf,float input)
 {
   lpf->input = input;
 
+  if(lpf->init == false)
+  {
+    lpf->output = lpf->input;
+    lpf->init = true;
+  }
+
   lpf->output = lpf->alpha / (lpf->alpha + lpf->frame_period) * lpf->output 
               + lpf->frame_period / (lpf->alpha + lpf->frame_period) * lpf->input;
 
   return lpf->output;
 }
+//-------------------------------------------------------------------------------------------------------
 
 /**
   * @brief Initializes the Second order lowpass filter according to the specified parameters in the
@@ -66,6 +74,7 @@ void LowPassFilter2p_Init(LowPassFilter2p_Info_TypeDef *lpf,float alpha[3])
   lpf->input = 0;
   memset(lpf->output,0,sizeof(lpf->output));
 }
+//-------------------------------------------------------------------------------------------------------
 
 /**
   * @brief Update the Second order lowpass filter according to the specified parameters in the
@@ -79,10 +88,18 @@ float LowPassFilter2p_Update(LowPassFilter2p_Info_TypeDef *lpf,float input)
 {
 	lpf->input = input;
   
+  if(lpf->init == false)
+  {
+    lpf->output[0] = lpf->input;
+    lpf->output[1] = lpf->input;
+    lpf->output[2] = lpf->input;
+    lpf->init = true;
+  }
+  
 	lpf->output[0] = lpf->output[1];
 	lpf->output[1] = lpf->output[2];
-  lpf->output[2] = lpf->alpha[0] * lpf->output[0] + lpf->alpha[1] * lpf->output[1] + lpf->alpha[2] * lpf->input;
+  lpf->output[2] = lpf->alpha[1] * lpf->output[0] + lpf->alpha[0] * lpf->output[1] + lpf->alpha[2] * lpf->input;
 
 	return lpf->output[2];
 }
-
+//-------------------------------------------------------------------------------------------------------

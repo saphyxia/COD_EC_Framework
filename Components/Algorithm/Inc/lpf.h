@@ -19,6 +19,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stdint.h"
+#include "stdbool.h"
 
 /* Exported types ------------------------------------------------------------*/
 /**
@@ -26,11 +27,11 @@
  */
 typedef struct
 {
+    bool init;            /*!< init flag */
     float input;          /*!< input value */
     float output;         /*!< output value */
     float alpha;          /*!< filter coefficient */
     float frame_period;   /*!< frame perood */
-
 }LowPassFilter1p_Info_TypeDef;
 
 /**
@@ -38,10 +39,10 @@ typedef struct
  */
 typedef struct 
 {
+    bool init;          /*!< init flag */
     float input;       /*!< input value */
     float output[3];   /*!< output value */
     float alpha[3];    /*!< filter coefficient */
-
 }LowPassFilter2p_Info_TypeDef;
 
 /* Exported functions prototypes ---------------------------------------------*/

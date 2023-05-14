@@ -19,7 +19,21 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stdint.h"
+#include "stdbool.h"
 
+/* Exported types ------------------------------------------------------------*/
+/**
+ * @brief typedef structure that contains the information  for the first order lowpass filter.
+ */
+typedef struct
+{
+    bool init;             /*!< init flag */
+    float *filter_buff;    /*!< pointer to the floating-point array of filter buff */
+    uint16_t length;       /*!< the length of filter buff */
+    float input;           /*!< input value */
+    float sum;             /*!< sum value */
+    float output;          /*!< output value */
+}MovingAverage_Info_TypeDef;
 
 /* Exported functions prototypes ---------------------------------------------*/
 /**
@@ -31,9 +45,14 @@ extern float f_Ramp_Calc(float input,float target,float ramp);
   */
 extern float f_LogisticCurves_Calc(float x , float k ,float x0);
 /**
-  * @brief Calculate the floating-point moving average filter.
+  * @brief Initializes the moving average filter according to the specified parameters in the
+  *         MovingAverage_Info_TypeDef.
   */
-extern float f_MovingAverage_Filter(float input,float *filter_buff,int16_t length);
+extern void MovingAverage_Init(MovingAverage_Info_TypeDef *MA,uint16_t length);
+/**
+  * @brief update the floating-point moving average filter.
+  */
+extern float MovingAverage_Update(MovingAverage_Info_TypeDef *MA,float input);
 
 #endif //RAMP_H
 

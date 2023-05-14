@@ -13,8 +13,8 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
-#include "INS_Task.h"
 #include "cmsis_os.h"
+#include "INS_Task.h"
 
 /* USER CODE BEGIN Header_INS_Task */
 /**

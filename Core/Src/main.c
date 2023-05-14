@@ -21,7 +21,6 @@
 #include "cmsis_os.h"
 #include "can.h"
 #include "dma.h"
-#include "rng.h"
 #include "spi.h"
 #include "tim.h"
 #include "usart.h"
@@ -30,7 +29,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "bsp_mcu.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -101,9 +100,8 @@ int main(void)
   MX_TIM4_Init();
   MX_TIM10_Init();
   MX_USART3_UART_Init();
-  MX_RNG_Init();
   /* USER CODE BEGIN 2 */
-
+	MCU_Init();
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */

@@ -47,6 +47,7 @@ static PID_ErrorType_e PID_Param_Init(PID_Info_TypeDef *Pid,float para[PID_PARAM
 
     return PID_ERROR_NONE;
 }
+//-------------------------------------------------------------------------------------------------------
 
 /**
  * @brief Clear the Pid Calculation.
@@ -64,6 +65,7 @@ static void PID_Calc_Clear(PID_Info_TypeDef *Pid)
 	Pid->Dout = 0;
 	Pid->Output = 0;
 }
+//-------------------------------------------------------------------------------------------------------
 
 /**
  * @brief Initializes the PID Controller.
@@ -84,6 +86,7 @@ void PID_Init(PID_Info_TypeDef *Pid,PID_Type_e type,float para[PID_PARAMETER_NUM
 		Pid->PID_Calc_Clear(Pid);
     Pid->ERRORHandler.ERRORType = Pid->PID_Param_Init(Pid, para);
 }
+//-------------------------------------------------------------------------------------------------------
 
 /**
   * @brief  Judge the pid error status
@@ -99,6 +102,7 @@ static void PID_ErrorHandle(PID_Info_TypeDef *Pid)
 				Pid->ERRORHandler.ERRORType = PID_ERROR_NANINF;
 		}
 }
+//-------------------------------------------------------------------------------------------------------
 
 /**
   * @brief  Caculate the POSITION PID Controller
@@ -113,6 +117,10 @@ float f_PID_POSITION_Calc(PID_Info_TypeDef *Pid)
   {
     return 0;
   }
+	
+	/* update the error */
+	Pid->Err[1] = Pid->Err[0];
+	Pid->Err[0] = Pid->target - Pid->measure;
 
   if(ABS(Pid->Err[0]) > Pid->param.Deadband)
   {
@@ -135,6 +143,7 @@ float f_PID_POSITION_Calc(PID_Info_TypeDef *Pid)
   }
   return Pid->Output;
 }
+//-------------------------------------------------------------------------------------------------------
 
 /**
   * @brief  Caculate the VELOCITY PID Controller
@@ -149,6 +158,11 @@ float f_PID_VELOCITY_Calc(PID_Info_TypeDef *Pid)
   {
     return 0;
   }
+	
+	/* update the error */
+	Pid->Err[2] = Pid->Err[1];
+	Pid->Err[1] = Pid->Err[0];
+	Pid->Err[0] = Pid->target - Pid->measure;
 
   if(ABS(Pid->Err[0]) > Pid->param.Deadband)
   {
@@ -163,6 +177,7 @@ float f_PID_VELOCITY_Calc(PID_Info_TypeDef *Pid)
   }
   return Pid->Output;
 }
+//-------------------------------------------------------------------------------------------------------
 
 /**
   * @brief  Caculate the PID Controller
@@ -185,7 +200,7 @@ float f_PID_Calculate(PID_Info_TypeDef *Pid, float target,float measure)
 		/* update the target/measure */
 		Pid->target = target;
 		Pid->measure = measure;
-
+		
 		/* update the pid controller output */
 		if(Pid->type == PID_POSITION)
 		{
@@ -198,3 +213,4 @@ float f_PID_Calculate(PID_Info_TypeDef *Pid, float target,float measure)
 
 		return Pid->Output;
 }
+//-------------------------------------------------------------------------------------------------------

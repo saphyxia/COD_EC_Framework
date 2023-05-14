@@ -14,9 +14,10 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "ramp.h"
-
+#include "stdlib.h"
 #include "math.h"
-
+#include "string.h"
+/////////////////////////////////////////////////////////////
 /* Private define ------------------------------------------------------------*/
 /**
   * @brief Euler's Number
@@ -32,8 +33,8 @@
   */
 float f_Ramp_Calc(float input,float target,float ramp)
 {
-    float error = target - input;
-    float output = input;
+  float error = target - input;
+  float output = input;
 
 	if (error > 0){
         if (error > ramp){output += ramp;}   
@@ -45,6 +46,7 @@ float f_Ramp_Calc(float input,float target,float ramp)
 
     return output;
 }
+//-------------------------------------------------------------------------------------------------------
 
 /**
   * @brief Calculate the floating-point logistic curves.
@@ -66,33 +68,68 @@ float f_LogisticCurves_Calc(float x , float k ,float x0)
 	
 	return y;
 }
+//-------------------------------------------------------------------------------------------------------
+
+/**
+  * @brief Initializes the moving average filter according to the specified parameters in the
+  *         MovingAverage_Info_TypeDef.
+  * @param MA: pointer to an MovingAverage_Info_TypeDef structure that
+  *         contains the information  for the moving average filter.
+  * @param length: the length of filter buff
+  * @retval none
+  */
+void MovingAverage_Init(MovingAverage_Info_TypeDef *MA,uint16_t length)
+{
+
+  MA->length = length;
+
+  MA->filter_buff = malloc(sizeof(float)*MA->length);
+  memset(MA->filter_buff,0,sizeof(float)*MA->length);
+
+  if(MA->filter_buff == NULL)
+  {
+    return ;
+  }
+
+  MA->input = 0;
+  MA->output = 0;
+
+  MA->init = true;
+}
+//-------------------------------------------------------------------------------------------------------
 
 /**
   * @brief Calculate the floating-point moving average filter.
+  * @param MA: pointer to an MovingAverage_Info_TypeDef structure that
+  *         contains the information  for the moving average filter.
   * @param input: the input variable
-  * @param filter_buff: pointer to the floating-point filter array
-  * @param length: the length of moving average array
   * @retval the filter output
   */
-float f_MovingAverage_Filter(float input,float *filter_buff,int16_t length)
+float MovingAverage_Update(MovingAverage_Info_TypeDef *MA,float input)
 {
-    float sum = 0.f;
+  if(MA->init != true)
+  {
+    return 0;
+  }
 
-    /* moving the filter buff */
-    for(int16_t i = 0; i < length-1; i++)
-    {
-        filter_buff[i+1] = filter_buff[i];
-    }
+  /* moving the filter buff */
+  for(uint16_t i = 0; i < MA->length-1; i++)
+  {
+      MA->filter_buff[i+1] = MA->filter_buff[i];
+  }
 
-    /* update the filter input */
-    filter_buff[0] = input;
+  /* update the filter input */
+  MA->filter_buff[0] = input;
 
-    /* calculate the average */
-    for(int16_t i = 0; i < length-1; i++)
-    {
-        sum += filter_buff[i];
-    }
+  /* calculate the average */
+  for(uint16_t i = 0; i < MA->length-1; i++)
+  {
+      MA->sum += MA->filter_buff[i];
+  }
 
-    return (float)(sum/length);
+  MA->output = (float)(MA->sum/MA->length);
+
+  return MA->output;
 }
+//-------------------------------------------------------------------------------------------------------
 
