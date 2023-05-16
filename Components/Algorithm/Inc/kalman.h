@@ -63,7 +63,7 @@ typedef struct
 }ChiSquareTest_Typedef;
 
 /**
- * @brief typedef structure that contains the information  for the kalman filter.
+ * @brief typedef structure that contains the information for the kalman filter.
  */
 typedef struct KF_Info_TypeDef
 {
@@ -104,7 +104,7 @@ typedef struct KF_Info_TypeDef
   arm_status MatStatus;   /*!< Error status. */
 
   /**
-   * @brief Instance structure for the floating-point matrix memory pointer.
+   * @brief Instance structure for the floating-point matrix data pointer.
    */
   struct 
   {
@@ -122,7 +122,7 @@ typedef struct KF_Info_TypeDef
     float *K_denominator;     /*!< K_denominator matrix memory pointer */
     float *cache_matrix[2];   /*!< calculate cache matrix memory pointer */
     float *cache_vector[2];   /*!< calculate cache vector memory pointer */
-  }Memory;
+  }Data;
 
   uint8_t SkipStep1 : 1;  /*!< flag to skip the first step of kalman filter updating */
   uint8_t SkipStep2 : 1;  /*!< flag to skip the second step of kalman filter updating */

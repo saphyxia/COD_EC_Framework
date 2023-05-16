@@ -4,10 +4,10 @@
 
 ## 简介
 
-* 开发工具：keil V5.38，VsCode
+* 开发工具：keil V5.38a，VsCode
 * 软件环境：Window11
 * 硬件环境：大疆RoboMaster开发板C型(STM32F407IGHX)
-* 编译工具：Arm Compiler V6.19，C/C++编译
+* 编译工具：Arm Compiler V5.06u7，C/C++编译
 
 ## 目录结构
 

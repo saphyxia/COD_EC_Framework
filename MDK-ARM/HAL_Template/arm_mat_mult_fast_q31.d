@@ -1,13 +1,12 @@
-hal_template\arm_mat_mult_fast_q31.o: ..\DSP\Source\MatrixFunctions\arm_mat_mult_fast_q31.c
-hal_template\arm_mat_mult_fast_q31.o: ..\DSP\Include\dsp/matrix_functions.h
-hal_template\arm_mat_mult_fast_q31.o: ..\DSP\Include\arm_math_types.h
-hal_template\arm_mat_mult_fast_q31.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
-hal_template\arm_mat_mult_fast_q31.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\stdint.h
-hal_template\arm_mat_mult_fast_q31.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
-hal_template\arm_mat_mult_fast_q31.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\string.h
-hal_template\arm_mat_mult_fast_q31.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\math.h
-hal_template\arm_mat_mult_fast_q31.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\float.h
-hal_template\arm_mat_mult_fast_q31.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\limits.h
-hal_template\arm_mat_mult_fast_q31.o: ..\DSP\Include\arm_math_memory.h
-hal_template\arm_mat_mult_fast_q31.o: ..\DSP\Include\dsp/none.h
-hal_template\arm_mat_mult_fast_q31.o: ..\DSP\Include\dsp/utils.h
+hal_template/arm_mat_mult_fast_q31.o: \
+  ..\Drivers\CMSIS\DSP\Source\MatrixFunctions\arm_mat_mult_fast_q31.c \
+  ..\Drivers\CMSIS\DSP\Include\arm_math.h \
+  ..\Drivers\CMSIS\Include\core_cm4.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  ..\Drivers\CMSIS\Include\cmsis_version.h \
+  ..\Drivers\CMSIS\Include\cmsis_compiler.h \
+  ..\Drivers\CMSIS\Include\cmsis_armclang.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_compat.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h

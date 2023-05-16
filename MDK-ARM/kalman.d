@@ -1,0 +1,12 @@
+.\kalman.o: ..\Components\Algorithm\Src\kalman.c
+.\kalman.o: ../Components/Algorithm/Inc/kalman.h
+.\kalman.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\stdint.h
+.\kalman.o: ../Middlewares/ST/ARM/DSP/Inc/arm_math.h
+.\kalman.o: ../Drivers/CMSIS/Include/core_cm4.h
+.\kalman.o: ../Drivers/CMSIS/Include/cmsis_version.h
+.\kalman.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
+.\kalman.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
+.\kalman.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\string.h
+.\kalman.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\math.h
+.\kalman.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\stdlib.h
+.\kalman.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\stdbool.h

@@ -842,17 +842,17 @@ ARM Macro Assembler    Page 13
               00002000 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --apcs=
-interwork --depend=hal_template\startup_stm32f407xx.d -ohal_template\startup_st
+interwork --depend=.\startup_stm32f407xx.d -o.\startup_stm32f407xx.o -I../Core/
 
 
 
 ARM Macro Assembler    Page 14 
 
 
-m32f407xx.o -I../Core/Inc -IC:\Users\21069\AppData\Local\Arm\Packs\Keil\STM32F4
-xx_DFP\2.17.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include --predefine="__UVISION_
-VERSION SETA 538" --predefine="STM32F407xx SETA 1" --list=startup_stm32f407xx.l
-st startup_stm32f407xx.s
+Inc -IC:\Users\21069\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.17.0\Drivers\
+CMSIS\Device\ST\STM32F4xx\Include --predefine="__UVISION_VERSION SETA 538" --pr
+edefine="STM32F407xx SETA 1" --list=startup_stm32f407xx.lst startup_stm32f407xx
+.s
 
 
 

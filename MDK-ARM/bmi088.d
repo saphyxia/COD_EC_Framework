@@ -1,0 +1,9 @@
+.\bmi088.o: ..\Components\Device\Src\bmi088.c
+.\bmi088.o: ../Components/Device/Inc/bmi088.h
+.\bmi088.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\stdint.h
+.\bmi088.o: ../Components/Device/Inc/bmi088_reg.h
+.\bmi088.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\stdbool.h
+.\bmi088.o: ../Bsp/Inc/bsp_gpio.h
+.\bmi088.o: ../Bsp/Inc/bsp_spi.h
+.\bmi088.o: ../Bsp/Inc/bsp_tick.h
+.\bmi088.o: ../Components/Controller/Inc/pid.h

@@ -2,6 +2,7 @@
 "hal_template\api_quaternion.o"
 "hal_template\ins_task.o"
 "hal_template\bsp_can.o"
+"hal_template\bsp_dwt.o"
 "hal_template\bsp_gpio.o"
 "hal_template\bsp_mcu.o"
 "hal_template\bsp_spi.o"
@@ -29,6 +30,7 @@
 "hal_template\stm32f4xx_hal_msp.o"
 "hal_template\stm32f4xx_hal_timebase_tim.o"
 "hal_template\startup_stm32f407xx.o"
+"..\Drivers\CMSIS\Lib\ARM\arm_cortexM4lf_math.lib"
 "hal_template\system_stm32f4xx.o"
 "hal_template\croutine.o"
 "hal_template\event_groups.o"
@@ -69,7 +71,7 @@
 "hal_template\usbd_desc.o"
 "hal_template\usbd_cdc_if.o"
 "hal_template\usbd_conf.o"
-"..\Middlewares\ST\ARM\DSP\Lib\arm_cortexM4lf_math.lib"
+"..\Middlewares\ST\ARM\DSP\Lib\arm_cortexM4l_math.lib"
 --strict --scatter "HAL_Template\HAL_Template.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

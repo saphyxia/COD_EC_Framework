@@ -5,6 +5,11 @@
         "ramp.h": "c",
         "string.h": "c",
         "lpf.h": "c",
-        "pid.h": "c"
+        "pid.h": "c",
+        "ins_task.h": "c",
+        "bsp_dwt.h": "c",
+        "bsp_uart.h": "c",
+        "stdint.h": "c",
+        "arm_math.h": "c"
     }
 }

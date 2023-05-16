@@ -15,4 +15,19 @@ hal_template/ins_task.o: ..\Application\Tasks\Src\INS_Task.c \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\semphr.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\event_groups.h \
-  ..\Application\Tasks\Inc\INS_Task.h
+  ..\Application\Tasks\Inc\INS_Task.h ..\Components\Device\Inc\bmi088.h \
+  ..\Components\Device\Inc\bmi088_reg.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
+  ..\Components\Algorithm\Inc\lpf.h \
+  ..\Application\API\Inc\api_quaternion.h \
+  ..\Components\Algorithm\Inc\kalman.h \
+  ..\Middlewares\ST\ARM\DSP\Inc\arm_math.h \
+  ..\Drivers\CMSIS\Include\core_cm4.h \
+  ..\Drivers\CMSIS\Include\cmsis_version.h \
+  ..\Drivers\CMSIS\Include\cmsis_compiler.h \
+  ..\Drivers\CMSIS\Include\cmsis_armclang.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_compat.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h

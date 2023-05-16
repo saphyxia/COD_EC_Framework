@@ -13,4 +13,4 @@ hal_template/api_quaternion.o: ..\Application\API\Src\api_quaternion.c \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
-  ..\Components\Algorithm\Inc\lpf.h ..\Components\Controller\Inc\pid.h
+  ..\Components\Controller\Inc\pid.h

@@ -386,8 +386,8 @@ static void BMI088_Offset_Update(BMI088_Info_Typedef *BMI088_Info)
       BMI088_Info->offsets_gyroy += BMI088_GYRO_SEN * BMI088_Info->mpu_info.gyroy;
       BMI088_Info->offsets_gyroz += BMI088_GYRO_SEN * BMI088_Info->mpu_info.gyroz;
     }
-    /* waiting 400us */
-    Delay_us(400);
+    /* waiting 1ms */
+    Delay_ms(1);
   }
 
   BMI088_Info->offsets_gyrox = BMI088_Info->offsets_gyrox / 5000.f;

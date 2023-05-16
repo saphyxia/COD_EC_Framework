@@ -1,0 +1,10 @@
+.\bsp_mcu.o: ..\Bsp\Src\bsp_mcu.c
+.\bsp_mcu.o: ../Bsp/Inc/bsp_mcu.h
+.\bsp_mcu.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\stdint.h
+.\bsp_mcu.o: ../Bsp/Inc/bsp_can.h
+.\bsp_mcu.o: ../Bsp/Inc/bsp_tim.h
+.\bsp_mcu.o: ../Bsp/Inc/bsp_uart.h
+.\bsp_mcu.o: ../Components/Device/Inc/bmi088.h
+.\bsp_mcu.o: ../Components/Device/Inc/bmi088_reg.h
+.\bsp_mcu.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\stdbool.h
+.\bsp_mcu.o: ../Bsp/Inc/bsp_dwt.h
