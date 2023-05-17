@@ -10,6 +10,10 @@
         "bsp_dwt.h": "c",
         "bsp_uart.h": "c",
         "stdint.h": "c",
-        "arm_math.h": "c"
+        "arm_math.h": "c",
+        "bsp_can.h": "c",
+        "stm32f4xx.h": "c",
+        "can.h": "c",
+        "usart.h": "c"
     }
 }

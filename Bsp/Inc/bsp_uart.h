@@ -22,5 +22,9 @@
 
 
 /* Exported functions prototypes ---------------------------------------------*/
+/**
+  * @brief  Configures the USART.
+  */
+extern void BSP_USART_Init(void);
 
 #endif //BSP_UART_H

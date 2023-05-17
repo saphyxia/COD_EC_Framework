@@ -17,8 +17,8 @@
 #include "bsp_can.h"
 #include "bsp_tim.h"
 #include "bsp_uart.h"
-#include "bmi088.h"
 #include "bsp_dwt.h"
+#include "bmi088.h"
 
 /**
   * @brief Initializes the MCU.
@@ -28,6 +28,8 @@ void MCU_Init(void)
   /* ----------------------- BSP Init ----------------------- */
   Bsp_Tim_Init();
   BSP_DWT_Init(168);
+  BSP_CAN_Init();
+  BSP_USART_Init();
   /* ----------------------- Device Init ----------------------- */
   BMI088_Init();
 }
