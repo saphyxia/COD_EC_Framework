@@ -15,14 +15,19 @@
 /* Includes ------------------------------------------------------------------*/
 #include "bsp_uart.h"
 #include "usart.h"
+#include "remote_control.h"
 
-uint8_t SBUS_RX_Buf[2][36];
+/* Private variables ---------------------------------------------------------*/
+/**
+ * @brief remote control usart RxDMA MultiBuffer
+*/
+uint8_t SBUS_MultiRx_Buf[2][SBUS_RX_BUF_NUM];
 
-
+/* Private function prototypes -----------------------------------------------*/
 /**
   * @brief  Starts the multi_buffer DMA Transfer with interrupt enabled.
   */
-static void USART_RxDMA_MultiBufferStart(UART_HandleTypeDef *huart, uint32_t SrcAddress, uint32_t DstAddress, uint32_t SecondMemAddress, uint32_t DataLength);
+static void USART_RxDMA_MultiBufferStart(UART_HandleTypeDef *, uint32_t *, uint32_t *, uint32_t *, uint32_t);
 
 
 /**
@@ -32,26 +37,27 @@ static void USART_RxDMA_MultiBufferStart(UART_HandleTypeDef *huart, uint32_t Src
   */
 void BSP_USART_Init(void)
 {
-	USART_RxDMA_MultiBufferStart(&huart3,huart3.Instance->DR,(uint32_t)SBUS_RX_Buf[0],(uint32_t)SBUS_RX_Buf[1],36);
+  /* Starts the remote control multi_buffer DMA Transfer with interrupt enabled. */
+	USART_RxDMA_MultiBufferStart(&huart3,(uint32_t *)&(huart3.Instance->DR),(uint32_t *)SBUS_MultiRx_Buf[0],(uint32_t *)SBUS_MultiRx_Buf[1],SBUS_RX_BUF_NUM);
 }
 
 /**
   * @brief  Starts the multi_buffer DMA Transfer with interrupt enabled.
   * @param  huart       pointer to a UART_HandleTypeDef structure that contains
   *                     the configuration information for the specified USART Stream.  
-  * @param  SrcAddress The source memory Buffer address
-  * @param  DstAddress The destination memory Buffer address
-  * @param  SecondMemAddress The second memory Buffer address in case of multi buffer Transfer  
+  * @param  SrcAddress pointer to The source memory Buffer address
+  * @param  DstAddress pointer to The destination memory Buffer address
+  * @param  SecondMemAddress pointer to The second memory Buffer address in case of multi buffer Transfer  
   * @param  DataLength The length of data to be transferred from source to destination
   * @retval none
   */
-static void USART_RxDMA_MultiBufferStart(UART_HandleTypeDef *huart, uint32_t SrcAddress, uint32_t DstAddress, uint32_t SecondMemAddress, uint32_t DataLength)
-{
-	/* configuare the receptionType TOIDLE */
+static void USART_RxDMA_MultiBufferStart(UART_HandleTypeDef *huart, uint32_t *SrcAddress, uint32_t *DstAddress, uint32_t *SecondMemAddress, uint32_t DataLength)
+{	
+  /* configuare the huart Reception Type TOIDLE */
 	huart->ReceptionType = HAL_UART_RECEPTION_TOIDLE;
-	
-	/* configuare the receive size */
-	huart->RxXferSize = DataLength;
+
+  /* configuare the huart Receicve Size */
+	huart->RxXferSize = SBUS_RX_BUF_NUM;
 	
   /* Enable the DMA transfer for the receiver request */
   SET_BIT(huart->Instance->CR3, USART_CR3_DMAR);
@@ -65,13 +71,13 @@ static void USART_RxDMA_MultiBufferStart(UART_HandleTypeDef *huart, uint32_t Src
   }while(huart->hdmarx->Instance->CR & DMA_SxCR_EN);
 
   /* Configure the source memory Buffer address  */
-  huart->hdmarx->Instance->PAR = SrcAddress;
+  huart->hdmarx->Instance->PAR = (uint32_t)SrcAddress;
 
   /* Configure the destination memory Buffer address */
-  huart->hdmarx->Instance->M0AR = DstAddress;
+  huart->hdmarx->Instance->M0AR = (uint32_t)DstAddress;
 
   /* Configure DMA Stream destination address */
-  huart->hdmarx->Instance->M1AR = SecondMemAddress;
+  huart->hdmarx->Instance->M1AR = (uint32_t)SecondMemAddress;
 
   /* Configure the length of data to be transferred from source to destination */
   huart->hdmarx->Instance->NDTR = DataLength;
@@ -84,26 +90,78 @@ static void USART_RxDMA_MultiBufferStart(UART_HandleTypeDef *huart, uint32_t Src
 }
 
 /**
-  * @brief  Reception Event Callback (Rx event notification called after use of advanced reception service).
+  * @brief  USER USART3 Reception Event Callback.
   * @param  huart UART handle
   * @param  Size  Number of data available in application reception buffer (indicates a position in
   *               reception buffer until which, data are available)
   * @retval None
   */
-void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
+static void USER_USART3_RxHandler(UART_HandleTypeDef *huart,uint16_t Size)
 {
-	/* configuare the receptionType TOIDLE */
+	/* judge the UART handle */
+  if(huart->Instance != USART3)
+  {
+    return;
+  }
+
+  /* Current memory buffer used is Memory 0 */
+  if(((((DMA_Stream_TypeDef  *)huart->hdmarx->Instance)->CR) & DMA_SxCR_CT ) == RESET)
+  {
+			//Disable DMA 
+			__HAL_DMA_DISABLE(huart->hdmarx);
+
+			huart->hdmarx->Instance->CR |= DMA_SxCR_CT;
+      /* reset the receive count */
+      __HAL_DMA_SET_COUNTER(huart->hdmarx,SBUS_RX_BUF_NUM);
+
+      if(Size == RC_FRAME_LENGTH)
+      {
+        SBUS_TO_RC(SBUS_MultiRx_Buf[0],&remote_ctrl);
+      }
+  }
+  /* Current memory buffer used is Memory 1 */
+  else
+  {
+			//Disable DMA 
+			__HAL_DMA_DISABLE(huart->hdmarx);
+
+			huart->hdmarx->Instance->CR &= ~(DMA_SxCR_CT);
+		
+      /* reset the receive count */
+      __HAL_DMA_SET_COUNTER(huart->hdmarx,SBUS_RX_BUF_NUM);
+
+      if(Size == RC_FRAME_LENGTH)
+      {
+        SBUS_TO_RC(SBUS_MultiRx_Buf[1],&remote_ctrl);
+      }
+
+  }
+}
+
+/**
+  * @brief  Rx Transfer completed callbacks.
+  * @param  huart  Pointer to a UART_HandleTypeDef structure that contains
+  *                the configuration information for the specified UART module.
+  * @retval None
+  */
+void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart,uint16_t Size)
+{
+
+	if(huart->Instance == USART3)
+	{
+		USER_USART3_RxHandler(huart,Size);
+	}
+
+  /* reset the Reception Type */
 	huart->ReceptionType = HAL_UART_RECEPTION_TOIDLE;
+	
+  /* Enalbe IDLE interrupt */
+  __HAL_UART_ENABLE_IT(huart, UART_IT_IDLE);
 	
   /* Enable the DMA transfer for the receiver request */
   SET_BIT(huart->Instance->CR3, USART_CR3_DMAR);
 	
-  /* Enalbe IDLE interrupt */
-  __HAL_UART_ENABLE_IT(huart, UART_IT_IDLE);
-
-	if(huart == &huart3)
-	{
-		
-	}
+  /* Enable DMA */
+  __HAL_DMA_ENABLE(huart->hdmarx);
 }
 

@@ -4,15 +4,11 @@
             "name": "HAL_Template",
             "includePath": [
                 "c:\\EC\\WorkSpace\\HAL_Template\\Core\\Inc",
-                "c:\\EC\\WorkSpace\\HAL_Template\\USB_DEVICE\\App",
-                "c:\\EC\\WorkSpace\\HAL_Template\\USB_DEVICE\\Target",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Drivers\\STM32F4xx_HAL_Driver\\Inc",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Drivers\\STM32F4xx_HAL_Driver\\Inc\\Legacy",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Middlewares\\Third_Party\\FreeRTOS\\Source\\include",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Middlewares\\Third_Party\\FreeRTOS\\Source\\CMSIS_RTOS",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Middlewares\\Third_Party\\FreeRTOS\\Source\\portable\\RVDS\\ARM_CM4F",
-                "c:\\EC\\WorkSpace\\HAL_Template\\Middlewares\\ST\\STM32_USB_Device_Library\\Core\\Inc",
-                "c:\\EC\\WorkSpace\\HAL_Template\\Middlewares\\ST\\STM32_USB_Device_Library\\Class\\CDC\\Inc",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Drivers\\CMSIS\\Device\\ST\\STM32F4xx\\Include",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Drivers\\CMSIS\\Include",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Application\\API\\Inc",
@@ -34,8 +30,6 @@
                 "c:\\EC\\WorkSpace\\HAL_Template\\Middlewares\\Third_Party\\FreeRTOS\\Source",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Middlewares\\Third_Party\\FreeRTOS\\Source\\portable\\MemMang",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Drivers\\STM32F4xx_HAL_Driver\\Src",
-                "c:\\EC\\WorkSpace\\HAL_Template\\Middlewares\\ST\\STM32_USB_Device_Library\\Core\\Src",
-                "c:\\EC\\WorkSpace\\HAL_Template\\Middlewares\\ST\\STM32_USB_Device_Library\\Class\\CDC\\Src",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Middlewares\\ST\\ARM\\DSP\\Lib"
             ],
             "defines": [

@@ -33,9 +33,6 @@
 .\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 .\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 .\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
-.\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
-.\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
-.\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
 .\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 .\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 .\main.o: ../Core/Inc/FreeRTOSConfig.h
@@ -55,11 +52,5 @@
 .\main.o: ../Core/Inc/spi.h
 .\main.o: ../Core/Inc/tim.h
 .\main.o: ../Core/Inc/usart.h
-.\main.o: ../USB_DEVICE/App/usb_device.h
-.\main.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
-.\main.o: ../USB_DEVICE/Target/usbd_conf.h
-.\main.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\stdio.h
-.\main.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\stdlib.h
-.\main.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\string.h
 .\main.o: ../Core/Inc/gpio.h
 .\main.o: ../Bsp/Inc/bsp_mcu.h
