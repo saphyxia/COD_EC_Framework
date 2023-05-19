@@ -127,7 +127,6 @@ static void USER_USART3_RxHandler(UART_HandleTypeDef *huart,uint16_t Size)
       {
         SBUS_TO_RC(SBUS_MultiRx_Buf[1],&remote_ctrl);
       }
-
   }
 }
 //------------------------------------------------------------------------------

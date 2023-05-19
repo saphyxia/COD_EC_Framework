@@ -30,7 +30,19 @@ HAL-Template
 
 ## 模块功能说明
 
-待完善
+### IMU 惯性测量单元
+
+* 模块参考[哈尔滨工程大学创梦之翼战队惯导姿态解算项目](https://github.com/WangHongxi2001/RoboMaster-C-Board-INS-Example)
+* 详情见[Quaternion](./Docs/Quaternion.pdf)
+
+适配常见问题：
+
+1. STM32CubeMX添加DSP库
+      1. 点击[Software Packs]/[Select Components]，在弹出的[Software Packs Component Selector]窗口中，勾选[STMicroelectronics.X-CUBE-ALGOBUILD]/[DSP Library Library]/[DSP Library 1.3.0];
+      2. 关闭[Software Packs Component Selector]窗口，在[Middle and Software Packs]/[X-CUBE-ALGOBUILD]栏勾选[DSP Library Library]；
+      3. 此时在工程中默认添加的LIB文件为arm_cortexM4l_math.lib(Little endian on Cortex-M4)，而实际需求为arm_cortexM4lf_math.lib (Little endian and Floating Point Unit on Cortex-M4)，后者支持浮点单元。
+2. malloc函数内存申请失败
+在startup_stm32f407xx.s中分配的堆空间只有0x0200个字节，而在初始化扩展卡尔曼时所申请的空间超过了0x0200，需要在该文件中修改Heap_Size以达到使用需求。
 
 ## 贡献
 
