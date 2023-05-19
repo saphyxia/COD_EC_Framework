@@ -18,10 +18,7 @@
 #include "remote_control.h"
 
 /* Private variables ---------------------------------------------------------*/
-/**
- * @brief remote control usart RxDMA MultiBuffer
-*/
-uint8_t SBUS_MultiRx_Buf[2][SBUS_RX_BUF_NUM];
+
 
 /* Private function prototypes -----------------------------------------------*/
 /**
@@ -40,6 +37,7 @@ void BSP_USART_Init(void)
   /* Starts the remote control multi_buffer DMA Transfer with interrupt enabled. */
 	USART_RxDMA_MultiBufferStart(&huart3,(uint32_t *)&(huart3.Instance->DR),(uint32_t *)SBUS_MultiRx_Buf[0],(uint32_t *)SBUS_MultiRx_Buf[1],SBUS_RX_BUF_NUM);
 }
+//------------------------------------------------------------------------------
 
 /**
   * @brief  Starts the multi_buffer DMA Transfer with interrupt enabled.
@@ -88,6 +86,7 @@ static void USART_RxDMA_MultiBufferStart(UART_HandleTypeDef *huart, uint32_t *Sr
   /* Enable DMA */
   __HAL_DMA_ENABLE(huart->hdmarx);
 }
+//------------------------------------------------------------------------------
 
 /**
   * @brief  USER USART3 Reception Event Callback.
@@ -98,12 +97,6 @@ static void USART_RxDMA_MultiBufferStart(UART_HandleTypeDef *huart, uint32_t *Sr
   */
 static void USER_USART3_RxHandler(UART_HandleTypeDef *huart,uint16_t Size)
 {
-	/* judge the UART handle */
-  if(huart->Instance != USART3)
-  {
-    return;
-  }
-
   /* Current memory buffer used is Memory 0 */
   if(((((DMA_Stream_TypeDef  *)huart->hdmarx->Instance)->CR) & DMA_SxCR_CT ) == RESET)
   {
@@ -137,6 +130,7 @@ static void USER_USART3_RxHandler(UART_HandleTypeDef *huart,uint16_t Size)
 
   }
 }
+//------------------------------------------------------------------------------
 
 /**
   * @brief  Rx Transfer completed callbacks.
@@ -164,4 +158,5 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart,uint16_t Size)
   /* Enable DMA */
   __HAL_DMA_ENABLE(huart->hdmarx);
 }
+//------------------------------------------------------------------------------
 

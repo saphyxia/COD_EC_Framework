@@ -16,7 +16,17 @@
 #include "remote_control.h"
 #include "string.h"
 
+
+/* Exported variables ---------------------------------------------------------*/
+/**
+ * @brief remote control structure variable
+ */
 Remote_Info_Typedef remote_ctrl;
+
+/**
+ * @brief remote control usart RxDMA MultiBuffer
+ */
+uint8_t SBUS_MultiRx_Buf[2][SBUS_RX_BUF_NUM];
 
 /**
   * @brief  convert the remote control received message
@@ -61,6 +71,7 @@ void SBUS_TO_RC(volatile const uint8_t *sbus_buf, Remote_Info_Typedef  *remote_c
 		/* reset the online count */
 		remote_ctrl->online_cnt = 0xFA;
 }
+//------------------------------------------------------------------------------
 
 /**
   * @brief  clear the remote control data while the device offline
@@ -85,4 +96,5 @@ void Remote_Message_Moniter(Remote_Info_Typedef  *remote_ctrl)
     remote_ctrl->online_cnt--;
   }
 }
+//------------------------------------------------------------------------------
 

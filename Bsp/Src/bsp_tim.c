@@ -36,7 +36,6 @@ void Bsp_Tim_Init(void)
 }
 //------------------------------------------------------------------------------
 
-
 /**
   * @brief  Set the BMI088 Heat_Power TIM Capture Compare Register value.
   * @param  compare specifies the Capture Compare register new value.
