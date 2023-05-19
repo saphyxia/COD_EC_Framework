@@ -20,7 +20,84 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stdint.h"
+#include "stdbool.h"
 
+
+/* Exported types ------------------------------------------------------------*/
+/**
+ * @brief typedef enum that contains the Error status for Motor Device.
+ */
+typedef enum
+{
+  MOTOR_ERROR_NONE = 0x00U,   /*!< no error */
+  MOTOR_CAN_OFFLINE = 0x01U,    /*!< CAN transfer failed */
+  MOTOR_OVER_TEMPERATURE = 0x02U,   /*!< abnormal motor temperature */
+}Motor_Status_e;
+
+/**
+ * @brief typedef enum that contains the type of RMD Motor Device.
+ */
+typedef enum{
+	  RMD_L9025,
+    RMD_MOTOR_TYPE_NUM,
+}RMD_Motor_Type_e;
+
+/**
+ * @brief typedef enum that contains the type of DJI Motor Device.
+ */
+typedef enum{
+    DJI_GM6020,
+    DJI_M3508,
+    DJI_M2006,
+    DJI_MOTOR_TYPE_NUM,
+}DJI_Motor_Type_e;
+
+/**
+ * @brief typedef structure that contains the information for the Motor Error handler.
+ */
+typedef struct 
+{
+  uint16_t ErrorCount;    /*!< Error status judgment count */
+  Motor_Status_e Status;   /*!< Error status */
+}Motor_ErrorrHandler_Typedef;
+
+/**
+ * @brief typedef structure that contains the General information for the Motor Device.
+ */
+typedef struct 
+{
+  bool Initlized;   /*!< init flag */
+
+  uint32_t StdId;   /*!< Specifies CAN transfer identifier */
+
+  int16_t  current;   /*!< Motor electric current */
+  int16_t  velocity;    /*!< Motor rotate velocity */
+  int16_t  encoder;   /*!< Motor encoder angle */
+  int16_t  last_encoder;   /*!< previous Motor encoder angle */
+  float    angle;   /*!< Motor angle in degree */
+  uint8_t  temperature;   /*!< Motor Temperature */
+}Motor_GeneralInfo_Typedef;
+
+/**
+ * @brief typedef structure that contains the information for the DJI Motor Device.
+ */
+typedef struct
+{
+    DJI_Motor_Type_e Type;   /*!< Type of Motor */
+		Motor_GeneralInfo_Typedef Data;   /*!< information for the Motor Device */
+		Motor_ErrorrHandler_Typedef ERRORHandler;   /*!< information for the Motor Error */
+}DJI_Motor_Info_Typedef;
+
+/**
+ * @brief typedef structure that contains the information for the DJI Motor Device.
+ */
+typedef struct
+{
+		uint8_t order;   /*!< Motor feedback order */
+    RMD_Motor_Type_e Type;   /*!< Type of Motor */
+		Motor_GeneralInfo_Typedef Data;   /*!< information for the Motor Device */
+		Motor_ErrorrHandler_Typedef ERRORHandler;   /*!< information for the Motor Error */
+}RMD_L9025_Info_Typedef;
 
 /* Exported functions prototypes ---------------------------------------------*/
 

@@ -26,12 +26,12 @@
  *         contains the parameters for the PID controller.
  * @retval pid error status
  */
-static PID_ErrorType_e PID_Param_Init(PID_Info_TypeDef *Pid,float para[PID_PARAMETER_NUM])
+static PID_Status_e PID_Param_Init(PID_Info_TypeDef *Pid,float para[PID_PARAMETER_NUM])
 {
     /* judge the pointer of PID Parameters */
     if(Pid->type == PID_Type_None || para == NULL)
     {
-      return PID_ERROR_INIT;
+      return PID_FAILED_INIT;
     }
 
     /* Initializes the pid Parameters ------------------*/
@@ -43,7 +43,7 @@ static PID_ErrorType_e PID_Param_Init(PID_Info_TypeDef *Pid,float para[PID_PARAM
     Pid->param.limitOutput = para[5];
 
     /* clear the pid error judgement count */
-    Pid->ERRORHandler.ERRORCount = 0;
+    Pid->ERRORHandler.ErrorCount = 0;
 
     return PID_ERROR_NONE;
 }
@@ -86,7 +86,7 @@ void PID_Init(PID_Info_TypeDef *Pid,PID_Type_e type,float para[PID_PARAMETER_NUM
     Pid->PID_Param_Init = PID_Param_Init;
 
 		Pid->PID_Calc_Clear(Pid);
-    Pid->ERRORHandler.ERRORType = Pid->PID_Param_Init(Pid, para);
+    Pid->ERRORHandler.Status = Pid->PID_Param_Init(Pid, para);
 }
 //------------------------------------------------------------------------------
 
@@ -102,7 +102,7 @@ static void PID_ErrorHandle(PID_Info_TypeDef *Pid)
 		/* Judge NAN/INF */
 		if(isnan(Pid->Output) == true || isinf(Pid->Output)==true)
 		{
-				Pid->ERRORHandler.ERRORType = PID_ERROR_NANINF;
+				Pid->ERRORHandler.Status = PID_CALC_NANINF;
 		}
 }
 //------------------------------------------------------------------------------
@@ -119,7 +119,7 @@ float f_PID_Calculate(PID_Info_TypeDef *Pid, float target,float measure)
 {		
   /* update the pid error status */
   PID_ErrorHandle(Pid);
-  if(Pid->ERRORHandler.ERRORType != PID_ERROR_NONE)
+  if(Pid->ERRORHandler.Status != PID_ERROR_NONE)
   {
     Pid->PID_Calc_Clear(Pid);
     return 0;

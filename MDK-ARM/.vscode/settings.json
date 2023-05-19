@@ -15,6 +15,11 @@
         "stm32f4xx.h": "c",
         "can.h": "c",
         "usart.h": "c",
-        "remote_control.h": "c"
+        "remote_control.h": "c",
+        "motor.h": "c",
+        "stdbool.h": "c",
+        "math.h": "c",
+        "limits": "c",
+        "memory": "c"
     }
 }

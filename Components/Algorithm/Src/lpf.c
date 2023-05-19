@@ -47,10 +47,10 @@ float LowPassFilter1p_Update(LowPassFilter1p_Info_TypeDef *lpf,float input)
 {
   lpf->input = input;
 
-  if(lpf->init == false)
+  if(lpf->Initialized == false)
   {
     lpf->output = lpf->input;
-    lpf->init = true;
+    lpf->Initialized = true;
   }
 
   lpf->output = lpf->alpha / (lpf->alpha + lpf->frame_period) * lpf->output 
@@ -91,12 +91,12 @@ float LowPassFilter2p_Update(LowPassFilter2p_Info_TypeDef *lpf,float input)
 {
 	lpf->input = input;
   
-  if(lpf->init == false)
+  if(lpf->Initialized == false)
   {
     lpf->output[0] = lpf->input;
     lpf->output[1] = lpf->input;
     lpf->output[2] = lpf->input;
-    lpf->init = true;
+    lpf->Initialized = true;
   }
   
 	lpf->output[0] = lpf->output[1];

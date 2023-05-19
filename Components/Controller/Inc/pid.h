@@ -52,10 +52,10 @@
 typedef enum
 {
     PID_ERROR_NONE = 0x00U,        /*!< No error */
-    PID_ERROR_INIT = 0x01U,        /*!< Initialization failed */
-		PID_ERROR_NANINF = 0x02U,      /*!< Not-a-number (NaN) or infinity is generated */
-    PID_ERRORTYPE_NUM,
-}PID_ErrorType_e;
+    PID_FAILED_INIT = 0x01U,        /*!< Initialization failed */
+		PID_CALC_NANINF = 0x02U,      /*!< Not-a-number (NaN) or infinity is generated */
+    PID_Status_NUM,
+}PID_Status_e;
 
 /**
  * @brief typedef enum that contains the type for the pid controller.
@@ -73,8 +73,8 @@ typedef enum
  */
 typedef struct
 {
-    uint16_t ERRORCount;          /*!< error status judgment count */
-    PID_ErrorType_e ERRORType;    /*!< error type */
+    uint16_t ErrorCount;    /*!< Error status judgment count */
+    PID_Status_e Status;    /*!< Error Status */
 }PID_ErrorHandler_Typedef;
 
 /**
@@ -120,7 +120,7 @@ typedef struct _PID_TypeDef
      *         contains the parameters for the PID controller.
      * @retval pid error status
      */
-    PID_ErrorType_e (*PID_Param_Init)(struct _PID_TypeDef *pid,float *para);
+    PID_Status_e (*PID_Param_Init)(struct _PID_TypeDef *pid,float *para);
 
     /**
      * @brief pointer for the function that Clear the pid Calculation.

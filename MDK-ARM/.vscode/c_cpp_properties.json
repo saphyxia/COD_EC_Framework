@@ -18,7 +18,7 @@
                 "c:\\EC\\WorkSpace\\HAL_Template\\Components\\Controller\\Inc",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Components\\Device\\Inc",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Middlewares\\ST\\ARM\\DSP\\Inc",
-                "C:\\Keil_v5\\ARM\\ARMCC\\include",
+                "C:\\Keil_v5\\ARM\\ARMCompiler506u7\\include",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Application\\API\\Src",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Application\\Tasks\\Src",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Bsp\\Src",

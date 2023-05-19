@@ -27,7 +27,7 @@
  */
 typedef struct
 {
-    bool init;            /*!< init flag */
+    bool Initialized;     /*!< init flag */
     float input;          /*!< input value */
     float output;         /*!< output value */
     float alpha;          /*!< filter coefficient */
@@ -39,7 +39,7 @@ typedef struct
  */
 typedef struct 
 {
-    bool init;          /*!< init flag */
+    bool Initialized;  /*!< init flag */
     float input;       /*!< input value */
     float output[3];   /*!< output value */
     float alpha[3];    /*!< filter coefficient */
