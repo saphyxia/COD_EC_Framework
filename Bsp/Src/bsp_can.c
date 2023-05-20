@@ -21,7 +21,16 @@
 /**
  * @brief the structure that contains the Information of CAN Receive.
  */
-static CAN_RxFrameTypeDef USER_CAN_RxInstance;
+static CAN_RxHeaderTypeDef USER_CAN_RxInstance;
+/**
+ * @brief the array that contains the Information of CAN Receive data.
+ */
+static uint8_t CAN_RxFrameData[8];
+
+/**
+ * @brief the structure that contains the Information of CAN Transmit.
+ */
+static CAN_TxHeaderTypeDef USER_CAN_TxInstance;
 
 /**
   * @brief  Configures the CAN Filter.
@@ -76,23 +85,31 @@ void BSP_CAN_Init(void)
 
 /**
   * @brief  USER function to transmit the Specifies message.
-  * @param  TxMessage pointer to the structure that contains the Information of CAN transmit.
+	* @param  Instance: pointer to the CAN Register base address
+	* @param  data: pointer to the CAN transmit data
   * @retval None
   */
-void USER_CAN_TxMessage(CAN_TxFrameTypeDef *TxMessage)
+void USER_CAN_TxMessage(CAN_TypeDef *Instance,uint8_t data[8])
 {
   static uint32_t TxMailbox = 0;
 
   /* Add a message to the first free Tx mailbox and activate the corresponding transmission request. */
-	HAL_CAN_AddTxMessage(TxMessage->hcan, &TxMessage->header, TxMessage->data, &TxMailbox);
+	if(Instance == CAN1)
+	{
+		HAL_CAN_AddTxMessage(&hcan1, &USER_CAN_TxInstance, data, &TxMailbox);
+	}
+	else if(Instance == CAN2)
+	{
+		HAL_CAN_AddTxMessage(&hcan2, &USER_CAN_TxInstance, data, &TxMailbox);
+	}
 }
 //------------------------------------------------------------------------------
 
 /**
   * @brief  USER function to converting the received message.
-  * @param  Instance pointer to the CAN Register base address
-  * @param  StdId Specifies the standard identifier.
-  * @param  data array that contains the received massage.
+	* @param  Instance: pointer to the CAN Register base address
+	* @param  StdId: Specifies the standard identifier.
+	* @param  data: array that contains the received massage.
   * @retval None
   */
 static void USER_CAN_RxMessageHandler(CAN_TypeDef *Instance,uint32_t *StdId,uint8_t data[8])
@@ -117,9 +134,10 @@ static void USER_CAN_RxMessageHandler(CAN_TypeDef *Instance,uint32_t *StdId,uint
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
   /* Get an CAN frame from the Rx FIFO zone into the message RAM. */
-  HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &USER_CAN_RxInstance.header, USER_CAN_RxInstance.data);
+  HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &USER_CAN_RxInstance, CAN_RxFrameData);
+		
   /* update the receive data */
-  USER_CAN_RxMessageHandler(USER_CAN_RxInstance.hcan->Instance,&USER_CAN_RxInstance.header.StdId,USER_CAN_RxInstance.data);
+  USER_CAN_RxMessageHandler(hcan->Instance,&USER_CAN_RxInstance.StdId,CAN_RxFrameData);
 }
 //------------------------------------------------------------------------------
 

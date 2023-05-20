@@ -41,6 +41,12 @@ typedef struct
 	int16_t YawRoundCount;
 }INS_Info_Typedef;
 
+/* Exported variables ---------------------------------------------------------*/
+/**
+  * @brief the structure that contains the information for the INS.
+  */
+extern INS_Info_Typedef INS_Info; 
+
 
 /* Exported functions prototypes ---------------------------------------------*/
 

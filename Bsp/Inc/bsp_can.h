@@ -22,22 +22,6 @@
 #include "stm32f4xx.h"
 
 /* Exported types ------------------------------------------------------------*/
-/**
- * @brief typedef structure that contains the Information of CAN transmit.
- */
-typedef struct {
-		CAN_HandleTypeDef *hcan;
-    CAN_RxHeaderTypeDef header;
-    uint8_t 			data[8];
-} CAN_RxFrameTypeDef;
-/**
- * @brief typedef structure that contains the Information of CAN Receive.
- */
-typedef struct {
-		CAN_HandleTypeDef *hcan;
-    CAN_TxHeaderTypeDef header;
-    uint8_t				data[8];
-}CAN_TxFrameTypeDef;
 
 /* Exported functions prototypes ---------------------------------------------*/
 /**
@@ -47,8 +31,7 @@ extern void BSP_CAN_Init(void);
 /**
   * @brief  USER function to transmit the Specifies message.
   */
-extern void USER_CAN_TxMessage(CAN_TxFrameTypeDef *TxMessage);
-
+extern void USER_CAN_TxMessage(CAN_TypeDef *Instance,uint8_t data[8]);
 
 #endif //BSP_CAN_H
 
