@@ -51,20 +51,20 @@ HAL-Template
 * 在`./Device/Src/minipc.c`中封装了适配[rm_serial_driver](https://github.com/chenjunnn/rm_serial_driver)(！注意：仍在更新中)的数据交互函数
   
   * 其中
-  	```c
-  	void MiniPC_RecvFrameInfo(uint8_t* Buf, uint32_t *Len)
-  	```
+    ```c
+    void MiniPC_RecvFrameInfo(uint8_t* Buf, uint32_t *Len)
+    ```
   	函数在`Application/User/USB_DEVICE/App/usbd_cdc_if.c`的
-    ~~~c
+    ```c
     static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
-    ~~~
+    ```
   	函数中调用,实现了上位机数据的接收。
   	
   * 此外
-  	```c
-  	void MiniPC_SendFrameInfo(uint8_t* Buf, uint32_t *Len)
-  	```
-		函数应在RTOS任务中以500Hz的频率实现下位机数据的发送。
+    ```c
+    void MiniPC_SendFrameInfo(uint8_t* Buf, uint32_t *Len)
+    ```
+	  函数应在RTOS任务中以500Hz的频率实现下位机数据的发送。
 
 ## 贡献
 
