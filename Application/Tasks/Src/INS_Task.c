@@ -21,9 +21,6 @@
 #include "pid.h"
 #include "api_quaternion.h"
 
-#include "minipc.h"
-
-
 /**
   * @brief the structure that contains the information for the INS.
   */

@@ -32,4 +32,3 @@
 .\hal_template\ins_task.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\string.h
 .\hal_template\ins_task.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\math.h
 .\hal_template\ins_task.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\stdlib.h
-.\hal_template\ins_task.o: ../Components/Device/Inc/minipc.h
