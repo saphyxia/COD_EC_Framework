@@ -1,7 +1,9 @@
-hal_template/bmi088.o: ..\Components\Device\Src\bmi088.c \
-  ..\Components\Device\Inc\bmi088.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
-  ..\Components\Device\Inc\bmi088_reg.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h ..\Bsp\Inc\bsp_gpio.h \
-  ..\Bsp\Inc\bsp_spi.h ..\Bsp\Inc\bsp_tick.h \
-  ..\Components\Controller\Inc\pid.h
+.\hal_template\bmi088.o: ..\Components\Device\Src\bmi088.c
+.\hal_template\bmi088.o: ../Components/Device/Inc/bmi088.h
+.\hal_template\bmi088.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\stdint.h
+.\hal_template\bmi088.o: ../Components/Device/Inc/bmi088_reg.h
+.\hal_template\bmi088.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\stdbool.h
+.\hal_template\bmi088.o: ../Bsp/Inc/bsp_gpio.h
+.\hal_template\bmi088.o: ../Bsp/Inc/bsp_spi.h
+.\hal_template\bmi088.o: ../Bsp/Inc/bsp_tick.h
+.\hal_template\bmi088.o: ../Components/Controller/Inc/pid.h

@@ -18,7 +18,11 @@
                 "c:\\EC\\WorkSpace\\HAL_Template\\Components\\Controller\\Inc",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Components\\Device\\Inc",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Middlewares\\ST\\ARM\\DSP\\Inc",
-                "C:\\Keil_v5\\ARM\\ARMCompiler506u7\\include",
+                "c:\\EC\\WorkSpace\\HAL_Template\\USB_DEVICE\\App",
+                "c:\\EC\\WorkSpace\\HAL_Template\\USB_DEVICE\\Target",
+                "c:\\EC\\WorkSpace\\HAL_Template\\Middlewares\\ST\\STM32_USB_Device_Library\\Core\\Inc",
+                "c:\\EC\\WorkSpace\\HAL_Template\\Middlewares\\ST\\STM32_USB_Device_Library\\Class\\CDC\\Inc",
+                "C:\\Keil_v5\\ARM\\ARMCC\\include",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Application\\API\\Src",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Application\\Tasks\\Src",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Bsp\\Src",
@@ -30,7 +34,9 @@
                 "c:\\EC\\WorkSpace\\HAL_Template\\Middlewares\\Third_Party\\FreeRTOS\\Source",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Middlewares\\Third_Party\\FreeRTOS\\Source\\portable\\MemMang",
                 "c:\\EC\\WorkSpace\\HAL_Template\\Drivers\\STM32F4xx_HAL_Driver\\Src",
-                "c:\\EC\\WorkSpace\\HAL_Template\\Middlewares\\ST\\ARM\\DSP\\Lib"
+                "c:\\EC\\WorkSpace\\HAL_Template\\Middlewares\\ST\\ARM\\DSP\\Lib",
+                "c:\\EC\\WorkSpace\\HAL_Template\\Middlewares\\ST\\STM32_USB_Device_Library\\Core\\Src",
+                "c:\\EC\\WorkSpace\\HAL_Template\\Middlewares\\ST\\STM32_USB_Device_Library\\Class\\CDC\\Src"
             ],
             "defines": [
                 "USE_HAL_DRIVER",

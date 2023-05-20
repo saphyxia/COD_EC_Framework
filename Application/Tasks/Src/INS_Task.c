@@ -21,6 +21,9 @@
 #include "pid.h"
 #include "api_quaternion.h"
 
+#include "minipc.h"
+
+
 /**
   * @brief the structure that contains the information for the INS.
   */
@@ -122,7 +125,7 @@ void INS_Task(void const * argument)
     INS_Info.yaw_gyro = INS_Info.gyro[2]*57.295779513f;
     INS_Info.rol_gyro = INS_Info.gyro[1]*57.295779513f;
 		
-		if(systick*2 == 0)
+		if(systick%2 == 0)
 		{
 			BMI088_Temp_Control(BMI088_Info.temperature);
 		}
@@ -163,3 +166,5 @@ static void BMI088_Temp_Control(float temp)
 	Heat_Power_Control((uint16_t)TempCtrl_PID.Output);
 }
 //------------------------------------------------------------------------------
+
+

@@ -46,22 +46,22 @@ ARM Macro Assembler    Page 1
    29 00000000         ;   <o> Stack Size (in Bytes) <0x0-0xFFFFFFFF:8>
    30 00000000         ; </h>
    31 00000000         
-   32 00000000 00002000 
+   32 00000000 00004000 
                        Stack_Size
-                               EQU              0x2000
+                               EQU              0x4000
    33 00000000         
    34 00000000                 AREA             STACK, NOINIT, READWRITE, ALIGN
 =3
    35 00000000         Stack_Mem
                                SPACE            Stack_Size
-   36 00002000         __initial_sp
-   37 00002000         
-   38 00002000         
-   39 00002000         ; <h> Heap Configuration
-   40 00002000         ;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
-   41 00002000         ; </h>
-   42 00002000         
-   43 00002000 00002000 
+   36 00004000         __initial_sp
+   37 00004000         
+   38 00004000         
+   39 00004000         ; <h> Heap Configuration
+   40 00004000         ;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
+   41 00004000         ; </h>
+   42 00004000         
+   43 00004000 00002000 
                        Heap_Size
 
 
@@ -70,8 +70,8 @@ ARM Macro Assembler    Page 2
 
 
                                EQU              0x2000
-   44 00002000         
-   45 00002000                 AREA             HEAP, NOINIT, READWRITE, ALIGN=
+   44 00004000         
+   45 00004000                 AREA             HEAP, NOINIT, READWRITE, ALIGN=
 3
    46 00000000         __heap_base
    47 00000000         Heap_Mem
@@ -838,21 +838,21 @@ ARM Macro Assembler    Page 13
               00000000 
               00000000 
               00000000 
-              00002000 
+              00004000 
               00002000 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --apcs=
-interwork --depend=.\startup_stm32f407xx.d -o.\startup_stm32f407xx.o -I../Core/
+interwork --depend=.\hal_template\startup_stm32f407xx.d -o.\hal_template\startu
 
 
 
 ARM Macro Assembler    Page 14 
 
 
-Inc -IC:\Users\21069\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.17.0\Drivers\
-CMSIS\Device\ST\STM32F4xx\Include --predefine="__UVISION_VERSION SETA 538" --pr
-edefine="STM32F407xx SETA 1" --list=startup_stm32f407xx.lst startup_stm32f407xx
-.s
+p_stm32f407xx.o -I../Core/Inc -IC:\Users\21069\AppData\Local\Arm\Packs\Keil\STM
+32F4xx_DFP\2.17.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include --predefine="__UVIS
+ION_VERSION SETA 538" --predefine="STM32F407xx SETA 1" --list=startup_stm32f407
+xx.lst startup_stm32f407xx.s
 
 
 
@@ -876,7 +876,7 @@ Symbol: Stack_Mem
       At line 413 in file startup_stm32f407xx.s
       At line 415 in file startup_stm32f407xx.s
 
-__initial_sp 00002000
+__initial_sp 00004000
 
 Symbol: __initial_sp
    Definitions
@@ -1907,7 +1907,7 @@ Symbol: Heap_Size
       At line 47 in file startup_stm32f407xx.s
       At line 414 in file startup_stm32f407xx.s
 
-Stack_Size 00002000
+Stack_Size 00004000
 
 Symbol: Stack_Size
    Definitions

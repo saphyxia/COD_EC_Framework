@@ -20,6 +20,10 @@
         "stdbool.h": "c",
         "math.h": "c",
         "limits": "c",
-        "memory": "c"
+        "memory": "c",
+        "minipc.h": "c",
+        "usbd_cdc_if.h": "c",
+        "crc8_crc16.h": "c",
+        "crc.h": "c"
     }
 }

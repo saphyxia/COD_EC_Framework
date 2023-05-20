@@ -4,7 +4,7 @@
 
 ## 简介
 
-* 开发工具：keil V5.38a，VsCode
+* 开发工具：Keil V5.38a，VsCode
 * 软件环境：Window11
 * 硬件环境：大疆RoboMaster开发板C型(STM32F407IGHX)
 * 编译工具：Arm Compiler V5.06u7，C/C++编译
@@ -40,9 +40,31 @@ HAL-Template
 1. STM32CubeMX添加DSP库
       1. 点击[Software Packs]/[Select Components]，在弹出的[Software Packs Component Selector]窗口中，勾选[STMicroelectronics.X-CUBE-ALGOBUILD]/[DSP Library Library]/[DSP Library 1.3.0];
       2. 关闭[Software Packs Component Selector]窗口，在[Middle and Software Packs]/[X-CUBE-ALGOBUILD]栏勾选[DSP Library Library]；
-      3. 此时在工程中默认添加的LIB文件为arm_cortexM4l_math.lib(Little endian on Cortex-M4)，而实际需求为arm_cortexM4lf_math.lib (Little endian and Floating Point Unit on Cortex-M4)，后者支持浮点单元。
+      3. 此时在工程中默认添加的LIB文件为`arm_cortexM4l_math.lib`(Little endian on Cortex-M4)，而实际需求为`arm_cortexM4lf_math.lib `(Little endian and Floating Point Unit on Cortex-M4)，后者支持浮点单元。
 2. malloc函数内存申请失败
-在startup_stm32f407xx.s中分配的堆空间只有0x0200个字节，而在初始化扩展卡尔曼时所申请的空间超过了0x0200，需要在该文件中修改Heap_Size以达到使用需求。
+在startup_stm32f407xx.s中分配的堆空间只有`0x0200`个字节，而在初始化扩展卡尔曼时所申请的空间超过了0x0200，需要在STM32CubeMX的[Project Manager]/[Project]/[Linker Settings]栏修改`Minimum Heap Size`的值以达到使用需求，修改后可在startup_stm32f407xx.s文件中的`Heap_Size`体现。
+
+### MiniPC通信
+
+* 使用`MicroUSB`连接STM32和上位机
+
+* 在`./Device/Src/minipc.c`中封装了适配[rm_serial_driver](https://github.com/chenjunnn/rm_serial_driver)(！注意：仍在更新中)的数据交互函数
+  
+  * 其中
+  	```c
+  	void MiniPC_RecvFrameInfo(uint8_t* Buf, uint32_t *Len)
+  	```
+  	函数在`Application/User/USB_DEVICE/App/usbd_cdc_if.c`的
+    ~~~c
+    static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
+    ~~~
+  	函数中调用,实现了上位机数据的接收。
+  	
+  * 此外
+  	```c
+  	void MiniPC_SendFrameInfo(uint8_t* Buf, uint32_t *Len)
+  	```
+		函数应在RTOS任务中以500Hz的频率实现下位机数据的发送。
 
 ## 贡献
 

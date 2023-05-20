@@ -1,16 +1,14 @@
-hal_template/api_quaternion.o: ..\Application\API\Src\api_quaternion.c \
-  ..\Application\API\Inc\api_quaternion.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
-  ..\Components\Algorithm\Inc\kalman.h \
-  ..\Middlewares\ST\ARM\DSP\Inc\arm_math.h \
-  ..\Drivers\CMSIS\Include\core_cm4.h \
-  ..\Drivers\CMSIS\Include\cmsis_version.h \
-  ..\Drivers\CMSIS\Include\cmsis_compiler.h \
-  ..\Drivers\CMSIS\Include\cmsis_armclang.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_compat.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
-  ..\Components\Controller\Inc\pid.h
+.\hal_template\api_quaternion.o: ..\Application\API\Src\api_quaternion.c
+.\hal_template\api_quaternion.o: ../Application/API/Inc/api_quaternion.h
+.\hal_template\api_quaternion.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\stdint.h
+.\hal_template\api_quaternion.o: ../Components/Algorithm/Inc/kalman.h
+.\hal_template\api_quaternion.o: ../Middlewares/ST/ARM/DSP/Inc/arm_math.h
+.\hal_template\api_quaternion.o: ../Drivers/CMSIS/Include/core_cm4.h
+.\hal_template\api_quaternion.o: ../Drivers/CMSIS/Include/cmsis_version.h
+.\hal_template\api_quaternion.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
+.\hal_template\api_quaternion.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
+.\hal_template\api_quaternion.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\string.h
+.\hal_template\api_quaternion.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\math.h
+.\hal_template\api_quaternion.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\stdlib.h
+.\hal_template\api_quaternion.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\stdbool.h
+.\hal_template\api_quaternion.o: ../Components/Controller/Inc/pid.h
