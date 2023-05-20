@@ -62,7 +62,7 @@ HAL-Template
   	
   * 此外
     ```c
-    void MiniPC_SendFrameInfo(uint8_t* Buf, uint32_t *Len)
+    void MiniPC_SendFrameInfo(MiniPC_SendPacket_Typedef *SendPacket)
     ```
 	  函数应在RTOS任务中以500Hz的频率实现下位机数据的发送。
 
