@@ -116,7 +116,20 @@ void INS_Task(void const * argument)
     INS_Info.pit_angle = Quaternion_Info.EulerAngle[2]*57.295779513f;
     INS_Info.yaw_angle = Quaternion_Info.EulerAngle[0]*57.295779513f;
     INS_Info.rol_angle = Quaternion_Info.EulerAngle[1]*57.295779513f;
-
+		
+		/* Update the yaw total angle */
+		if(INS_Info.yaw_angle - INS_Info.last_yawangle < -180.f)
+		{
+			INS_Info.YawRoundCount++;
+		}
+		else if(INS_Info.yaw_angle - INS_Info.last_yawangle > 180.f)
+		{
+			INS_Info.YawRoundCount--;
+		}
+		INS_Info.last_yawangle = INS_Info.yaw_angle;
+		
+		INS_Info.yaw_tolangle = INS_Info.yaw_angle + INS_Info.YawRoundCount*360.f;
+		
     /* Update the INS gyro in degrees */
     INS_Info.pit_gyro = INS_Info.gyro[0]*57.295779513f;
     INS_Info.yaw_gyro = INS_Info.gyro[2]*57.295779513f;

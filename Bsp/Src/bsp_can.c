@@ -30,7 +30,9 @@ static uint8_t CAN_RxFrameData[8];
 /**
  * @brief the structure that contains the Information of CAN Transmit.
  */
-static CAN_TxHeaderTypeDef USER_CAN_TxInstance;
+static CAN_TxHeaderTypeDef USER_CAN_TxInstance={
+		.DLC = 0x08,
+};
 
 /**
   * @brief  Configures the CAN Filter.
@@ -89,10 +91,13 @@ void BSP_CAN_Init(void)
 	* @param  data: pointer to the CAN transmit data
   * @retval None
   */
-void USER_CAN_TxMessage(CAN_TypeDef *Instance,uint8_t data[8])
+void USER_CAN_TxMessage(CAN_TypeDef *Instance,uint32_t StdId,uint8_t data[8])
 {
   static uint32_t TxMailbox = 0;
 
+	/* Update the StdID */
+	USER_CAN_TxInstance.StdId = StdId;
+	
   /* Add a message to the first free Tx mailbox and activate the corresponding transmission request. */
 	if(Instance == CAN1)
 	{
