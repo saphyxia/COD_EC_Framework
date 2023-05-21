@@ -3624,9 +3624,9 @@
       </Doc>
       <Doc>
         <Name>..\Application\Tasks\Src\Vision_Task.c</Name>
-        <ColumnNumber>29</ColumnNumber>
-        <TopLine>57</TopLine>
-        <CurrentLine>65</CurrentLine>
+        <ColumnNumber>23</ColumnNumber>
+        <TopLine>65</TopLine>
+        <CurrentLine>43</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
