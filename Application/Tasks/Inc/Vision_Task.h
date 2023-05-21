@@ -38,5 +38,9 @@ typedef struct
   float yawerror;      /*!< target pitch angle in radians */
 }Vision_Info_Typedef;
 
+/* Exported variables --------------------------------------------------------*/
+extern Vision_Info_Typedef Vision_Info;
+
+/* Exported functions prototypes ---------------------------------------------*/
 
 #endif

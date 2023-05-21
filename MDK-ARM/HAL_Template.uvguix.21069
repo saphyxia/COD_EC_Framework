@@ -3624,9 +3624,9 @@
       </Doc>
       <Doc>
         <Name>..\Application\Tasks\Src\Vision_Task.c</Name>
-        <ColumnNumber>23</ColumnNumber>
-        <TopLine>65</TopLine>
-        <CurrentLine>43</CurrentLine>
+        <ColumnNumber>0</ColumnNumber>
+        <TopLine>43</TopLine>
+        <CurrentLine>50</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
@@ -3634,8 +3634,8 @@
       <Doc>
         <Name>../Application/Tasks/Inc/Vision_Task.h</Name>
         <ColumnNumber>0</ColumnNumber>
-        <TopLine>1</TopLine>
-        <CurrentLine>23</CurrentLine>
+        <TopLine>18</TopLine>
+        <CurrentLine>1</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
