@@ -74,7 +74,7 @@ HAL-Template
   * Bullet_Coefficient: 弹道系数；
   * Camera_Muzzle_Height：相机相对yaw轴电机的垂直距离，单位/m；
   * Camera_Muzzle_Push：相机相对yaw轴电机的前推距离，单位/m；
-  * System_BiasTime：系统造成的总延时：通信延时和击发延时，单位/s；
+  * System_BiasTime：系统造成的总延时：通信延时和击发延时等，单位/s；
   
 * 解算部分在`./Application/Tasks/Src/Vision_Task.c`中以500Hz的频率进行，
 
@@ -94,7 +94,7 @@ HAL-Template
                                 float bullet_speed,
                                 float armor_type)
     ```
-  	函数更新弹道解算参数时，**请根据云台RoboMaster开发板C型的安装位置输入对应的位姿数据**
+  	函数更新弹道解算参数时，**请根据云台RoboMaster开发板C型的安装位置调整输入的位姿数据**
   	`！！！！！！！！！！！！！！！！注意！！！！！！！！！！！！！！！！`
   
   由
