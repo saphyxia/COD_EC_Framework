@@ -78,6 +78,25 @@ HAL-Template
   
 * 解算部分在`./Application/Tasks/Src/Vision_Task.c`中以500Hz的频率进行，
 
+  - `！！！！！！！！！！！！！！！！注意！！！！！！！！！！！！！！！！`
+  
+    在
+    
+    ```c
+    void SolveTrajectory_Update(SolveTrajectory_Typedef *SolveTrajectory,
+                                float picth,
+                                float yaw,
+                                float target_yaw,
+                                float v_yaw,
+                                float r1,
+                                float r2,
+                                float dz,
+                                float bullet_speed,
+                                float armor_type)
+    ```
+  	函数更新弹道解算参数时，**请根据云台RoboMaster开发板C型的安装位置输入对应的位姿数据 **
+  	`！！！！！！！！！！！！！！！！注意！！！！！！！！！！！！！！！！`
+  
   由
   ```c
   void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,
