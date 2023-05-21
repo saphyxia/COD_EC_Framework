@@ -30,7 +30,6 @@
  */
 #define Bullet_Coefficient  0.076f
 
-
 /**
  * @brief the vertical distance of yaw motor to the muzzle(m)
  */
@@ -66,7 +65,7 @@ static float Trajectory_Picth_Update(float ,float ,SolveTrajectory_Typedef *);
  * @param  r1: minipc received Distance of target center to front and rear armor plates
  * @param  r2: minipc received Distance of target center to armor plates in sides
  * @param  dz: minipc receive unknown
- * @param  armor_type: the Type of armor
+ * @param  armors_num: the num of armor
  * @retval none
  */
 void SolveTrajectory_Update(SolveTrajectory_Typedef *SolveTrajectory,float picth,float yaw,float target_yaw,float v_yaw,float r1,float r2,float dz,float bullet_speed,float armors_num)
@@ -78,7 +77,6 @@ void SolveTrajectory_Update(SolveTrajectory_Typedef *SolveTrajectory,float picth
 
     SolveTrajectory->yaw_calc = target_yaw;
     SolveTrajectory->yawgyro_calc = v_yaw;
-
     SolveTrajectory->r1 = r1;
     SolveTrajectory->r2 = r2;
     SolveTrajectory->dz = dz;
