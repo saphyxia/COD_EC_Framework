@@ -16,7 +16,8 @@
 .\hal_template\vision_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 .\hal_template\vision_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 .\hal_template\vision_task.o: ../Application/Tasks/Inc/Vision_Task.h
-.\hal_template\vision_task.o: ../Application/API/Inc/api_trajectory.h
 .\hal_template\vision_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\hal_template\vision_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\hal_template\vision_task.o: ../Application/API/Inc/api_trajectory.h
 .\hal_template\vision_task.o: ../Components/Device/Inc/minipc.h
 .\hal_template\vision_task.o: ../Application/Tasks/Inc/INS_Task.h
