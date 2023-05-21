@@ -131,7 +131,9 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
             index = 1;
         }
     }
-    else if (SolveTrajectory->armors_num == 4)
+    /* outpost armor num is 3 */
+    /* normal armor num is 4 */
+    else 
     {
         /* store the armor posure */
         for (uint8_t i = 0; i<4; i++)

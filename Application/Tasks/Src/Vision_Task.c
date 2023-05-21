@@ -74,6 +74,14 @@ void Vision_Task(void const * argument)
       Vision_Info.IF_Fire_Accept = false;
     }
 
+    /* 3 is outpost armor num */
+    if(MiniPC_ReceivePacket.armors_num == 3)
+    {
+      /* refresh target posture, lock the center of outpost */
+      Vision_Info.target_Pitch = (float)(atan2(MiniPC_ReceivePacket.z, MiniPC_ReceivePacket.x));
+      Vision_Info.target_Yaw = (float)(atan2(MiniPC_ReceivePacket.y, MiniPC_ReceivePacket.x));
+    }
+
     /* transmit the minipc frame data */
     MiniPC_SendFrameInfo(&MiniPC_SendPacket);
 
