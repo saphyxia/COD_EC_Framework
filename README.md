@@ -94,7 +94,7 @@ HAL-Template
                                 float bullet_speed,
                                 float armor_type)
     ```
-  	函数更新弹道解算参数时，**请根据云台RoboMaster开发板C型的安装位置输入对应的位姿数据 **
+  	函数更新弹道解算参数时，**请根据云台RoboMaster开发板C型的安装位置输入对应的位姿数据**
   	`！！！！！！！！！！！！！！！！注意！！！！！！！！！！！！！！！！`
   
   由

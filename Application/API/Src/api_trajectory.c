@@ -69,7 +69,7 @@ static float Trajectory_Picth_Update(float ,float ,SolveTrajectory_Typedef *);
  * @param  armor_type: the Type of armor
  * @retval none
  */
-void SolveTrajectory_Update(SolveTrajectory_Typedef *SolveTrajectory,float picth,float yaw,float target_yaw,float v_yaw,float r1,float r2,float dz,float bullet_speed,float armor_type)
+void SolveTrajectory_Update(SolveTrajectory_Typedef *SolveTrajectory,float picth,float yaw,float target_yaw,float v_yaw,float r1,float r2,float dz,float bullet_speed,float armors_num)
 {
     SolveTrajectory->current_pitch = picth;
     SolveTrajectory->current_yaw = yaw;
@@ -83,7 +83,7 @@ void SolveTrajectory_Update(SolveTrajectory_Typedef *SolveTrajectory,float picth
     SolveTrajectory->r2 = r2;
     SolveTrajectory->dz = dz;
 
-    SolveTrajectory->armor_type = armor_type;
+    SolveTrajectory->armors_num = armors_num;
 }
 //------------------------------------------------------------------------------
 
@@ -112,8 +112,8 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
     /* the index of target armor */
     uint8_t index = 0; 
     
-    /* Judge the armor type,balance armor type is 2 */
-    if (SolveTrajectory->armor_type == 2) 
+    /* Judge the armor num,balance armor num is 2 */
+    if (SolveTrajectory->armors_num == 2) 
     {
         for (uint8_t i = 0; i<2; i++) 
         {
@@ -133,7 +133,7 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
             index = 1;
         }
     }
-    else if (SolveTrajectory->armor_type == 4)
+    else if (SolveTrajectory->armors_num == 4)
     {
         /* store the armor posure */
         for (uint8_t i = 0; i<4; i++)

@@ -54,7 +54,7 @@ typedef struct
     float r1;             /*!< Distance of target center to front and rear armor plates */
     float r2;             /*!< Distance of target center to armor plates in sides */
     float dz;             /*!< unknown */
-    uint8_t armor_type;   /*!< the Type of armor */
+    uint8_t armors_num;   /*!< the num of armor */
 
     float target_yaw;      /*!< target yaw angle */
     float target_pitch;    /*!< target pitch angle  */
@@ -66,7 +66,7 @@ typedef struct
 /**
  * @brief  Update the solve trajectory 
  */
-extern void SolveTrajectory_Update(SolveTrajectory_Typedef *SolveTrajectory,float picth,float yaw,float target_yaw,float v_yaw,float r1,float r2,float dz,float bullet_speed,float armor_type);
+extern void SolveTrajectory_Update(SolveTrajectory_Typedef *SolveTrajectory,float picth,float yaw,float target_yaw,float v_yaw,float r1,float r2,float dz,float bullet_speed,float armors_num);
 /**
  * @brief  Transform the solve trajectory 
  */
