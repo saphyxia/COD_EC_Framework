@@ -32,8 +32,8 @@ HAL-Template
 
 ### IMU 惯性测量单元
 
-* 模块参考[哈尔滨工程大学创梦之翼战队惯导姿态解算项目](https://github.com/WangHongxi2001/RoboMaster-C-Board-INS-Example)
-* 详情见[Quaternion](./Docs/Quaternion.pdf)
+* 模块参考[哈尔滨工程大学创梦之翼战队惯导姿态解算项目](https://github.com/WangHongxi2001/RoboMaster-C-Board-INS-Example)。
+* 详情见[Quaternion](./Docs/Quaternion.pdf)。
 
 适配常见问题：
 
@@ -66,6 +66,26 @@ HAL-Template
     ```
 	  函数应在RTOS任务中以500Hz的频率实现下位机数据的发送。
 
+###  弹道解算
+
+* 模块参考[弹道解算](https://github.com/CodeAlanqian/SolveTrajectory)。
+
+* 在`./Application/API/Src/api_trajectory.c`中存在待测参数：
+  * Bullet_Coefficient: 弹道系数；
+  * Camera_Muzzle_Height：相机相对yaw轴电机的垂直距离，单位/m；
+  * Camera_Muzzle_Push：相机相对yaw轴电机的前推距离，单位/m；
+  * System_BiasTime：系统造成的总延时：通信延时和击发延时，单位/s；
+  
+* 解算部分在`./Application/Tasks/Src/Vision_Task.c`中以500Hz的频率进行，
+
+  由
+  ```c
+  void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,
+                                 MiniPC_ReceivePacket_Typedef *MiniPCRxData,
+                                 SolveTrajectory_Typedef *SolveTrajectory)
+  ```
+  函数解算得出云台期望姿态。
+  
 ## 贡献
 
 * 完善项目过程中，请尽量遵循以下设计原则和规范：
@@ -74,4 +94,4 @@ HAL-Template
   * 请不要跨层调用；
   * 请注意`代码规范`，建议参考[Google C++风格指南](https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/contents/#).
 
-* 欢迎提交Issues和Pull Requests帮助我们改进.
+* 欢迎提交Issues和Pull Requests帮助我们改进。

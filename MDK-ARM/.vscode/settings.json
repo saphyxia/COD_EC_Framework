@@ -24,6 +24,10 @@
         "minipc.h": "c",
         "usbd_cdc_if.h": "c",
         "crc8_crc16.h": "c",
-        "crc.h": "c"
+        "crc.h": "c",
+        "vision_task.h": "c",
+        "cmsis_os.h": "c",
+        "api_trajectory.h": "c",
+        "bmi088.h": "c"
     }
 }

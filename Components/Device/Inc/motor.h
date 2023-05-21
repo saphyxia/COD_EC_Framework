@@ -21,9 +21,22 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stdint.h"
 #include "stdbool.h"
-
+#include "stm32f4xx.h"
+#include "pid.h"
 
 /* Exported types ------------------------------------------------------------*/
+
+/**
+ * @brief typedef enum that contains the Frame Identifier for DJI Motor Device.
+ */
+typedef enum
+{
+  DJI_TxFrame_HIGH = 0x1ffU,
+  DJI_TxFrame_LOW = 0x200U,
+  DJI_RxFrame_MIDDLE = 0x204U,
+  DJI_MotorFrameId_NUM,
+}DJI_MotorFrameId_e;
+
 /**
  * @brief typedef enum that contains the Error status for Motor Device.
  */
@@ -62,13 +75,22 @@ typedef struct
 }Motor_ErrorrHandler_Typedef;
 
 /**
+ * @brief typedef structure that contains the information for the Motor CAN Transfer.
+ */
+typedef struct
+{
+  uint32_t TxStdId;   /*!< Specifies CAN transfer identifier */
+  uint32_t RxStdId;   /*!< Specifies CAN transfer identifier */
+  uint8_t FrameIndex;   /* index for motor transmit frame */
+  CAN_TypeDef *Instance;   /*!< pointer to the CAN Register base address */
+}Motor_CANFrameInfo_typedef;
+
+/**
  * @brief typedef structure that contains the General information for the Motor Device.
  */
 typedef struct 
 {
   bool Initlized;   /*!< init flag */
-
-  uint32_t StdId;   /*!< Specifies CAN transfer identifier */
 
   int16_t  current;   /*!< Motor electric current */
   int16_t  velocity;    /*!< Motor rotate velocity */
@@ -83,9 +105,12 @@ typedef struct
  */
 typedef struct
 {
-    DJI_Motor_Type_e Type;   /*!< Type of Motor */
-		Motor_GeneralInfo_Typedef Data;   /*!< information for the Motor Device */
-		Motor_ErrorrHandler_Typedef ERRORHandler;   /*!< information for the Motor Error */
+	DJI_Motor_Type_e Type;   /*!< Type of Motor */
+  Motor_CANFrameInfo_typedef CANFrame;    /*!< information for the CAN Transfer */
+	Motor_GeneralInfo_Typedef Data;   /*!< information for the Motor Device */
+	Motor_ErrorrHandler_Typedef ERRORHandler;   /*!< information for the Motor Error */
+	PID_Info_TypeDef positionPID;   /*!< position for the Motor controller */
+	PID_Info_TypeDef speedPID;   /*!< speed for the Motor controller */
 }DJI_Motor_Info_Typedef;
 
 /**
@@ -93,10 +118,11 @@ typedef struct
  */
 typedef struct
 {
-		uint8_t order;   /*!< Motor feedback order */
-    RMD_Motor_Type_e Type;   /*!< Type of Motor */
-		Motor_GeneralInfo_Typedef Data;   /*!< information for the Motor Device */
-		Motor_ErrorrHandler_Typedef ERRORHandler;   /*!< information for the Motor Error */
+	uint8_t order;   /*!< Motor feedback order */
+	RMD_Motor_Type_e Type;   /*!< Type of Motor */
+  Motor_CANFrameInfo_typedef CANFrame;    /*!< information for the CAN Transfer */
+	Motor_GeneralInfo_Typedef Data;   /*!< information for the Motor Device */
+	Motor_ErrorrHandler_Typedef ERRORHandler;   /*!< information for the Motor Error */
 }RMD_L9025_Info_Typedef;
 
 /* Exported functions prototypes ---------------------------------------------*/

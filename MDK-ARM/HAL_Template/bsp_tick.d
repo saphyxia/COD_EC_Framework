@@ -1,6 +1,6 @@
 .\hal_template\bsp_tick.o: ..\Bsp\Src\bsp_tick.c
 .\hal_template\bsp_tick.o: ../Bsp/Inc/bsp_tick.h
-.\hal_template\bsp_tick.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\stdint.h
+.\hal_template\bsp_tick.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\hal_template\bsp_tick.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 .\hal_template\bsp_tick.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 .\hal_template\bsp_tick.o: ../Drivers/CMSIS/Include/core_cm4.h
@@ -15,7 +15,7 @@
 .\hal_template\bsp_tick.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 .\hal_template\bsp_tick.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 .\hal_template\bsp_tick.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-.\hal_template\bsp_tick.o: C:\Keil_v5\ARM\ARMCompiler506u7\Bin\..\include\stddef.h
+.\hal_template\bsp_tick.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\hal_template\bsp_tick.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 .\hal_template\bsp_tick.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 .\hal_template\bsp_tick.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h

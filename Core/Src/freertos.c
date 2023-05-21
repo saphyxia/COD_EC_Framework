@@ -48,6 +48,7 @@
 
 /* USER CODE END Variables */
 osThreadId StartINSTaskHandle;
+osThreadId StartVisionTaskHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -55,6 +56,7 @@ osThreadId StartINSTaskHandle;
 /* USER CODE END FunctionPrototypes */
 
 void INS_Task(void const * argument);
+void Vision_Task(void const * argument);
 
 extern void MX_USB_DEVICE_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -106,6 +108,10 @@ void MX_FREERTOS_Init(void) {
   osThreadDef(StartINSTask, INS_Task, osPriorityRealtime, 0, 1024);
   StartINSTaskHandle = osThreadCreate(osThread(StartINSTask), NULL);
 
+  /* definition and creation of StartVisionTask */
+  osThreadDef(StartVisionTask, Vision_Task, osPriorityRealtime, 0, 1024);
+  StartVisionTaskHandle = osThreadCreate(osThread(StartVisionTask), NULL);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -130,6 +136,24 @@ __weak void INS_Task(void const * argument)
     osDelay(1);
   }
   /* USER CODE END INS_Task */
+}
+
+/* USER CODE BEGIN Header_Vision_Task */
+/**
+* @brief Function implementing the StartVisionTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_Vision_Task */
+__weak void Vision_Task(void const * argument)
+{
+  /* USER CODE BEGIN Vision_Task */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END Vision_Task */
 }
 
 /* Private application code --------------------------------------------------*/

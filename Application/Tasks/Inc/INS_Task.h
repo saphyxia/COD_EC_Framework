@@ -34,6 +34,7 @@ typedef struct
   float yaw_gyro;
   float rol_gyro;
 
+  float angle[3];
 	float gyro[3];	
 	float accel[3];
 	

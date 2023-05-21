@@ -17,9 +17,9 @@
 #include "INS_Task.h"
 #include "bsp_tim.h"
 #include "bmi088.h"
+#include "api_quaternion.h"
 #include "lpf.h"
 #include "pid.h"
-#include "api_quaternion.h"
 
 /**
   * @brief the structure that contains the information for the INS.
@@ -112,6 +112,8 @@ void INS_Task(void const * argument)
 		/* Update the QuaternionEKF */
     QuaternionEKF_Update(&Quaternion_Info,BMI088_Info.gyro,INS_Info.accel,0.001f);
 		
+    memcpy(INS_Info.angle,Quaternion_Info.EulerAngle,sizeof(INS_Info.angle));
+
 		/* Update the Euler angle in degrees. */
     INS_Info.pit_angle = Quaternion_Info.EulerAngle[2]*57.295779513f;
     INS_Info.yaw_angle = Quaternion_Info.EulerAngle[0]*57.295779513f;

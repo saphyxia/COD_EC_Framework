@@ -24,7 +24,7 @@
 /**
  * @brief macro definition Number of MiniPC data to be sent
  */
-#define MINIPC_SENDLENGTH     24U
+#define MINIPC_SENDLENGTH     28U
 
 /**
  * @brief macro definition Number of MiniPC to be receive
@@ -46,7 +46,7 @@ typedef struct
   uint8_t detect_color : 1;  // 0-red 1-blue
   bool reset_tracker : 1;
   uint8_t reserved : 6;
-//  float roll;
+  float roll;
   float pitch;
   float yaw;
   float aim_x;
@@ -81,6 +81,17 @@ typedef struct
 
 /* restore byte alignment */
 #pragma  pack()
+
+
+/* Exported variables --------------------------------------------------------*/
+/**
+ * @brief structure that contains the information for the MiniPC Transmit Data.
+ */
+extern MiniPC_SendPacket_Typedef MiniPC_SendPacket;
+/**
+ * @brief structure that contains the information for the MiniPC Receive Data.
+ */
+extern MiniPC_ReceivePacket_Typedef MiniPC_ReceivePacket;
 
 /* Exported functions prototypes ---------------------------------------------*/
 /**

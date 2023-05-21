@@ -10,7 +10,7 @@
       <TargetName>HAL_Template</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARMCompiler506u7</pCCUsed>
+      <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -389,6 +389,11 @@
               <FileType>1</FileType>
               <FilePath>..\Application\API\Src\api_quaternion.c</FilePath>
             </File>
+            <File>
+              <FileName>api_trajectory.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\API\Src\api_trajectory.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -398,6 +403,11 @@
               <FileName>INS_Task.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Application\Tasks\Src\INS_Task.c</FilePath>
+            </File>
+            <File>
+              <FileName>Vision_Task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\Tasks\Src\Vision_Task.c</FilePath>
             </File>
           </Files>
         </Group>

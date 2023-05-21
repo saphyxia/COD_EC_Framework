@@ -1,6 +1,8 @@
 --cpu=Cortex-M4.fp.sp
 ".\hal_template\api_quaternion.o"
+".\hal_template\api_trajectory.o"
 ".\hal_template\ins_task.o"
+".\hal_template\vision_task.o"
 ".\hal_template\bsp_can.o"
 ".\hal_template\bsp_dwt.o"
 ".\hal_template\bsp_gpio.o"

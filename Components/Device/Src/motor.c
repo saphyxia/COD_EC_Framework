@@ -43,7 +43,7 @@ static void DJI_Motor_ErrorHandler(DJI_Motor_Info_Typedef *DJI_Motor);
 void DJI_Motor_Info_Update(uint32_t *StdId, uint8_t *rxBuf,DJI_Motor_Info_Typedef *DJI_Motor)
 {
 	/* check the StdId */
-	if(*StdId != DJI_Motor->Data.StdId) return;
+	if(*StdId != DJI_Motor->CANFrame.RxStdId) return;
 	
 	/* transforms the  general motor data */
 	DJI_Motor->Data.temperature = rxBuf[6];
@@ -53,6 +53,21 @@ void DJI_Motor_Info_Update(uint32_t *StdId, uint8_t *rxBuf,DJI_Motor_Info_Typede
 	
 	/* Judge the motor error	*/
 	DJI_Motor_ErrorHandler(DJI_Motor);
+
+  /* update the txframe id and index */
+  if(DJI_Motor->Data.Initlized != true)
+  {
+    if(DJI_Motor->CANFrame.RxStdId > DJI_RxFrame_MIDDLE)
+    {
+      DJI_Motor->CANFrame.TxStdId = DJI_TxFrame_HIGH;
+      DJI_Motor->CANFrame.FrameIndex = DJI_Motor->CANFrame.RxStdId - DJI_RxFrame_MIDDLE - 0x01U;
+    }
+    else if(DJI_Motor->CANFrame.RxStdId > DJI_TxFrame_LOW)
+    {
+      DJI_Motor->CANFrame.TxStdId = DJI_TxFrame_LOW; 
+      DJI_Motor->CANFrame.FrameIndex = DJI_Motor->CANFrame.RxStdId - DJI_TxFrame_LOW - 0x01U;
+    }
+  }
 	
 	/* transform the encoder to anglesum */
 	switch(DJI_Motor->Type)
@@ -84,7 +99,7 @@ void DJI_Motor_Info_Update(uint32_t *StdId, uint8_t *rxBuf,DJI_Motor_Info_Typede
 void RMD_Motor_Info_Update(uint32_t *StdId, uint8_t *rxBuf,RMD_L9025_Info_Typedef *RMD_Motor)
 {
 	/* Judge the StdId */
-	if(*StdId != RMD_Motor->Data.StdId)
+	if(*StdId != RMD_Motor->CANFrame.RxStdId)
   {
     return;
   }

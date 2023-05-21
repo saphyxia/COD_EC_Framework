@@ -24,12 +24,17 @@
 uint8_t MiniPC_SendBuf[MINIPC_SENDLENGTH];
 
 /**
- * @brief structure that contains the information for the MiniPC Transmit Data.
+ * @brief structure that contains the information for the MiniPC Receive Data.
  */
-MiniPC_ReceivePacket_Typedef MiniPC_RecevicePacket = {
+MiniPC_ReceivePacket_Typedef MiniPC_ReceivePacket = {
   .header = 0xA5,
 };
-
+/**
+ * @brief structure that contains the information for the MiniPC Transmit Data.
+ */
+MiniPC_SendPacket_Typedef MiniPC_SendPacket = {
+    .header = 0x5A,
+};
 
 /**
   * @brief  Send the MiniPC frame Information according the USB CDC
@@ -58,17 +63,17 @@ void MiniPC_SendFrameInfo(MiniPC_SendPacket_Typedef *SendPacket)
   */
 void MiniPC_RecvFrameInfo(uint8_t* Buf, uint32_t *Len)
 {
-  /* judge the crc16 */
+  /* Judge the crc16 */
   if(verify_CRC16_check_sum(Buf,*Len) != true)
   {
     return ;
   }
 
   /* judge the frame header */
-  if(Buf[0] == MiniPC_RecevicePacket.header)
+  if(Buf[0] == MiniPC_ReceivePacket.header)
   {
     /* store the receive data */
-    memcpy(&MiniPC_RecevicePacket,Buf,*Len);
+    memcpy(&MiniPC_ReceivePacket,Buf,*Len);
   }
 }
 //------------------------------------------------------------------------------
