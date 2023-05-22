@@ -86,6 +86,12 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
     /* the index of target armor */
     uint8_t index = 0; 
     
+    /* yaw diff in algorithm */
+    float yaw_diff_min = 0.f,temp_yaw_diff=0.f;
+
+    /* distance in algorithm */
+    float distance_calc = 0.f;
+
     /* Judge the armor num,balance armor num is 2 */
     if (SolveTrajectory->armors_num == 2) 
     {
@@ -98,9 +104,8 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
         }
 
         /* Judge the minimum yaw armor */
-        float yaw_diff_min = fabsf(SolveTrajectory->yaw_calc - SolveTrajectory->target_posure[0].yaw);
-        float temp_yaw_diff = fabsf(SolveTrajectory->yaw_calc - SolveTrajectory->target_posure[0].yaw);
-
+        yaw_diff_min = fabsf(SolveTrajectory->armorlock_yaw - SolveTrajectory->target_posure[0].yaw);
+        temp_yaw_diff= fabsf(SolveTrajectory->armorlock_yaw - SolveTrajectory->target_posure[1].yaw);
         if (temp_yaw_diff < yaw_diff_min)
         {
             yaw_diff_min = temp_yaw_diff;
@@ -119,10 +124,10 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
             SolveTrajectory->target_posure[i].yaw = SolveTrajectory->yaw_calc + i * 2.f*PI/3.f;
         }
         /* select the minimum yaw armor */
-        float yaw_diff_min = fabsf(SolveTrajectory->yaw_calc - SolveTrajectory->target_posure[0].yaw);
+        yaw_diff_min = fabsf(SolveTrajectory->centerlock_yaw  - SolveTrajectory->target_posure[0].yaw);
         for (uint8_t i = 1; i<3; i++) 
         {
-            float temp_yaw_diff = fabsf(SolveTrajectory->yaw_calc - SolveTrajectory->target_posure[i].yaw);
+            temp_yaw_diff = fabsf(SolveTrajectory->centerlock_yaw  - SolveTrajectory->target_posure[i].yaw);
             if (temp_yaw_diff < yaw_diff_min)
             {
                 yaw_diff_min = temp_yaw_diff;
@@ -146,10 +151,11 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
 
 #if Distance_Yaw_Decision
         /* select the minimum distance armor */
-        float dis_diff_min = arm_sqrt_f32(SolveTrajectory->target_posure[0].x * SolveTrajectory->target_posure[0].x + SolveTrajectory->target_posure[0].y * SolveTrajectory->target_posure[0].y);
+        float dis_diff_min = 0.f,temp_dis_diff = 0.f;
+        arm_sqrt_f32(SolveTrajectory->target_posure[0].x * SolveTrajectory->target_posure[0].x + SolveTrajectory->target_posure[0].y * SolveTrajectory->target_posure[0].y,&dis_diff_min);
         for (uint8_t i = 1; i<4; i++)
         {
-            float temp_dis_diff = arm_sqrt_f32(SolveTrajectory->target_posure[i].x * SolveTrajectory->target_posure[i].x + SolveTrajectory->target_posure[i].y * SolveTrajectory->target_posure[i].y);
+            arm_sqrt_f32(SolveTrajectory->target_posure[i].x * SolveTrajectory->target_posure[i].x + SolveTrajectory->target_posure[i].y * SolveTrajectory->target_posure[i].y,&temp_dis_diff);
             if (temp_dis_diff < dis_diff_min)
             {
                 dis_diff_min = temp_dis_diff;
@@ -158,10 +164,10 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
         }
 #else
         /* select the minimum yaw armor */
-        float yaw_diff_min = fabsf(SolveTrajectory->yaw_calc - SolveTrajectory->target_posure[0].yaw);
+        yaw_diff_min = fabsf(SolveTrajectory->armorlock_yaw - SolveTrajectory->target_posure[0].yaw);
         for (uint8_t i = 1; i<4; i++) 
         {
-            float temp_yaw_diff = fabsf(SolveTrajectory->yaw_calc - SolveTrajectory->target_posure[i].yaw);
+            temp_yaw_diff = fabsf(SolveTrajectory->armorlock_yaw - SolveTrajectory->target_posure[i].yaw);
             if (temp_yaw_diff < yaw_diff_min)
             {
                 yaw_diff_min = temp_yaw_diff;
@@ -175,24 +181,21 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
     MiniPCTxData->aim_x = SolveTrajectory->target_posure[index].x + MiniPCRxData->vx * timeDelay;
     MiniPCTxData->aim_y = SolveTrajectory->target_posure[index].y + MiniPCRxData->vy * timeDelay;
     MiniPCTxData->aim_z = SolveTrajectory->target_posure[index].z + MiniPCRxData->vz * timeDelay;
-
-    /* distance in algorithm */
-    float distance_calc = 0.f;
     
     /* calculate the distance to armor */
     arm_sqrt_f32((MiniPCTxData->aim_x) * (MiniPCTxData->aim_x) + (MiniPCTxData->aim_y) * (MiniPCTxData->aim_y),&distance_calc);
 
     /* calculate the gimbal target posture,lock the armor */
-    SolveTrajectory->armorlock_pitch = Trajectory_Picth_Update( distance_calc + Camera_Muzzle_horizontal,
-                                    SolveTrajectory->target_posure[index].z - Camera_Muzzle_vertical, SolveTrajectory);
+    SolveTrajectory->armorlock_pitch = Trajectory_Picth_Update( distance_calc - Camera_Muzzle_horizontal,
+                                    SolveTrajectory->target_posure[index].z + Camera_Muzzle_vertical, SolveTrajectory);
     SolveTrajectory->armorlock_yaw = (float)(atan2(MiniPCTxData->aim_y, MiniPCTxData->aim_x));
 
     /* calculate the distance to center */
     arm_sqrt_f32((MiniPCRxData->x) * (MiniPCRxData->x) + (MiniPCRxData->y) * (MiniPCRxData->y),&distance_calc);
 
     /* calculate the gimbal target posture,lock the center */
-    SolveTrajectory->centerlock_pitch = Trajectory_Picth_Update( distance_calc + Camera_Muzzle_horizontal,
-                                    MiniPCRxData->z - Camera_Muzzle_vertical, SolveTrajectory);
+    SolveTrajectory->centerlock_pitch = Trajectory_Picth_Update( distance_calc - Camera_Muzzle_horizontal,
+                                    MiniPCRxData->z + Camera_Muzzle_vertical, SolveTrajectory);
     SolveTrajectory->centerlock_yaw = (float)(atan2(MiniPCRxData->y, MiniPCRxData->x));
 }
 //------------------------------------------------------------------------------
