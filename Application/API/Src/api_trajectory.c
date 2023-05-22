@@ -172,9 +172,9 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
     }
 
     /* store the predicted position */
-    MiniPCTxData->aim_x = SolveTrajectory->target_posure[index].z + MiniPCRxData->vx * timeDelay;
-    MiniPCTxData->aim_y = SolveTrajectory->target_posure[index].x + MiniPCRxData->vy * timeDelay;
-    MiniPCTxData->aim_z = SolveTrajectory->target_posure[index].y + MiniPCRxData->vz * timeDelay;
+    MiniPCTxData->aim_x = SolveTrajectory->target_posure[index].x + MiniPCRxData->vx * timeDelay;
+    MiniPCTxData->aim_y = SolveTrajectory->target_posure[index].y + MiniPCRxData->vy * timeDelay;
+    MiniPCTxData->aim_z = SolveTrajectory->target_posure[index].z + MiniPCRxData->vz * timeDelay;
 
     /* distance in algorithm */
     float distance_calc = 0.f;
