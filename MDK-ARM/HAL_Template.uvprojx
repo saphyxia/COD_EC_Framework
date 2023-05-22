@@ -409,6 +409,11 @@
               <FileType>1</FileType>
               <FilePath>..\Application\Tasks\Src\Vision_Task.c</FilePath>
             </File>
+            <File>
+              <FileName>config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Application\Tasks\Inc\config.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

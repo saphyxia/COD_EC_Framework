@@ -83,6 +83,7 @@ typedef struct
   uint32_t RxStdId;   /*!< Specifies CAN transfer identifier */
   uint8_t FrameIndex;   /* index for motor transmit frame */
   CAN_TypeDef *Instance;   /*!< pointer to the CAN Register base address */
+  uint8_t *TxFrameBuff;   /*!< pointer to the CAN frame transmit buff */
 }Motor_CANFrameInfo_typedef;
 
 /**
@@ -109,8 +110,8 @@ typedef struct
   Motor_CANFrameInfo_typedef CANFrame;    /*!< information for the CAN Transfer */
 	Motor_GeneralInfo_Typedef Data;   /*!< information for the Motor Device */
 	Motor_ErrorrHandler_Typedef ERRORHandler;   /*!< information for the Motor Error */
-	PID_Info_TypeDef positionPID;   /*!< position for the Motor controller */
-	PID_Info_TypeDef speedPID;   /*!< speed for the Motor controller */
+	PID_Info_TypeDef *positionPID;   /*!< pointer to position for the Motor controller */
+	PID_Info_TypeDef *speedPID;      /*!< pointer to speed for the Motor controller */
 }DJI_Motor_Info_Typedef;
 
 /**

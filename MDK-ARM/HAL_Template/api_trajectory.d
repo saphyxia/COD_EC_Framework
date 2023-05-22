@@ -10,3 +10,4 @@
 .\hal_template\api_trajectory.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 .\hal_template\api_trajectory.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
 .\hal_template\api_trajectory.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\hal_template\api_trajectory.o: ../Application/Tasks/Inc/config.h

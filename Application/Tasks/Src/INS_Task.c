@@ -20,6 +20,7 @@
 #include "api_quaternion.h"
 #include "lpf.h"
 #include "pid.h"
+#include "config.h"
 
 /**
   * @brief the structure that contains the information for the INS.
@@ -115,9 +116,9 @@ void INS_Task(void const * argument)
     memcpy(INS_Info.angle,Quaternion_Info.EulerAngle,sizeof(INS_Info.angle));
 
 		/* Update the Euler angle in degrees. */
-    INS_Info.pit_angle = Quaternion_Info.EulerAngle[2]*57.295779513f;
-    INS_Info.yaw_angle = Quaternion_Info.EulerAngle[0]*57.295779513f;
-    INS_Info.rol_angle = Quaternion_Info.EulerAngle[1]*57.295779513f;
+    INS_Info.pit_angle = Quaternion_Info.EulerAngle[2]*RadiansToDegrees;
+    INS_Info.yaw_angle = Quaternion_Info.EulerAngle[0]*RadiansToDegrees;
+    INS_Info.rol_angle = Quaternion_Info.EulerAngle[1]*RadiansToDegrees;
 		
 		/* Update the yaw total angle */
 		if(INS_Info.yaw_angle - INS_Info.last_yawangle < -180.f)
@@ -133,9 +134,9 @@ void INS_Task(void const * argument)
 		INS_Info.yaw_tolangle = INS_Info.yaw_angle + INS_Info.YawRoundCount*360.f;
 		
     /* Update the INS gyro in degrees */
-    INS_Info.pit_gyro = INS_Info.gyro[0]*57.295779513f;
-    INS_Info.yaw_gyro = INS_Info.gyro[2]*57.295779513f;
-    INS_Info.rol_gyro = INS_Info.gyro[1]*57.295779513f;
+    INS_Info.pit_gyro = INS_Info.gyro[0]*RadiansToDegrees;
+    INS_Info.yaw_gyro = INS_Info.gyro[2]*RadiansToDegrees;
+    INS_Info.rol_gyro = INS_Info.gyro[1]*RadiansToDegrees;
 		
 		if(systick%2 == 0)
 		{

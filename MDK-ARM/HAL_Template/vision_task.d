@@ -21,3 +21,4 @@
 .\hal_template\vision_task.o: ../Application/API/Inc/api_trajectory.h
 .\hal_template\vision_task.o: ../Components/Device/Inc/minipc.h
 .\hal_template\vision_task.o: ../Application/Tasks/Inc/INS_Task.h
+.\hal_template\vision_task.o: ../Application/Tasks/Inc/config.h

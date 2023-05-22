@@ -16,33 +16,9 @@
 #include "api_trajectory.h"
 #include "math.h"
 #include "arm_math.h"
+#include "config.h"
 
 /* Private defines -----------------------------------------------------------*/
-/**
- * @brief  Decision Marking mode
- *         0: select the minimum yaw armor
- *         1: select the minimum distance armor
- */
-#define Distance_Yaw_Decision  0
-
-/**
- * @brief ballistic coefficient
- */
-#define Bullet_Coefficient  0.076f
-
-/**
- * @brief the vertical distance of yaw motor to the muzzle(m)
- */
-#define Camera_Muzzle_Height  0.21265f
-/**
- * @brief the distance of Muzzle push(m)
- */
-#define Camera_Muzzle_Push    0.19133f
-
-/**
- * @brief the bias time of system(s), contains the communication delay and trigger delay
- */
-#define System_BiasTime  0.1f
 
 /* Private function prototypes -----------------------------------------------*/
 /**
@@ -99,7 +75,7 @@ void SolveTrajectory_Update(SolveTrajectory_Typedef *SolveTrajectory,float picth
 void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_ReceivePacket_Typedef *MiniPCRxData,SolveTrajectory_Typedef *SolveTrajectory)
 {
     /* calculate the timedelay */
-    float timeDelay = System_BiasTime + SolveTrajectory->bullet_time;
+    float timeDelay = FireSystem_BiasTime + SolveTrajectory->bullet_time;
 
     /* calculate the yaw linear prediction */
     SolveTrajectory->yaw_calc += SolveTrajectory->yawgyro_calc * timeDelay;
@@ -132,8 +108,30 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
         }
     }
     /* outpost armor num is 3 */
+    else if (SolveTrajectory->armors_num == 3)
+    {
+        /* store the armor posure */
+        for (uint8_t i = 0; i<3; i++)
+        {
+            SolveTrajectory->target_posure[i].x = MiniPCRxData->x - SolveTrajectory->r2 * cos(SolveTrajectory->yaw_calc + i * 2.f*PI/3.f);
+            SolveTrajectory->target_posure[i].y = MiniPCRxData->y - SolveTrajectory->r2 * sin(SolveTrajectory->yaw_calc + i * 2.f*PI/3.f);
+            SolveTrajectory->target_posure[i].z = MiniPCRxData->z ;
+            SolveTrajectory->target_posure[i].yaw = SolveTrajectory->yaw_calc + i * 2.f*PI/3.f;
+        }
+        /* select the minimum yaw armor */
+        float yaw_diff_min = fabsf(SolveTrajectory->yaw_calc - SolveTrajectory->target_posure[0].yaw);
+        for (uint8_t i = 1; i<3; i++) 
+        {
+            float temp_yaw_diff = fabsf(SolveTrajectory->yaw_calc - SolveTrajectory->target_posure[i].yaw);
+            if (temp_yaw_diff < yaw_diff_min)
+            {
+                yaw_diff_min = temp_yaw_diff;
+                index = i;
+            }
+        }
+    }
     /* normal armor num is 4 */
-    else 
+    else if (SolveTrajectory->armors_num == 4)
     {
         /* store the armor posure */
         for (uint8_t i = 0; i<4; i++)
@@ -161,7 +159,8 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
 #else
         /* select the minimum yaw armor */
         float yaw_diff_min = fabsf(SolveTrajectory->yaw_calc - SolveTrajectory->target_posure[0].yaw);
-        for (uint8_t i = 1; i<4; i++) {
+        for (uint8_t i = 1; i<4; i++) 
+        {
             float temp_yaw_diff = fabsf(SolveTrajectory->yaw_calc - SolveTrajectory->target_posure[i].yaw);
             if (temp_yaw_diff < yaw_diff_min)
             {
@@ -172,6 +171,7 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
 #endif
     }
 
+    /* store the predicted position */
     MiniPCTxData->aim_x = SolveTrajectory->target_posure[index].z + MiniPCRxData->vx * timeDelay;
     MiniPCTxData->aim_y = SolveTrajectory->target_posure[index].x + MiniPCRxData->vy * timeDelay;
     MiniPCTxData->aim_z = SolveTrajectory->target_posure[index].y + MiniPCRxData->vz * timeDelay;
@@ -179,34 +179,44 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
     /* distance in algorithm */
     float distance_calc = 0.f;
     
+    /* calculate the distance to armor */
     arm_sqrt_f32((MiniPCTxData->aim_x) * (MiniPCTxData->aim_x) + (MiniPCTxData->aim_y) * (MiniPCTxData->aim_y),&distance_calc);
 
-    SolveTrajectory->target_pitch = -Trajectory_Picth_Update( distance_calc + Camera_Muzzle_Push,
-            SolveTrajectory->target_posure[index].z - Camera_Muzzle_Height, SolveTrajectory);
-    SolveTrajectory->target_yaw = (float)(atan2(MiniPCTxData->aim_y, MiniPCTxData->aim_x));
+    /* calculate the gimbal target posture,lock the armor */
+    SolveTrajectory->armorlock_pitch = Trajectory_Picth_Update( distance_calc + Camera_Muzzle_horizontal,
+                                    SolveTrajectory->target_posure[index].z - Camera_Muzzle_vertical, SolveTrajectory);
+    SolveTrajectory->armorlock_yaw = (float)(atan2(MiniPCTxData->aim_y, MiniPCTxData->aim_x));
+
+    /* calculate the distance to center */
+    arm_sqrt_f32((MiniPCRxData->x) * (MiniPCRxData->x) + (MiniPCRxData->y) * (MiniPCRxData->y),&distance_calc);
+
+    /* calculate the gimbal target posture,lock the center */
+    SolveTrajectory->centerlock_pitch = Trajectory_Picth_Update( distance_calc + Camera_Muzzle_horizontal,
+                                    MiniPCRxData->z - Camera_Muzzle_vertical, SolveTrajectory);
+    SolveTrajectory->centerlock_yaw = (float)(atan2(MiniPCRxData->y, MiniPCRxData->x));
 }
 //------------------------------------------------------------------------------
 
 /**
- * @brief  Calculate Bullet Model offset
+ * @brief  Calculate Bullet Model Height
  * @param  distance: distance of target armor
  * @param  bullet_k: ballistic coefficient
  * @param  bullet_speed: bullet speeed from referee
  * @param  bullet_Time： pointer to the ballistic time
- * @param  current_pitch: current pitch angle
- * @retval Bullet Model offset in radians
+ * @param  pitchangle:  target pitch angle
+ * @retval Bullet Model Height in radians
  * @note   t = (e^(v*x)-1)/(k*v*cos(pitch))
- *         offset = v*sin(pitch)*t - 1/2*g*t^2
+ *         Height = v*sin(pitch)*t - 1/2*g*t^2
  */
-static float Trajectory_BulletModel(float distance,float bullet_k,float bullet_speed,float *bullet_Time,float current_pitch)
+static float Trajectory_BulletModel(float distance,float bullet_k,float bullet_speed,float *bullet_Time,float pitchangle)
 {
-    float offset = 0.f;
+    float Height = 0.f;
 
-    *bullet_Time = (float)((exp(bullet_k * distance)- 1.f) / (bullet_k * bullet_speed * cos(current_pitch)));
+    *bullet_Time = (float)((exp(bullet_k * distance)- 1.f) / (bullet_k * bullet_speed * cos(pitchangle)));
 
-    offset = (float)(bullet_speed * arm_sin_f32(current_pitch) * *bullet_Time - GRAVITY * *bullet_Time * *bullet_Time / 2.f);
+    Height = (float)(bullet_speed * arm_sin_f32(pitchangle) * *bullet_Time - GravityAccel * *bullet_Time * *bullet_Time / 2.f);
 
-    return offset;
+    return Height;
 }
 //------------------------------------------------------------------------------
 
@@ -221,22 +231,22 @@ static float Trajectory_BulletModel(float distance,float bullet_k,float bullet_s
 static float Trajectory_Picth_Update(float distance,float height,SolveTrajectory_Typedef *SolveTrajectory)
 {
     float z_temp = 0.f,dz = 0.f;
-    float pitchoffset = 0.f,pitchangle = 0.f;
+    float Height_calc = 0.f,pitchangle = 0.f;
 
     /* store the height of target armor */
     z_temp = height;
 
-    for(uint8_t i=0; i<20; i++)
+    for(uint8_t i=0; i<200; i++)
     {
         /* calculate the traget pitch angle */
         /* pitchangle = actan(z,x) */
         pitchangle = (float)atan2(z_temp,distance);
 
         /* Calculate the Bullet Model offset */
-        pitchoffset = Trajectory_BulletModel(distance,Bullet_Coefficient,SolveTrajectory->bullet_speed,&SolveTrajectory->bullet_time,SolveTrajectory->current_pitch);
+        Height_calc = Trajectory_BulletModel(distance,Bullet_Coefficient,SolveTrajectory->bullet_speed,&SolveTrajectory->bullet_time,pitchangle);
 
         /* calculate the difference of height */
-        dz = 0.3f*(height - pitchoffset);
+        dz = 0.3f*(height - Height_calc);
         
         /* height points compensation */
         z_temp += dz;

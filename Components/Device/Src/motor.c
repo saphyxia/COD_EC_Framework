@@ -29,8 +29,7 @@ float encoder_to_angle(Motor_GeneralInfo_Typedef *,float ,uint16_t );
 /** 
   * @brief  Judge the DJI Motor state
   */
-static void DJI_Motor_ErrorHandler(DJI_Motor_Info_Typedef *DJI_Motor);
-
+static void DJI_Motor_ErrorHandler(DJI_Motor_Info_Typedef *);
 
 /**
   * @brief  Update the DJI motor Information

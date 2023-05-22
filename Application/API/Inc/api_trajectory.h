@@ -22,10 +22,6 @@
 #include "minipc.h"
 
 /* Exported defines -----------------------------------------------------------*/
-/**
- * @brief the value of Gravity
- */
-#define GRAVITY  9.79f
 
 /* Exported types ------------------------------------------------------------*/
 /**
@@ -56,9 +52,11 @@ typedef struct
     float dz;             /*!< unknown */
     uint8_t armors_num;   /*!< the num of armor */
 
-    float target_yaw;      /*!< target yaw angle */
-    float target_pitch;    /*!< target pitch angle  */
-    
+    float armorlock_yaw;      /*!< gimbal target yaw angle,lock the armor */
+    float armorlock_pitch;    /*!< gimbal target pitch angle,lock the armor  */
+    float centerlock_pitch;    /*!< gimbal target pitch angle,lock the center  */
+    float centerlock_yaw;      /*!< gimbal target yaw angle,lock the center */
+
     TargetArmor_Posure target_posure[4];    /* target armor posure */
 }SolveTrajectory_Typedef;
 

@@ -16,6 +16,7 @@
 #include "api_quaternion.h"
 #include "math.h"
 #include "pid.h"
+#include "config.h"
 
 /* Private function prototypes -----------------------------------------------*/
 /**
@@ -147,7 +148,7 @@ void QuaternionEKF_Update(Quaternion_Info_Typedef *quat,float gyro[3],float acce
   quat->QuaternionEKF.MeasuredVector[2] = quat->accel[2] * quat->accelInvNorm;
  
   /* chi square test */
-  if(1.f/quat->gyroInvNorm < 0.3f && (1.f/quat->accelInvNorm > (9.8f-0.5f) && 1.f/quat->accelInvNorm < (9.8f+0.5f)))
+  if(1.f/quat->gyroInvNorm < 0.3f && (1.f/quat->accelInvNorm > (GravityAccel-0.5f) && 1.f/quat->accelInvNorm < (GravityAccel+0.5f)))
   {
     quat->QuaternionEKF.ChiSquareTest.TestFlag = true;
   }

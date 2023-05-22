@@ -12,3 +12,4 @@
 .\hal_template\api_quaternion.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\hal_template\api_quaternion.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\hal_template\api_quaternion.o: ../Components/Controller/Inc/pid.h
+.\hal_template\api_quaternion.o: ../Application/Tasks/Inc/config.h

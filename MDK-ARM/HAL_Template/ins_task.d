@@ -32,3 +32,4 @@
 .\hal_template\ins_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\hal_template\ins_task.o: ../Components/Algorithm/Inc/lpf.h
 .\hal_template\ins_task.o: ../Components/Controller/Inc/pid.h
+.\hal_template\ins_task.o: ../Application/Tasks/Inc/config.h

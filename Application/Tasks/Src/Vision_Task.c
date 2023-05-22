@@ -17,6 +17,7 @@
 #include "Vision_Task.h"
 #include "api_trajectory.h"
 #include "INS_Task.h"
+#include "config.h"
 
 /* Private variables -----------------------------------------------------------*/
 /**
@@ -41,28 +42,31 @@ Vision_Info_Typedef Vision_Info = {
 void Vision_Task(void const * argument)
 {
   /* USER CODE BEGIN Vision_Task */
-	
+  TickType_t systick = 0;
+
   /* Infinite loop */
   for(;;)
   {
+    systick = osKernelSysTick();
+
     /* received minipc tracking , Enable the vision aiming */
     Vision_Info.IF_Aiming_Enable = (MiniPC_ReceivePacket.tracking == true);
-
-    /* update the solve trajectory */
-		SolveTrajectory_Update(&SolveTrajectory,INS_Info.angle[2],INS_Info.angle[0],MiniPC_ReceivePacket.yaw,MiniPC_ReceivePacket.v_yaw,MiniPC_ReceivePacket.r1,MiniPC_ReceivePacket.r2,MiniPC_ReceivePacket.dz,18.f,MiniPC_ReceivePacket.armors_num);
 
     /* update the transmit euler angle in radians */
     MiniPC_SendPacket.pitch = INS_Info.angle[2];
     MiniPC_SendPacket.yaw   = INS_Info.angle[0];
     MiniPC_SendPacket.roll  = INS_Info.angle[1];
 
+    /* update the solve trajectory */
+		SolveTrajectory_Update(&SolveTrajectory,-MiniPC_SendPacket.pitch,MiniPC_SendPacket.yaw,MiniPC_ReceivePacket.yaw,MiniPC_ReceivePacket.v_yaw,MiniPC_ReceivePacket.r1,MiniPC_ReceivePacket.r2,MiniPC_ReceivePacket.dz,18.f,MiniPC_ReceivePacket.armors_num);
+
     /* transform the solved trajetory */
     SolveTrajectory_Transform(&MiniPC_SendPacket,&MiniPC_ReceivePacket,&SolveTrajectory);
 
-    /* Update the Gimbal target posture in degrees */
-    Vision_Info.target_Pitch = SolveTrajectory.target_pitch * 57.295779513f;
-    Vision_Info.target_Yaw = SolveTrajectory.target_yaw * 57.295779513f;
-    Vision_Info.yawerror = fabs(SolveTrajectory.target_yaw - INS_Info.angle[0]) * 57.295779513f;
+    /* Update the Gimbal target posture in degrees,lock the armor */
+    Vision_Info.target_Pitch = SolveTrajectory.armorlock_pitch * RadiansToDegrees;
+    Vision_Info.target_Yaw = SolveTrajectory.armorlock_yaw * RadiansToDegrees;
+    Vision_Info.yawerror = fabs(SolveTrajectory.armorlock_yaw - MiniPC_SendPacket.yaw) * RadiansToDegrees;
 
     /* Judge the fire acception */
     if(Vision_Info.yawerror < Vision_Info.Fire_Yaw_Threshold)
@@ -78,14 +82,14 @@ void Vision_Task(void const * argument)
     if(MiniPC_ReceivePacket.armors_num == 3)
     {
       /* refresh target posture, lock the center of outpost */
-      Vision_Info.target_Pitch = (float)(atan2(MiniPC_ReceivePacket.z, MiniPC_ReceivePacket.x));
-      Vision_Info.target_Yaw = (float)(atan2(MiniPC_ReceivePacket.y, MiniPC_ReceivePacket.x));
+      Vision_Info.target_Pitch = SolveTrajectory.centerlock_pitch * RadiansToDegrees;
+      Vision_Info.target_Yaw = SolveTrajectory.centerlock_yaw * RadiansToDegrees;
     }
 
     /* transmit the minipc frame data */
     MiniPC_SendFrameInfo(&MiniPC_SendPacket);
 
-    osDelay(2);
+    osDelayUntil(&systick,2);
   }
   /* USER CODE END Vision_Task */
 }
