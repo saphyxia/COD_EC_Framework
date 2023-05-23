@@ -28,6 +28,8 @@
         "vision_task.h": "c",
         "cmsis_os.h": "c",
         "api_trajectory.h": "c",
-        "bmi088.h": "c"
+        "bmi088.h": "c",
+        "lqr.h": "c",
+        "referee_info.h": "c"
     }
 }

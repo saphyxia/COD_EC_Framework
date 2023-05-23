@@ -61,7 +61,7 @@ void MiniPC_SendFrameInfo(MiniPC_SendPacket_Typedef *SendPacket)
   * @param  Len: Number of data received (in bytes)
   * @retval none
   */
-void MiniPC_RecvFrameInfo(uint8_t* Buf, uint32_t *Len)
+void MiniPC_RecvFrameInfo(const uint8_t* Buf, const uint32_t *Len)
 {
   /* Judge the crc16 */
   if(verify_CRC16_check_sum(Buf,*Len) != true)

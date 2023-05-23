@@ -21,6 +21,8 @@
 
 /* Private define ------------------------------------------------------------*/
 #if defined(BMI088_USE_SPI)
+
+/* Private function prototypes -----------------------------------------------*/
 /**
   * @brief Write the single register value to the sensor
   */

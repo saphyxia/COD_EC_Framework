@@ -1,10 +1,10 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file           : referee_info.c
-  * @brief          : referee interfaces functions 
+  * @file           : lqr.h
+  * @brief          : LQR controller 
   * @author         : Yan Yuanbin
-  * @date           : 2023/04/27
+  * @date           : 2023/05/23
   * @version        : v1.0
   ******************************************************************************
   * @attention      : to be tested
@@ -12,10 +12,15 @@
   */
 /* USER CODE END Header */
 
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef LQR_H
+#define LQR_H
+
+
 /* Includes ------------------------------------------------------------------*/
-#include "referee_info.h"
-#include "crc.h"
+#include "stdint.h"
 
 
+/* Exported functions prototypes ---------------------------------------------*/
 
-
+#endif //LQR_H

@@ -4,7 +4,7 @@
   * @file           : remote_control.c
   * @brief          : remote_control interfaces functions 
   * @author         : Yan Yuanbin
-  * @date           : 2023/04/27
+  * @date           : 2023/05/23
   * @version        : v1.0
   ******************************************************************************
   * @attention      : to be tested
@@ -14,6 +14,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "remote_control.h"
+#include "ramp.h"
 
 /* Exported variables ---------------------------------------------------------*/
 /**
@@ -25,6 +26,19 @@ Remote_Info_Typedef remote_ctrl;
  * @brief remote control usart RxDMA MultiBuffer
  */
 uint8_t SBUS_MultiRx_Buf[2][SBUS_RX_BUF_NUM];
+
+/* Private variables ---------------------------------------------------------*/
+/**
+ * @brief structure that contains the information of keyboard
+ */
+static KeyBoard_Info_Typedef KeyBoard_Info;
+
+/* Private function prototypes -----------------------------------------------*/
+/**
+  * @brief  Update the status of keyboard
+  */
+static void Key_Status_Update(KeyBoard_Info_Typedef *KeyInfo,bool KeyBoard_Status);
+
 
 /**
   * @brief  convert the remote control received message
@@ -49,8 +63,8 @@ void SBUS_TO_RC(volatile const uint8_t *sbus_buf, Remote_Info_Typedef  *remote_c
     remote_ctrl->rc.s[1] = ((sbus_buf[5] >> 4) & 0x000C) >> 2;             //!< Switch right
 
     /* Mouse axis: X, Y, Z */
-    remote_ctrl->mouse.x = sbus_buf[6] | (sbus_buf[7] << 8);                    //!< Mouse X axis
-    remote_ctrl->mouse.y = sbus_buf[8] | (sbus_buf[9] << 8);                    //!< Mouse Y axis
+    remote_ctrl->mouse.x = sbus_buf[6]  | (sbus_buf[7] << 8);                    //!< Mouse X axis
+    remote_ctrl->mouse.y = sbus_buf[8]  | (sbus_buf[9] << 8);                    //!< Mouse Y axis
     remote_ctrl->mouse.z = sbus_buf[10] | (sbus_buf[11] << 8);                  //!< Mouse Z axis
 
     /* Mouse Left, Right Is Press  */
@@ -83,7 +97,7 @@ void SBUS_TO_RC(volatile const uint8_t *sbus_buf, Remote_Info_Typedef  *remote_c
 void Remote_Message_Moniter(Remote_Info_Typedef  *remote_ctrl)
 {
   /* Juege the device status */
-  if(remote_ctrl->online_cnt <= 0x32U )
+  if(remote_ctrl->online_cnt <= 0x32U)
   {
     /* reset the online count */
     remote_ctrl->online_cnt = 0xFAU;
@@ -94,11 +108,100 @@ void Remote_Message_Moniter(Remote_Info_Typedef  *remote_ctrl)
     /* clear the data */
     memset(remote_ctrl,0,sizeof(Remote_Info_Typedef));
   }
-  else if(remote_ctrl->online_cnt > 0 )
+  else if(remote_ctrl->online_cnt > 0)
   {
     /* online count decrements which reseted in received interrupt  */
     remote_ctrl->online_cnt--;
   }
 }
 //------------------------------------------------------------------------------
+
+/**
+  * @brief  report the status of keyboard
+  * @param  KeyBoard_Status: flag of the keyboard status 
+  * @retval the status of keyboard
+  */
+KeyBoard_Status_e Key_Status(bool KeyBoard_Status)
+{
+  /* update the key status */
+  Key_Status_Update(&KeyBoard_Info,KeyBoard_Status);
+
+  return KeyBoard_Info.Status;
+}
+//------------------------------------------------------------------------------
+
+/**
+  * @brief  Update the status of keyboard
+  * @param  KeyInfo: pointer to a KeyBoard_Info_Typedef structure that
+  *         contains the information for the keyboard.
+  * @param  KeyBoard_Status: flag of the keyboard status 
+  * @retval none
+  */
+static void Key_Status_Update(KeyBoard_Info_Typedef *KeyInfo,bool KeyBoard_Status)
+{ 
+  /* store the keyboard status */
+  KeyInfo->KEY_PRESS = KeyBoard_Status;
+
+  /* judge the change of keyboard status */
+  if(KeyInfo->last_KEY_PRESS != KeyInfo->KEY_PRESS)
+  {
+    /* clear the status judgement count  */
+    KeyInfo->Count = 0;
+  
+    /* update the last keyboard status */
+    KeyInfo->last_KEY_PRESS = KeyInfo->KEY_PRESS;
+  }
+
+  /* the keyboard status is key up */
+  if(KEY_UP == KeyInfo->KEY_PRESS)
+  {
+    /* last keyboard status is key down */
+    if(KEY_UP != KeyInfo->last_Status)
+      KeyInfo->Count++;
+    /* last keyboard status is key up */
+    else
+      KeyInfo->Count = 0;
+
+    /* update the keyboard status according the judgement count */
+    if(KeyInfo->Count >= KEY_SET_SHORT_TIME + 1)
+    {
+      KeyInfo->Status = UP;
+      KeyInfo->last_Status = UP;
+    }
+    else if(KeyInfo->Count >= KEY_SET_SHORT_TIME)
+    {
+      KeyInfo->Status = RELAX;
+      KeyInfo->last_Status = RELAX;
+    }
+  }
+  /* the keyboard status is key down */
+  else if(KEY_DOWN == KeyInfo->KEY_PRESS)
+  {
+    /* last keyboard status is key up */
+    if(KEY_DOWN != KeyInfo->last_Status)
+      KeyInfo->Count++;
+    /* last keyboard status is key down */
+    else
+      KeyInfo->Count = 0;
+
+    /* update the keyboard status according the judgement count */
+    if(KeyInfo->Count >= KEY_SET_LONG_TIME)
+    {
+      KeyInfo->Status = DOWN;
+      KeyInfo->last_Status = DOWN;
+    }
+    else if(KeyInfo->Count >= KEY_SET_SHORT_TIME + 1)
+    {
+      KeyInfo->Status = SHORT_DOWN;
+      KeyInfo->last_Status = SHORT_DOWN;
+    }
+    else if(KeyInfo->Count >= KEY_SET_SHORT_TIME)
+    {
+      KeyInfo->Status = PRESS;
+      KeyInfo->last_Status = PRESS;
+    }
+  }
+}
+//------------------------------------------------------------------------------
+
 

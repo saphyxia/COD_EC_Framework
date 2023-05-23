@@ -24,25 +24,39 @@
 /**
  * @brief Length of SBUS received data
  */
-#define SBUS_RX_BUF_NUM     36u
+#define SBUS_RX_BUF_NUM		36u
 
 /**
  * @brief Length of remote control received data
  */
-#define RC_FRAME_LENGTH     18u
+#define RC_FRAME_LENGTH		18u
 /**
  * @brief offset of remote control channel data
  */
-#define RC_CH_VALUE_OFFSET ((uint16_t)1024)
+#define RC_CH_VALUE_OFFSET		1024U
 
 /**
  * @brief judgement keyboard set short time
  */
-#define KEY_SET_SHORT_TIME   50
+#define KEY_SET_SHORT_TIME		50U
 /**
  * @brief judgement keyboard set long time
  */
-#define KEY_SET_LONG_TIME  1000
+#define KEY_SET_LONG_TIME		1000U
+
+/**
+ * @brief status of keyboard up
+ */
+#define KEY_UP                    0x00U
+/**
+ * @brief status of keyboard down
+ */
+#define KEY_DOWN                  0x01U
+
+/**
+ * @brief MAX speed of mouse speed
+ */
+#define MOUSE_SPEED_MAX		300U
 
 /* Exported types ------------------------------------------------------------*/
 /**
@@ -57,6 +71,15 @@ typedef enum
 	RELAX,		/*!< 1->0 */
 	KeyBoard_Status_NUM,
 }KeyBoard_Status_e;
+
+typedef struct
+{
+	uint16_t Count;
+	KeyBoard_Status_e Status;
+	KeyBoard_Status_e last_Status;
+	bool last_KEY_PRESS;
+	bool KEY_PRESS;
+}KeyBoard_Info_Typedef;
 
 /**
  * @brief typedef structure that contains the information for the remote control.
@@ -113,7 +136,6 @@ typedef  struct
 
 	bool rc_lost;   /*!< lost flag */
 	uint8_t online_cnt;   /*!< online count */
-
 } Remote_Info_Typedef;
 
 /* Exported variables ---------------------------------------------------------*/
@@ -126,15 +148,44 @@ extern Remote_Info_Typedef remote_ctrl;
  */
 extern uint8_t SBUS_MultiRx_Buf[2][SBUS_RX_BUF_NUM];
 
+/* Mouse Exported defines -----------------------------------------------------*/
+#define MOUSE_X_MOVE_SPEED    (remote_ctrl.mouse.x )
+#define MOUSE_Y_MOVE_SPEED    (remote_ctrl.mouse.y )
+#define MOUSE_Z_MOVE_SPEED    (remote_ctrl.mouse.z )
+#define MOUSE_PRESSED_LEFT    (remote_ctrl.mouse.press_l)
+#define MOUSE_PRESSED_RIGHT   (remote_ctrl.mouse.press_r)
+
+/* KeyBoard Exported defines --------------------------------------------------*/
+#define KeyBoard_W            (remote_ctrl.key.set.W)
+#define KeyBoard_S            (remote_ctrl.key.set.S)
+#define KeyBoard_A            (remote_ctrl.key.set.A)
+#define KeyBoard_D            (remote_ctrl.key.set.D)
+#define KeyBoard_SHIFT        (remote_ctrl.key.set.SHIFT)
+#define KeyBoard_CTRL         (remote_ctrl.key.set.CTRL)
+#define KeyBoard_Q            (remote_ctrl.key.set.Q)
+#define KeyBoard_E            (remote_ctrl.key.set.E)
+#define KeyBoard_R            (remote_ctrl.key.set.R)
+#define KeyBoard_F            (remote_ctrl.key.set.F)
+#define KeyBoard_G            (remote_ctrl.key.set.G)
+#define KeyBoard_Z            (remote_ctrl.key.set.Z)
+#define KeyBoard_X            (remote_ctrl.key.set.X)
+#define KeyBoard_C            (remote_ctrl.key.set.C)
+#define KeyBoard_V            (remote_ctrl.key.set.V)
+#define KeyBoard_B            (remote_ctrl.key.set.B)
+
 /* Exported functions prototypes ---------------------------------------------*/
 /**
   * @brief  convert the remote control received message
   */
-extern void SBUS_TO_RC(volatile const uint8_t *sbus_buf, Remote_Info_Typedef  *remote_ctrl);
+extern void SBUS_TO_RC(volatile const uint8_t *sbus_buf, Remote_Info_Typedef *remote_ctrl);
 /**
   * @brief  clear the remote control data while the device offline
   */
-extern void Remote_Message_Moniter(Remote_Info_Typedef  *remote_ctrl);
+extern void Remote_Message_Moniter(Remote_Info_Typedef *remote_ctrl);
+/**
+  * @brief  get the status of keyboard
+  */
+extern KeyBoard_Status_e Key_Status(bool KeyBoard_Status);
 
 #endif //REMOTE_CONTROL_H
 

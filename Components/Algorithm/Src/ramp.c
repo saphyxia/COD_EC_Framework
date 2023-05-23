@@ -122,7 +122,7 @@ float MovingAverage_Update(MovingAverage_Info_TypeDef *MA,float input)
       MA->sum += MA->filter_buff[i];
   }
 
-  MA->output = (float)(MA->sum/MA->length);
+  MA->output = (float)(MA->sum / MA->length);
 	
 	MA->sum = 0;
 
