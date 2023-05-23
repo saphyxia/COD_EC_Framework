@@ -39,7 +39,6 @@ static KeyBoard_Info_Typedef KeyBoard_Info;
   */
 static void Key_Status_Update(KeyBoard_Info_Typedef *KeyInfo,bool KeyBoard_Status);
 
-
 /**
   * @brief  convert the remote control received message
   * @param  sbus_buf: pointer to a array that contains the information of the received message.

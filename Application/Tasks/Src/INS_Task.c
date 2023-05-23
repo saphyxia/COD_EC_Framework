@@ -31,7 +31,7 @@ INS_Info_Typedef INS_Info;
 /**
   * @brief the array that contains the data of LPF2p coefficients.
   */
-static float INS_LPF2p_alpha[3]={1.929454039488895f, -0.93178349823448126f, 0.002329458745586203f};
+static float INS_LPF2p_Alpha[3]={1.929454039488895f, -0.93178349823448126f, 0.002329458745586203f};
 /**
   * @brief the structure that contains the Information of accel LPF2p.
   */
@@ -154,9 +154,9 @@ void INS_Task(void const * argument)
 static void INSTask_Init(void)
 {
   /* Initializes the Second order lowpass filter  */
-  LowPassFilter2p_Init(&INS_AcceLPF2p[0],INS_LPF2p_alpha);
-  LowPassFilter2p_Init(&INS_AcceLPF2p[1],INS_LPF2p_alpha);
-  LowPassFilter2p_Init(&INS_AcceLPF2p[2],INS_LPF2p_alpha);
+  LowPassFilter2p_Init(&INS_AcceLPF2p[0],INS_LPF2p_Alpha);
+  LowPassFilter2p_Init(&INS_AcceLPF2p[1],INS_LPF2p_Alpha);
+  LowPassFilter2p_Init(&INS_AcceLPF2p[2],INS_LPF2p_Alpha);
 	
   /* Initializes the Temperature Control PID  */
 	PID_Init(&TempCtrl_PID,PID_VELOCITY,TemCtrl_PID_Param);
