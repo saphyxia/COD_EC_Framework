@@ -116,9 +116,9 @@ void INS_Task(void const * argument)
     memcpy(INS_Info.angle,Quaternion_Info.EulerAngle,sizeof(INS_Info.angle));
 
 		/* Update the Euler angle in degrees. */
-    INS_Info.pit_angle = Quaternion_Info.EulerAngle[2]*RadiansToDegrees;
-    INS_Info.yaw_angle = Quaternion_Info.EulerAngle[0]*RadiansToDegrees;
-    INS_Info.rol_angle = Quaternion_Info.EulerAngle[1]*RadiansToDegrees;
+    INS_Info.pit_angle = Quaternion_Info.EulerAngle[IMU_ANGLE_INDEX_PITCH]*RadiansToDegrees;
+    INS_Info.yaw_angle = Quaternion_Info.EulerAngle[IMU_ANGLE_INDEX_YAW]*RadiansToDegrees;
+    INS_Info.rol_angle = Quaternion_Info.EulerAngle[IMU_ANGLE_INDEX_ROLL]*RadiansToDegrees;
 		
 		/* Update the yaw total angle */
 		if(INS_Info.yaw_angle - INS_Info.last_yawangle < -180.f)
@@ -134,9 +134,9 @@ void INS_Task(void const * argument)
 		INS_Info.yaw_tolangle = INS_Info.yaw_angle + INS_Info.YawRoundCount*360.f;
 		
     /* Update the INS gyro in degrees */
-    INS_Info.pit_gyro = INS_Info.gyro[0]*RadiansToDegrees;
-    INS_Info.yaw_gyro = INS_Info.gyro[2]*RadiansToDegrees;
-    INS_Info.rol_gyro = INS_Info.gyro[1]*RadiansToDegrees;
+    INS_Info.pit_gyro = INS_Info.gyro[IMU_GYRO_INDEX_PITCH]*RadiansToDegrees;
+    INS_Info.yaw_gyro = INS_Info.gyro[IMU_GYRO_INDEX_YAW]*RadiansToDegrees;
+    INS_Info.rol_gyro = INS_Info.gyro[IMU_GYRO_INDEX_ROLL]*RadiansToDegrees;
 		
 		if(systick%2 == 0)
 		{

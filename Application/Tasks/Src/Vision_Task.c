@@ -53,9 +53,9 @@ void Vision_Task(void const * argument)
     Vision_Info.IF_Aiming_Enable = (MiniPC_ReceivePacket.tracking == true);
 
     /* update the transmit euler angle in radians */
-    MiniPC_SendPacket.pitch = INS_Info.angle[2];
-    MiniPC_SendPacket.yaw   = INS_Info.angle[0];
-    MiniPC_SendPacket.roll  = INS_Info.angle[1];
+    MiniPC_SendPacket.pitch = INS_Info.angle[IMU_GYRO_INDEX_PITCH];
+    MiniPC_SendPacket.yaw   = INS_Info.angle[IMU_GYRO_INDEX_YAW];
+    MiniPC_SendPacket.roll  = INS_Info.angle[IMU_GYRO_INDEX_ROLL];
 
     /* update the solve trajectory */
 		SolveTrajectory_Update(&SolveTrajectory,-MiniPC_SendPacket.pitch,MiniPC_SendPacket.yaw,MiniPC_ReceivePacket.yaw,MiniPC_ReceivePacket.v_yaw,MiniPC_ReceivePacket.r1,MiniPC_ReceivePacket.r2,MiniPC_ReceivePacket.dz,18.f,MiniPC_ReceivePacket.armors_num);
@@ -63,11 +63,24 @@ void Vision_Task(void const * argument)
     /* transform the solved trajetory */
     SolveTrajectory_Transform(&MiniPC_SendPacket,&MiniPC_ReceivePacket,&SolveTrajectory);
 
-    /* Update the Gimbal target posture in degrees,lock the armor */
-    Vision_Info.target_Pitch = SolveTrajectory.armorlock_pitch * RadiansToDegrees;
-    Vision_Info.target_Yaw = SolveTrajectory.armorlock_yaw * RadiansToDegrees;
-    Vision_Info.yawerror = fabs(SolveTrajectory.armorlock_yaw - MiniPC_SendPacket.yaw) * RadiansToDegrees;
 
+    /* 4 is normal armor num */
+    if(MiniPC_ReceivePacket.armors_num == 4)
+    {
+			/* Update the Gimbal target posture in degrees,lock the armor */
+			Vision_Info.target_Pitch = SolveTrajectory.armorlock_pitch * RadiansToDegrees;
+			Vision_Info.target_Yaw = SolveTrajectory.armorlock_yaw * RadiansToDegrees;
+		}
+    /* 3 is outpost armor num */
+    else if(MiniPC_ReceivePacket.armors_num == 3)
+    {
+      /* refresh target posture, lock the center of outpost */
+      Vision_Info.target_Pitch = SolveTrajectory.centerlock_pitch * RadiansToDegrees;
+      Vision_Info.target_Yaw = SolveTrajectory.centerlock_yaw * RadiansToDegrees;
+    }
+		/* calculate the yaw angle error */
+    Vision_Info.yawerror = fabs(SolveTrajectory.armorlock_yaw - MiniPC_SendPacket.yaw) * RadiansToDegrees;
+		
     /* Judge the fire acception */
     if(Vision_Info.yawerror < Vision_Info.Fire_Yaw_Threshold)
     {
@@ -76,14 +89,6 @@ void Vision_Task(void const * argument)
     else
     {
       Vision_Info.IF_Fire_Accept = false;
-    }
-
-    /* 3 is outpost armor num */
-    if(MiniPC_ReceivePacket.armors_num == 3)
-    {
-      /* refresh target posture, lock the center of outpost */
-      Vision_Info.target_Pitch = SolveTrajectory.centerlock_pitch * RadiansToDegrees;
-      Vision_Info.target_Yaw = SolveTrajectory.centerlock_yaw * RadiansToDegrees;
     }
 
     /* transmit the minipc frame data */

@@ -16,7 +16,7 @@
 #ifndef ROBOT_CONFIG_H
 #define ROBOT_CONFIG_H
 
-/* General physics and mathematics constant ----------------------------------*/
+/* General physics and mathematics constants ---------------------------------*/
 
 /**
  * @brief the value of local gravity acceleration
@@ -33,7 +33,7 @@
  */
 #define DegreesToRadians 0.01745329251f
 
-/* Vision reslove constant --------------------------------------------------*/
+/* Vision reslove constants -------------------------------------------------*/
 
 /**
  * @brief  Decision Marking mode
@@ -63,6 +63,53 @@
  * @brief the bias time of system(s), contains the communication delay and trigger delay
  */
 #define FireSystem_BiasTime  0.2f
+
+/* IMU reslove constants ---------------------------------------------------*/
+/**
+ * @brief the flag of bmi088 Calibration
+ *        0: DISABLE
+ *        1: ENABLE
+ */
+#define IMU_Calibration_ENABLE  1U
+
+/**
+ * @brief the index of pitch angle update
+ */
+#define IMU_ANGLE_INDEX_PITCH  2U
+/**
+ * @brief the index of yaw angle update
+ */
+#define IMU_ANGLE_INDEX_YAW   0U
+/**
+ * @brief the index of roll angle update
+ */
+#define IMU_ANGLE_INDEX_ROLL   1U
+
+/**
+ * @brief the index of pitch gyro update
+ */
+#define IMU_GYRO_INDEX_PITCH  0U
+/**
+ * @brief the index of yaw gyro update
+ */
+#define IMU_GYRO_INDEX_YAW   2U
+/**
+ * @brief the index of roll gyro update
+ */
+#define IMU_GYRO_INDEX_ROLL   1U
+
+/**
+ * @brief the index of pitch accel update
+ */
+#define IMU_ACCEL_INDEX_PITCH  1U
+/**
+ * @brief the index of yaw accel update
+ */
+#define IMU_ACCEL_INDEX_YAW   2U
+/**
+ * @brief the index of roll accel update
+ */
+#define IMU_ACCEL_INDEX_ROLL   0U
 
 
 #endif //ROBOT_CONFIG_H

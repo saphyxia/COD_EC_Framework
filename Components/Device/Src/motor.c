@@ -15,7 +15,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "motor.h"
 #include "string.h"
-#include "pid.h"
+#include "math.h"
 
 /* Private function prototypes -----------------------------------------------*/
 /**
@@ -166,7 +166,7 @@ static float encoder_to_anglesum(Motor_GeneralInfo_Typedef *Info,float torque_ra
   Info->last_encoder = Info->encoder;
   
   /* transforms the encoder data to tolangle */
-  ABS(res1) > ABS(res2) ? (Info->angle += (float)res2/(MAXencoder*torque_ratio)*360.f) : (Info->angle += (float)res1/(MAXencoder*torque_ratio)*360.f);
+  fabsf(res1) > fabsf(res2) ? (Info->angle += (float)res2/(MAXencoder*torque_ratio)*360.f) : (Info->angle += (float)res1/(MAXencoder*torque_ratio)*360.f);
   
   return Info->angle;
 }

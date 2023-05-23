@@ -80,17 +80,11 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
     /* calculate the yaw linear prediction */
     SolveTrajectory->yaw_calc += SolveTrajectory->yawgyro_calc * timeDelay;
 
-    /* calculate the for armor position */
-	bool use_1 = 1;
-
     /* the index of target armor */
     uint8_t index = 0; 
     
     /* yaw diff in algorithm */
     float yaw_diff_min = 0.f,temp_yaw_diff=0.f;
-
-    /* distance in algorithm */
-    float distance_calc = 0.f;
 
     /* Judge the armor num,balance armor num is 2 */
     if (SolveTrajectory->armors_num == 2) 
@@ -138,6 +132,9 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
     /* normal armor num is 4 */
     else if (SolveTrajectory->armors_num == 4)
     {
+				/* select the armor flag */
+				bool use_1 = 1;
+
         /* store the armor posure */
         for (uint8_t i = 0; i<4; i++)
         {
@@ -181,7 +178,10 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
     MiniPCTxData->aim_x = SolveTrajectory->target_posure[index].x + MiniPCRxData->vx * timeDelay;
     MiniPCTxData->aim_y = SolveTrajectory->target_posure[index].y + MiniPCRxData->vy * timeDelay;
     MiniPCTxData->aim_z = SolveTrajectory->target_posure[index].z + MiniPCRxData->vz * timeDelay;
-    
+
+		/* distance in algorithm */
+    float distance_calc = 0.f;
+		
     /* calculate the distance to armor */
     arm_sqrt_f32((MiniPCTxData->aim_x) * (MiniPCTxData->aim_x) + (MiniPCTxData->aim_y) * (MiniPCTxData->aim_y),&distance_calc);
 

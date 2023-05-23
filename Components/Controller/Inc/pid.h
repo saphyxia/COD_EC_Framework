@@ -31,12 +31,6 @@
                                     if ((x) > (max)) {(x) = (max);} \
                                     else if ((x) < (min)) {(x) = (min);} \
                                 }while(0U)
-/**
- * @brief macro definition of the ABS that takes the absolute value of the specific variable
- * @param x: the specified variable
- * @retval the absolute value of the specified variable
- */
-#define ABS(x) (((x) > 0) ? (x) : -(x))
 
 /**
  * @brief macro definition of the number of pid parameters

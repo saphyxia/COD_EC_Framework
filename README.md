@@ -48,9 +48,9 @@ HAL-Template
 
 * 使用`MicroUSB`连接STM32和上位机
 
-* 在`./Device/Src/minipc.c`中封装了适配[rm_serial_driver](https://github.com/chenjunnn/rm_serial_driver)(！注意：仍在更新中)的数据交互函数
+* 在`./Device/Src/minipc.c`中封装了适配[rm_serial_driver](https://github.com/chenjunnn/rm_serial_driver)的数据交互函数
   
-  * 其中
+  * 
     ```c
     void MiniPC_RecvFrameInfo(uint8_t* Buf, uint32_t *Len)
     ```
@@ -60,7 +60,7 @@ HAL-Template
     ```
   	函数中调用,实现了上位机数据的接收。
   	
-  * 此外
+  * 
     ```c
     void MiniPC_SendFrameInfo(MiniPC_SendPacket_Typedef *SendPacket)
     ```
@@ -78,10 +78,6 @@ HAL-Template
   
 * 解算部分在`./Application/Tasks/Src/Vision_Task.c`中以500Hz的频率进行，
 
-  - `！！！！！！！！！！！！！！！！注意！！！！！！！！！！！！！！！！`
-  
-    在
-    
     ```c
     void SolveTrajectory_Update(SolveTrajectory_Typedef *SolveTrajectory,
                                 float picth,
@@ -92,12 +88,10 @@ HAL-Template
                                 float r2,
                                 float dz,
                                 float bullet_speed,
-                                float armor_type)
+                                float armor_num)
     ```
-  	函数更新弹道解算参数时，**请根据云台RoboMaster开发板C型的安装位置调整输入的位姿数据**
-  	`！！！！！！！！！！！！！！！！注意！！！！！！！！！！！！！！！！`
-  
-  由
+    函数更新弹道解算参数时，**请根据云台RoboMaster开发板C型的安装位置调整输入的位姿数据**，即在`./Application/API/Inc/config.h`中修改`IMU reslove constants`栏相关宏定义，此处与云台控制相对应，若后者正常则无需修改。
+    
   ```c
   void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,
                                  MiniPC_ReceivePacket_Typedef *MiniPCRxData,

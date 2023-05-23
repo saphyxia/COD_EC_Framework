@@ -17,7 +17,7 @@
 #include "bsp_gpio.h"
 #include "bsp_spi.h"
 #include "bsp_tick.h"
-#include "pid.h"
+#include "config.h"
 
 /* Private define ------------------------------------------------------------*/
 #if defined(BMI088_USE_SPI)
@@ -362,6 +362,8 @@ static BMI088_Status_e BMI088_Gyro_Init(void)
   */
 static void BMI088_Offset_Update(BMI088_Info_Typedef *BMI088_Info)
 {
+#if IMU_Calibration_ENABLE /* ENABLE the BMI088 Calibration */
+	
 	uint8_t buf[8] = {0,};
 
   for(uint16_t i = 0; i < 5000; i++)
@@ -394,9 +396,12 @@ static void BMI088_Offset_Update(BMI088_Info_Typedef *BMI088_Info)
   BMI088_Info->offsets_gyroy = BMI088_Info->offsets_gyroy / 5000.f; 
   BMI088_Info->offsets_gyroz = BMI088_Info->offsets_gyroz / 5000.f;
 	
-  // BMI088_Info->offsets_gyrox = ;
-  // BMI088_Info->offsets_gyroy = ;
-  // BMI088_Info->offsets_gyroz = ;
+#else /* DISABLE the BMI088 Calibration */
+	/* store the previous offsets */
+  BMI088_Info->offsets_gyrox = 0.00301723485f;
+  BMI088_Info->offsets_gyroy = 0.00134009961f;
+  BMI088_Info->offsets_gyroz = -8.45820759e-5f;
+#endif
 
   /* set the offset init flag */
   BMI088_Info->offsets_init = true;

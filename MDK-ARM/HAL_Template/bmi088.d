@@ -6,4 +6,4 @@
 .\hal_template\bmi088.o: ../Bsp/Inc/bsp_gpio.h
 .\hal_template\bmi088.o: ../Bsp/Inc/bsp_spi.h
 .\hal_template\bmi088.o: ../Bsp/Inc/bsp_tick.h
-.\hal_template\bmi088.o: ../Components/Controller/Inc/pid.h
+.\hal_template\bmi088.o: ../Application/Tasks/Inc/config.h
