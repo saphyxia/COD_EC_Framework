@@ -22,3 +22,5 @@
 .\hal_template\vision_task.o: ../Components/Device/Inc/minipc.h
 .\hal_template\vision_task.o: ../Application/Tasks/Inc/INS_Task.h
 .\hal_template\vision_task.o: ../Application/Tasks/Inc/config.h
+.\hal_template\vision_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\hal_template\vision_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

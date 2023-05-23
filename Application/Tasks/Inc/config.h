@@ -16,12 +16,24 @@
 #ifndef ROBOT_CONFIG_H
 #define ROBOT_CONFIG_H
 
+/* Includes ------------------------------------------------------------------*/
+#include "stdint.h"
+#include "stdbool.h"
+#include "stdlib.h"
+#include "string.h"
+#include "math.h"
+
 /* General physics and mathematics constants ---------------------------------*/
 
 /**
  * @brief the value of local gravity acceleration
  */
 #define GravityAccel  9.8035f  
+
+/**
+  * @brief Euler's Number
+  */
+#define Euler_Number 2.718281828459045f
 
 /**
  * @brief radian system rotation degrees system , 180.f/PI
@@ -40,7 +52,7 @@
  *         0: select the minimum yaw armor
  *         1: select the minimum distance armor
  */
-#define Distance_Yaw_Decision  0
+#define Yaw_Distance_Decision  0
 
 /**
  * @brief ballistic coefficient

@@ -14,8 +14,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "motor.h"
-#include "string.h"
-#include "math.h"
 
 /* Private function prototypes -----------------------------------------------*/
 /**

@@ -14,9 +14,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "pid.h"
-#include "math.h"
-#include "stdbool.h"
-#include "string.h"
 
 /**
  * @brief Initializes the PID Parameters.

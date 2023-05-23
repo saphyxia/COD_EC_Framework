@@ -14,16 +14,8 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "ramp.h"
-#include "stdlib.h"
-#include "math.h"
-#include "string.h"
-/////////////////////////////////////////////////////////////
-/* Private define ------------------------------------------------------------*/
-/**
-  * @brief Euler's Number
-  */
-#define Euler_Number 2.718281828459045f
 
+/* Private define ------------------------------------------------------------*/
 /**
   * @brief Calculate the floating-point ramp filter.
   * @param input: the filter input variables

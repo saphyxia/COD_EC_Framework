@@ -8,5 +8,6 @@
 .\hal_template\kalman.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
 .\hal_template\kalman.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\hal_template\kalman.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-.\hal_template\kalman.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\hal_template\kalman.o: ../Application/Tasks/Inc/config.h
 .\hal_template\kalman.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\hal_template\kalman.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

@@ -41,12 +41,14 @@
 .\hal_template\bsp_mcu.o: ../Bsp/Inc/bsp_uart.h
 .\hal_template\bsp_mcu.o: ../Bsp/Inc/bsp_dwt.h
 .\hal_template\bsp_mcu.o: ../Components/Device/Inc/bmi088.h
-.\hal_template\bsp_mcu.o: ../Components/Device/Inc/bmi088_reg.h
+.\hal_template\bsp_mcu.o: ../Application/Tasks/Inc/config.h
 .\hal_template\bsp_mcu.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\hal_template\bsp_mcu.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\hal_template\bsp_mcu.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\hal_template\bsp_mcu.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\hal_template\bsp_mcu.o: ../Components/Device/Inc/bmi088_reg.h
 .\hal_template\bsp_mcu.o: ../USB_DEVICE/App/usb_device.h
 .\hal_template\bsp_mcu.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
 .\hal_template\bsp_mcu.o: ../USB_DEVICE/Target/usbd_conf.h
 .\hal_template\bsp_mcu.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\hal_template\bsp_mcu.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\hal_template\bsp_mcu.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\hal_template\bsp_mcu.o: ../Core/Inc/main.h

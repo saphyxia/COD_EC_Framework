@@ -111,7 +111,7 @@ void INS_Task(void const * argument)
 		memcpy(INS_Info.gyro,BMI088_Info.gyro,sizeof(INS_Info.gyro));
 		
 		/* Update the QuaternionEKF */
-    QuaternionEKF_Update(&Quaternion_Info,BMI088_Info.gyro,INS_Info.accel,0.001f);
+    QuaternionEKF_Update(&Quaternion_Info,INS_Info.gyro,INS_Info.accel,0.001f);
 		
     memcpy(INS_Info.angle,Quaternion_Info.EulerAngle,sizeof(INS_Info.angle));
 

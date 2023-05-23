@@ -18,8 +18,12 @@
 .\hal_template\ins_task.o: ../Application/Tasks/Inc/INS_Task.h
 .\hal_template\ins_task.o: ../Bsp/Inc/bsp_tim.h
 .\hal_template\ins_task.o: ../Components/Device/Inc/bmi088.h
-.\hal_template\ins_task.o: ../Components/Device/Inc/bmi088_reg.h
+.\hal_template\ins_task.o: ../Application/Tasks/Inc/config.h
 .\hal_template\ins_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\hal_template\ins_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\hal_template\ins_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\hal_template\ins_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\hal_template\ins_task.o: ../Components/Device/Inc/bmi088_reg.h
 .\hal_template\ins_task.o: ../Application/API/Inc/api_quaternion.h
 .\hal_template\ins_task.o: ../Components/Algorithm/Inc/kalman.h
 .\hal_template\ins_task.o: ../Middlewares/ST/ARM/DSP/Inc/arm_math.h
@@ -27,9 +31,5 @@
 .\hal_template\ins_task.o: ../Drivers/CMSIS/Include/cmsis_version.h
 .\hal_template\ins_task.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 .\hal_template\ins_task.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
-.\hal_template\ins_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\hal_template\ins_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-.\hal_template\ins_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\hal_template\ins_task.o: ../Components/Algorithm/Inc/lpf.h
 .\hal_template\ins_task.o: ../Components/Controller/Inc/pid.h
-.\hal_template\ins_task.o: ../Application/Tasks/Inc/config.h

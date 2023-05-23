@@ -20,8 +20,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "kalman.h"
-#include "math.h"
-#include "string.h"
 
 /**
   * @brief Initializes the kalman filter according to the specified parameters in the

@@ -18,8 +18,7 @@
 
 
 /* Includes ------------------------------------------------------------------*/
-#include "stdint.h"
-#include "stdbool.h"
+#include "config.h"
 
 /* Exported defines -----------------------------------------------------------*/
 #define SBUS_RX_BUF_NUM     36u

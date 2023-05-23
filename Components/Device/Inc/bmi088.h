@@ -18,9 +18,8 @@
 
 
 /* Includes ------------------------------------------------------------------*/
-#include "stdint.h"
+#include "config.h"
 #include "bmi088_reg.h"
-#include "stdbool.h"
 
 /* Exported defines -----------------------------------------------------------*/
 #define BMI088_USE_SPI 

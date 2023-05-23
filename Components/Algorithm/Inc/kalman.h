@@ -20,8 +20,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stdint.h"
 #include "arm_math.h"
-#include "stdlib.h"
-#include "stdbool.h"
+#include "config.h"
 
 /* Exported defines -----------------------------------------------------------*/
 /**

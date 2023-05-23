@@ -146,7 +146,7 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
             use_1 = !use_1;
         }
 
-#if Distance_Yaw_Decision
+#if Yaw_Distance_Decision
         /* select the minimum distance armor */
         float dis_diff_min = 0.f,temp_dis_diff = 0.f;
         arm_sqrt_f32(SolveTrajectory->target_posure[0].x * SolveTrajectory->target_posure[0].x + SolveTrajectory->target_posure[0].y * SolveTrajectory->target_posure[0].y,&dis_diff_min);

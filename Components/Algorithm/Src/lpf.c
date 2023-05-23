@@ -14,7 +14,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "lpf.h"
-#include "string.h"
 
 /**
   * @brief Initializes the first order lowpass filter according to the specified parameters in the

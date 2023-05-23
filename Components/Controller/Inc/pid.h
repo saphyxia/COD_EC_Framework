@@ -17,7 +17,7 @@
 #define CONTROLLER_PID_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "stdint.h"
+#include "config.h"
 
 /* Exported defines -----------------------------------------------------------*/
 /**

@@ -17,7 +17,7 @@
 #include "bsp_gpio.h"
 #include "bsp_spi.h"
 #include "bsp_tick.h"
-#include "config.h"
+
 
 /* Private define ------------------------------------------------------------*/
 #if defined(BMI088_USE_SPI)

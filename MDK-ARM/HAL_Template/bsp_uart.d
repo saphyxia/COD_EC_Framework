@@ -39,4 +39,8 @@
 .\hal_template\bsp_uart.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
 .\hal_template\bsp_uart.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
 .\hal_template\bsp_uart.o: ../Components/Device/Inc/remote_control.h
+.\hal_template\bsp_uart.o: ../Application/Tasks/Inc/config.h
 .\hal_template\bsp_uart.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\hal_template\bsp_uart.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\hal_template\bsp_uart.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\hal_template\bsp_uart.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
