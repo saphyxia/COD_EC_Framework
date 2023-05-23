@@ -17,9 +17,7 @@
 #define VISION_TASK_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "stdint.h"
-#include "stdbool.h"
-#include "math.h"
+#include "config.h"
 
 /* Exported types ------------------------------------------------------------*/
 /**

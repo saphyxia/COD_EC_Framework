@@ -15,9 +15,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "cmsis_os.h"
 #include "Vision_Task.h"
-#include "api_trajectory.h"
 #include "INS_Task.h"
-#include "config.h"
+#include "api_trajectory.h"
+
+
 
 /* Private variables -----------------------------------------------------------*/
 /**
