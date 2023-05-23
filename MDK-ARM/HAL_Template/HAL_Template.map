@@ -2324,7 +2324,7 @@ Removing Unused input sections from the image.
     Removing lpf.o(i.LowPassFilter1p_Init), (28 bytes).
     Removing lpf.o(i.LowPassFilter1p_Update), (60 bytes).
     Removing ramp.o(i.MovingAverage_Init), (52 bytes).
-    Removing ramp.o(i.MovingAverage_Update), (120 bytes).
+    Removing ramp.o(i.MovingAverage_Update), (132 bytes).
     Removing ramp.o(i.f_LogisticCurves_Calc), (112 bytes).
     Removing ramp.o(i.f_Ramp_Calc), (62 bytes).
     Removing minipc.o(.rev16_text), (4 bytes).
@@ -3159,7 +3159,7 @@ Removing Unused input sections from the image.
     Removing arm_common_tables.o(.constdata), (2052 bytes).
     Removing arm_common_tables.o(.constdata), (1026 bytes).
 
-889 unused section(s) (total 268271 bytes) removed from the image.
+889 unused section(s) (total 268283 bytes) removed from the image.
 
 ==============================================================================
 

@@ -123,6 +123,8 @@ float MovingAverage_Update(MovingAverage_Info_TypeDef *MA,float input)
   }
 
   MA->output = (float)(MA->sum/MA->length);
+	
+	MA->sum = 0;
 
   return MA->output;
 }
