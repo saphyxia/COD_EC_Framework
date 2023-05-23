@@ -21,12 +21,43 @@
 #include "config.h"
 
 /* Exported defines -----------------------------------------------------------*/
+/**
+ * @brief Length of SBUS received data
+ */
 #define SBUS_RX_BUF_NUM     36u
+
+/**
+ * @brief Length of remote control received data
+ */
 #define RC_FRAME_LENGTH     18u
+/**
+ * @brief offset of remote control channel data
+ */
 #define RC_CH_VALUE_OFFSET ((uint16_t)1024)
 
+/**
+ * @brief judgement keyboard set short time
+ */
+#define KEY_SET_SHORT_TIME   50
+/**
+ * @brief judgement keyboard set long time
+ */
+#define KEY_SET_LONG_TIME  1000
 
 /* Exported types ------------------------------------------------------------*/
+/**
+ * @brief typedef enum that contains the status of the keyboard.
+ */
+typedef enum
+{
+	UP,			/*!< up */
+	SHORT_DOWN,	/*!< short time down */
+	DOWN,		/*!< long time down */
+	PRESS,		/*!< 0->1 */
+	RELAX,		/*!< 1->0 */
+	KeyBoard_Status_NUM,
+}KeyBoard_Status_e;
+
 /**
  * @brief typedef structure that contains the information for the remote control.
  */

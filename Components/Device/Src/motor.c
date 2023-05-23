@@ -132,7 +132,7 @@ void RMD_Motor_Info_Update(uint32_t *StdId, uint8_t *rxBuf,RMD_L9025_Info_Typede
   */
 static float encoder_to_anglesum(Motor_GeneralInfo_Typedef *Info,float torque_ratio,uint16_t MAXencoder)
 {
-  int16_t res1 = 0,res2 =0;
+  float res1 = 0,res2 =0;
   
   if(Info == NULL) return 0;
   
@@ -164,7 +164,14 @@ static float encoder_to_anglesum(Motor_GeneralInfo_Typedef *Info,float torque_ra
   Info->last_encoder = Info->encoder;
   
   /* transforms the encoder data to tolangle */
-  fabsf(res1) > fabsf(res2) ? (Info->angle += (float)res2/(MAXencoder*torque_ratio)*360.f) : (Info->angle += (float)res1/(MAXencoder*torque_ratio)*360.f);
+	if(fabsf(res1) > fabsf(res2))
+	{
+		Info->angle += (float)res2/(MAXencoder*torque_ratio)*360.f;
+	}
+	else
+	{
+		Info->angle += (float)res1/(MAXencoder*torque_ratio)*360.f;
+	}
   
   return Info->angle;
 }

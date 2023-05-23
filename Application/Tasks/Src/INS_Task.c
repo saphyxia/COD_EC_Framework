@@ -138,7 +138,7 @@ void INS_Task(void const * argument)
     INS_Info.yaw_gyro = INS_Info.gyro[IMU_GYRO_INDEX_YAW]*RadiansToDegrees;
     INS_Info.rol_gyro = INS_Info.gyro[IMU_GYRO_INDEX_ROLL]*RadiansToDegrees;
 		
-		if(systick%2 == 0)
+		if(systick%5 == 0)
 		{
 			BMI088_Temp_Control(BMI088_Info.temperature);
 		}

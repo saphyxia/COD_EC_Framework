@@ -146,11 +146,11 @@ void QuaternionEKF_Update(Quaternion_Info_Typedef *quat,float gyro[3],float acce
   quat->QuaternionEKF.MeasuredVector[0] = quat->accel[0] * quat->accelInvNorm;
   quat->QuaternionEKF.MeasuredVector[1] = quat->accel[1] * quat->accelInvNorm;
   quat->QuaternionEKF.MeasuredVector[2] = quat->accel[2] * quat->accelInvNorm;
- 
+	 
   /* chi square test */
-  if(1.f/quat->gyroInvNorm < 0.3f && (1.f/quat->accelInvNorm > (GravityAccel-0.5f) && 1.f/quat->accelInvNorm < (GravityAccel+0.5f)))
-  {
-    quat->QuaternionEKF.ChiSquareTest.TestFlag = true;
+  if(1.f/quat->gyroInvNorm < 0.3f && 1.f/quat->accelInvNorm  > (GravityAccel-0.5f) && 1.f/quat->accelInvNorm < (GravityAccel+0.5f))
+	{
+		quat->QuaternionEKF.ChiSquareTest.TestFlag = true;
   }
   else
   {
@@ -338,14 +338,13 @@ static bool QuaternionEKF_ChiSqrtTest(KalmanFilter_Info_TypeDef *kf)
 }
 //------------------------------------------------------------------------------
 /**
-  * @brief Update the posteriori estimate matrix
-  * @param kf: pointer to a KalmanFilter_Info_TypeDef structure that
+  * @brief  Update the posteriori estimate matrix
+  * @param  kf: pointer to a KalmanFilter_Info_TypeDef structure that
   *         contains the information  for the kalman filter.
   * @retval none
   */
 static void QuaternionEKF_xhat_Update(KalmanFilter_Info_TypeDef *kf)
 {
-
   /* HT */
   kf->MatStatus = Matrix_Transpose(&kf->Mat.H,&kf->Mat.HT);
 
@@ -377,6 +376,15 @@ static void QuaternionEKF_xhat_Update(KalmanFilter_Info_TypeDef *kf)
                               - kf->Data.xhatminus[2] * kf->Data.xhatminus[2] \
                               + kf->Data.xhatminus[3] * kf->Data.xhatminus[3];
 
+  /* the cosine of three axis orientation */
+	float OrientationCosine[3];
+	
+  /* calculate the cosine of three axis orientation */
+	for (uint8_t i = 0; i < 3; i++)
+	{
+		OrientationCosine[i] = acosf(fabsf(kf->Data.cache_vector[0][i]));
+	}
+	
   /* cache_vector[1] = z(k) - h(xhat'(k)) */
   kf->Mat.cache_vector[1].numRows = kf->Mat.z.numRows;
   kf->Mat.cache_vector[1].numCols = 1;
@@ -401,6 +409,24 @@ static void QuaternionEKF_xhat_Update(KalmanFilter_Info_TypeDef *kf)
 	{
 		kf->Data.K[i] *= kf->Data.cache_vector[0][0];
 	}
+
+  /**
+   * @brief K = \frac {P·minus·HT}{H·Pminus·HT + V·R·VT}
+   *          = [  0,  1,  2,
+   *               3,  4,  5,
+   *               6,  7,  8,
+   *               9, 10, 11, 
+   *             (12, 13, 14,)
+   *             (15, 16, 17,)]
+   * @note  K[12..17] *=  cos(axis)/(PI/2.f)
+   */
+  for (uint8_t i = 4; i < 6; i++)
+  {
+    for (uint8_t j = 0; j < 3; j++)
+    {
+        kf->Data.K[i * 3 + j] *= OrientationCosine[i - 4] / 1.5707963f; // 1 rad
+    }
+  }
 
   /* cache_vector[0] = K(k)·(z(k) - H·xhat'(k)) */
   kf->Mat.cache_vector[0].numRows = kf->Mat.K.numRows;
