@@ -64,7 +64,6 @@ void Vision_Task(void const * argument)
     /* transform the solved trajetory */
     SolveTrajectory_Transform(&MiniPC_SendPacket,&MiniPC_ReceivePacket,&SolveTrajectory);
 
-
     /* 4 is normal armor num */
     if(MiniPC_ReceivePacket.armors_num == 4)
     {
@@ -82,6 +81,15 @@ void Vision_Task(void const * argument)
 		/* calculate the yaw angle error */
     Vision_Info.yawerror = fabs(SolveTrajectory.armorlock_yaw - MiniPC_SendPacket.yaw) * RadiansToDegrees;
 		
+    /* auto threshold */
+    if(MiniPC_ReceivePacket.id == 1 || MiniPC_ReceivePacket.armors_num ==2)
+    {
+      Vision_Info.Fire_Yaw_Threshold = fabsf(atan2f(LargeArmor_HalfWidth,SolveTrajectory.armor_distance));
+    }else
+    {
+      Vision_Info.Fire_Yaw_Threshold = fabsf(atan2f(LittleArmor_HalfWidth,SolveTrajectory.armor_distance));
+    }
+
     /* Judge the fire acception */
     if(Vision_Info.yawerror < Vision_Info.Fire_Yaw_Threshold)
     {

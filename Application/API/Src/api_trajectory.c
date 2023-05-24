@@ -179,22 +179,20 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
     MiniPCTxData->aim_y = SolveTrajectory->target_posure[index].y + MiniPCRxData->vy * timeDelay;
     MiniPCTxData->aim_z = SolveTrajectory->target_posure[index].z + MiniPCRxData->vz * timeDelay;
 
-		/* distance in algorithm */
-    float distance_calc = 0.f;
 		
     /* calculate the distance to armor */
-    arm_sqrt_f32((MiniPCTxData->aim_x) * (MiniPCTxData->aim_x) + (MiniPCTxData->aim_y) * (MiniPCTxData->aim_y),&distance_calc);
+    arm_sqrt_f32((MiniPCTxData->aim_x) * (MiniPCTxData->aim_x) + (MiniPCTxData->aim_y) * (MiniPCTxData->aim_y),&SolveTrajectory->armor_distance);
 
     /* calculate the gimbal target posture,lock the armor */
-    SolveTrajectory->armorlock_pitch = Trajectory_Picth_Update( distance_calc - Camera_Muzzle_horizontal,
+    SolveTrajectory->armorlock_pitch = Trajectory_Picth_Update( SolveTrajectory->armor_distance - Camera_Muzzle_horizontal,
                                     SolveTrajectory->target_posure[index].z + Camera_Muzzle_vertical, SolveTrajectory);
     SolveTrajectory->armorlock_yaw = (float)(atan2(MiniPCTxData->aim_y, MiniPCTxData->aim_x));
 
     /* calculate the distance to center */
-    arm_sqrt_f32((MiniPCRxData->x) * (MiniPCRxData->x) + (MiniPCRxData->y) * (MiniPCRxData->y),&distance_calc);
+    arm_sqrt_f32((MiniPCRxData->x) * (MiniPCRxData->x) + (MiniPCRxData->y) * (MiniPCRxData->y),&SolveTrajectory->center_distance);
 
     /* calculate the gimbal target posture,lock the center */
-    SolveTrajectory->centerlock_pitch = Trajectory_Picth_Update( distance_calc - Camera_Muzzle_horizontal,
+    SolveTrajectory->centerlock_pitch = Trajectory_Picth_Update( SolveTrajectory->center_distance - Camera_Muzzle_horizontal,
                                     MiniPCRxData->z + Camera_Muzzle_vertical, SolveTrajectory);
     SolveTrajectory->centerlock_yaw = (float)(atan2(MiniPCRxData->y, MiniPCRxData->x));
 }

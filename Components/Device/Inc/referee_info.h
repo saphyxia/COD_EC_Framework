@@ -18,6 +18,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stdint.h"
+#include "stdbool.h"
 
 /* Exported defines ----------------------------------------------------------*/
 /**
@@ -50,6 +51,7 @@
 #define REAL_SHOOT_DATA_ID                0x0207U  /*!< real robot shoot data */
 #define BULLET_REMAINING_ID               0x0208U  /*!< bullet remain data */
 #define RFID_STATUS_ID                    0x0209U  /*!< RFID status data */
+#define DART_CLIENT_CMD_ID                0x020AU  /*!< DART Client cmd data */
 
 #define INTERACTIVE_DATA_ID               0x0301U  /*!< robot interactive data */
 #define CUSTOM_CONTROLLER_ID              0x0302U  /*!< custom controller data */
@@ -102,6 +104,9 @@
 #define CLIENT_BLUE_AERIAL_INFANTEY       0x016AU
 
 /* Exported types ------------------------------------------------------------*/
+/* cancel byte alignment */
+#pragma  pack(1)
+
 /**
  * @brief typedef structure that contains the information of frame header
  */
@@ -113,19 +118,16 @@ typedef struct
   uint8_t  CRC8;          /*!< Frame header CRC8 checksum */
 }FrameHeader_TypeDef;
 
-/**
- * @brief typedef structure that contains the information of Referee
- */
-typedef struct
-{
-  FrameHeader_TypeDef FrameHeader;  /*!< frame header of referee received data */
-  uint16_t Cmd_id;                  /*!< cmd id  */
-  uint8_t  *Data;                   /*!< pointer to the receive data */
-  uint16_t FrameTail;               /*!< crc16 checksum , Whole package judgement */
-}Referee_Info_TypeDef;
-
-/* cancel byte alignment */
-#pragma  pack(1)
+// /**
+//  * @brief typedef structure that contains the information of Referee
+//  */
+// typedef struct
+// {
+//   FrameHeader_TypeDef FrameHeader;  /*!< frame header of referee received data */
+//   uint16_t Cmd_id;                  /*!< cmd id  */
+//   uint8_t  *Data;                   /*!< pointer to the receive data */
+//   uint16_t FrameTail;               /*!< crc16 checksum , Whole package judgement */
+// }Referee_Info_TypeDef;
 
 /**
  * @brief typedef structure that contains the information of game status, id: 0x0001U
@@ -143,7 +145,7 @@ typedef struct
 	uint8_t game_type : 4;	        
 	uint8_t game_progress : 4;	    /*!< the progress of game */
 	uint16_t stage_remain_time;	    /*!< remain time of real progress */
-  uint64_t SyncTimeStamp;         /*!< unix time */
+  // uint64_t SyncTimeStamp;         /*!< unix time */
 } ext_game_status_t;
 
 /**
@@ -189,6 +191,11 @@ typedef struct
  */
 typedef struct
 {
+  /**
+   * @brief dart belong
+   *        0: red
+   *        1: blue
+   */
   uint8_t dart_belong;
   uint16_t stage_remaining_time;
 }ext_dart_status_t;
@@ -198,22 +205,38 @@ typedef struct
  */
 typedef struct
 {
-  /**
-   * @brief the event of site
-            bit 0:  status of supply station 1 recovery point, 1 is occupied
-            bit 1:  status of supply station 2 recovery point, 1 is occupied
-            bit 2:  status of supply station 3 recovery point, 1 is occupied
-            bit 3:  status of energy station hit point, 1 is occupied
-            bit 4:  status of small energy station, 1 is activating
-            bit 5:  status of big energy station, 1 is activating
-            bit 6:  status of R2/B2 Ring Heights, 1 is occupied
-            bit 7:  status of R3/B3 Keystone Heights, 1 is occupied
-            bit 8:  status of R4/B4 Keystone Heights, 1 is occupied
-            bit 9:  status of base shield, 1 is hold
-            bit 10: status of outpost, 1 is survived
-            bit 11-31: reserved
-   */
-  uint32_t event_type;
+  union
+  {
+    /**
+     * @brief the event of site
+              bit 0:  status of supply station 1 recovery buff point, 1 is occupied
+              bit 1:  status of supply station 2 recovery buff point, 1 is occupied
+              bit 2:  status of supply station 3 recovery buff point, 1 is occupied
+              bit 3:  status of energy buff attack point, 1 is occupied
+              bit 4:  status of little energy buff, 1 is activating
+              bit 5:  status of large energy buff, 1 is activating
+              bit 6:  status of R2/B2 Ring Heights buff, 1 is occupied
+              bit 7:  status of R3/B3 Trapezoidal Heights buff, 1 is occupied
+              bit 8:  status of R4/B4 Trapezoidal Heights buff, 1 is occupied
+              bit 9:  status of base shield, 1 is hold
+              bit 10: status of outpost, 1 is survived
+              bit 11-31: reserved
+    */
+    uint32_t event_type;
+
+    uint32_t first_recovery_point : 1;
+    uint32_t second_recovery_point : 1;
+    uint32_t third_recovery_point : 1;
+    uint32_t energy_buff_attack : 1;
+    uint32_t little_energy_buff : 1;
+    uint32_t large_energy_buff : 1;
+    uint32_t ring_Heights_2_buff : 1;
+    uint32_t trapezoidal_Heights_3_buff : 1;
+    uint32_t trapezoidal_Heights_4_buff : 1;
+    uint32_t base_shield : 1;
+    uint32_t outpost_status : 1;
+    uint32_t reserved : 19; 
+  }site;
 } ext_event_data_t;
 
 /**
@@ -513,7 +536,7 @@ typedef struct
 typedef struct 
 {
   uint8_t data[30];
-}  robot_interactive_data_t;
+} robot_interactive_data_t;
 
 /**
  * @brief typedef structure that contains the information of client transmit data, id: 0x0303U
@@ -572,8 +595,48 @@ typedef struct
   int8_t delta_y[49];
 }map_sentry_data_t;
 
+/**
+ * @brief typedef structure that contains the information of Referee
+ */
+typedef struct 
+{
+  uint8_t index;
+  
+  ext_game_status_t game_status;
+  ext_event_data_t site_event;
+
+  ext_dart_remaining_time_t dart_remaining;
+  ext_dart_client_cmd_t dart_client_cmd;
+  aerial_robot_energy_t aerial_energy;
+  ground_robot_position_t ground_robot_positio;
+  map_sentry_data_t map_sentry;
+
+  ext_game_robot_HP_t robot_HP;
+  ext_game_robot_status_t robot_status;
+  ext_power_heat_data_t power_heat;
+  ext_robot_position_t robot_position;
+  ext_robot_buff_t robot_buff;
+  ext_robot_hurt_t robot_hurt;
+  ext_shoot_data_t shoot_data;
+  ext_bullet_remaining_t bullet_remaining;
+  ext_rfid_status_t RFID_Status;
+
+}Referee_Info_TypeDef;
+
 /* restore byte alignment */
 #pragma  pack()
+
+/* Exported variables ---------------------------------------------------------*/
+/**
+ * @brief Referee_RxDMA MultiBuffer
+ */
+uint8_t REFEREE_MultiRx_Buf[2][100];
+
+/**
+ * @brief Referee structure variable
+ */
+Referee_Info_TypeDef Referee_Info;
+
 
 /* Exported functions prototypes ---------------------------------------------*/
 

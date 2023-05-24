@@ -57,6 +57,9 @@ typedef struct
     float centerlock_pitch;    /*!< gimbal target pitch angle,lock the center  */
     float centerlock_yaw;      /*!< gimbal target yaw angle,lock the center */
 
+    float armor_distance;
+    float center_distance;
+
     TargetArmor_Posure target_posure[4];    /* target armor posure */
 }SolveTrajectory_Typedef;
 

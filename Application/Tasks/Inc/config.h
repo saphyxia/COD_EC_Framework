@@ -76,6 +76,16 @@
  */
 #define FireSystem_BiasTime  0.2f
 
+/**
+ * @brief the half width of little armor
+ */
+#define LittleArmor_HalfWidth   0.07f
+
+/**
+ * @brief the half width of Large armor
+ */
+#define LargeArmor_HalfWidth   0.1175f
+
 /* IMU reslove constants ---------------------------------------------------*/
 /**
  * @brief the flag of bmi088 Calibration
