@@ -400,6 +400,11 @@
           <GroupName>Application/Task</GroupName>
           <Files>
             <File>
+              <FileName>Detect_Task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\Tasks\Src\Detect_Task.c</FilePath>
+            </File>
+            <File>
               <FileName>INS_Task.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Application\Tasks\Src\INS_Task.c</FilePath>
@@ -1000,6 +1005,30 @@
               <FileName>arm_cortexM4lf_math.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\Middlewares\ST\ARM\DSP\Lib\arm_cortexM4lf_math.lib</FilePath>
+            </File>
+            <File>
+              <FileName>arm_cortexM4l_math.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>../Middlewares/ST/ARM/DSP/Lib/arm_cortexM4l_math.lib</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>1</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds/>
+              </FileOption>
             </File>
           </Files>
         </Group>

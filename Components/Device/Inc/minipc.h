@@ -101,7 +101,7 @@ extern void MiniPC_SendFrameInfo(MiniPC_SendPacket_Typedef *SendPacket);
 /**
   * @brief  Receive the MiniPC frame Information according the USB CDC
   */
-extern void MiniPC_RecvFrameInfo(const uint8_t* Buf, const uint32_t *Len);
+extern void MiniPC_RecvFrameInfo(uint8_t* Buf, const uint32_t *Len);
 
 #endif //DEVICE_MINIPC_H
 

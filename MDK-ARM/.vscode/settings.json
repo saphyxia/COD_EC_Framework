@@ -30,6 +30,7 @@
         "api_trajectory.h": "c",
         "bmi088.h": "c",
         "lqr.h": "c",
-        "referee_info.h": "c"
+        "referee_info.h": "c",
+        "detect_task.h": "c"
     }
 }

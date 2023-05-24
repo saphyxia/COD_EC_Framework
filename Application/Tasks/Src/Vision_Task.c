@@ -54,9 +54,9 @@ void Vision_Task(void const * argument)
     Vision_Info.IF_Aiming_Enable = (MiniPC_ReceivePacket.tracking == true);
 
     /* update the transmit euler angle in radians */
-    MiniPC_SendPacket.pitch = INS_Info.angle[IMU_GYRO_INDEX_PITCH];
-    MiniPC_SendPacket.yaw   = INS_Info.angle[IMU_GYRO_INDEX_YAW];
-    MiniPC_SendPacket.roll  = INS_Info.angle[IMU_GYRO_INDEX_ROLL];
+    MiniPC_SendPacket.pitch = INS_Info.angle[IMU_ANGLE_INDEX_PITCH];
+    MiniPC_SendPacket.yaw   = INS_Info.angle[IMU_ANGLE_INDEX_YAW];
+    MiniPC_SendPacket.roll  = INS_Info.angle[IMU_ANGLE_INDEX_ROLL];
 
     /* update the solve trajectory */
 		SolveTrajectory_Update(&SolveTrajectory,-MiniPC_SendPacket.pitch,MiniPC_SendPacket.yaw,MiniPC_ReceivePacket.yaw,MiniPC_ReceivePacket.v_yaw,MiniPC_ReceivePacket.r1,MiniPC_ReceivePacket.r2,MiniPC_ReceivePacket.dz,18.f,MiniPC_ReceivePacket.armors_num);

@@ -49,6 +49,7 @@
 /* USER CODE END Variables */
 osThreadId StartINSTaskHandle;
 osThreadId StartVisionTaskHandle;
+osThreadId StartDetectTaskHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -57,6 +58,7 @@ osThreadId StartVisionTaskHandle;
 
 void INS_Task(void const * argument);
 void Vision_Task(void const * argument);
+void Detect_Task(void const * argument);
 
 extern void MX_USB_DEVICE_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -112,6 +114,10 @@ void MX_FREERTOS_Init(void) {
   osThreadDef(StartVisionTask, Vision_Task, osPriorityRealtime, 0, 256);
   StartVisionTaskHandle = osThreadCreate(osThread(StartVisionTask), NULL);
 
+  /* definition and creation of StartDetectTask */
+  osThreadDef(StartDetectTask, Detect_Task, osPriorityRealtime, 0, 256);
+  StartDetectTaskHandle = osThreadCreate(osThread(StartDetectTask), NULL);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -154,6 +160,24 @@ __weak void Vision_Task(void const * argument)
     osDelay(1);
   }
   /* USER CODE END Vision_Task */
+}
+
+/* USER CODE BEGIN Header_Detect_Task */
+/**
+* @brief Function implementing the StartDetectTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_Detect_Task */
+__weak void Detect_Task(void const * argument)
+{
+  /* USER CODE BEGIN Detect_Task */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END Detect_Task */
 }
 
 /* Private application code --------------------------------------------------*/
