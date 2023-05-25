@@ -84,10 +84,10 @@ void Vision_Task(void const * argument)
     /* auto threshold */
     if(MiniPC_ReceivePacket.id == 1 || MiniPC_ReceivePacket.armors_num ==2)
     {
-      Vision_Info.Fire_Yaw_Threshold = fabsf(atan2f(LargeArmor_HalfWidth,SolveTrajectory.armor_distance));
+      Vision_Info.Fire_Yaw_Threshold = fabsf(atan2f(LargeArmor_HalfWidth,SolveTrajectory.armor_distance)) * RadiansToDegrees;
     }else
     {
-      Vision_Info.Fire_Yaw_Threshold = fabsf(atan2f(LittleArmor_HalfWidth,SolveTrajectory.armor_distance));
+      Vision_Info.Fire_Yaw_Threshold = fabsf(atan2f(LittleArmor_HalfWidth,SolveTrajectory.armor_distance)) * RadiansToDegrees;
     }
 
     /* Judge the fire acception */
