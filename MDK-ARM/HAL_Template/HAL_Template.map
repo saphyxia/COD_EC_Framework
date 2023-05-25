@@ -347,7 +347,6 @@ Section Cross References
     motor.o(.text.encoder_to_angle) refers to motor.o(.text.f_loop_constrain) for f_loop_constrain
     motor.o(.ARM.exidx.text.encoder_to_angle) refers to motor.o(.text.encoder_to_angle) for [Anonymous Symbol]
     motor.o(.ARM.exidx.text.f_loop_constrain) refers to motor.o(.text.f_loop_constrain) for [Anonymous Symbol]
-    referee_info.o(.text.Referee_Info_Update) refers to crc.o(.text.verify_CRC8_check_sum) for verify_CRC8_check_sum
     referee_info.o(.text.Referee_Info_Update) refers to referee_info.o(.text.bit8TObit16) for bit8TObit16
     referee_info.o(.text.Referee_Info_Update) refers to referee_info.o(.text.bit8TObit32) for bit8TObit32
     referee_info.o(.ARM.exidx.text.Referee_Info_Update) refers to referee_info.o(.text.Referee_Info_Update) for [Anonymous Symbol]
@@ -3511,7 +3510,7 @@ Removing Unused input sections from the image.
     Removing motor.o(.text.f_loop_constrain), (196 bytes).
     Removing motor.o(.ARM.exidx.text.f_loop_constrain), (8 bytes).
     Removing referee_info.o(.text), (0 bytes).
-    Removing referee_info.o(.text.Referee_Info_Update), (276 bytes).
+    Removing referee_info.o(.text.Referee_Info_Update), (266 bytes).
     Removing referee_info.o(.ARM.exidx.text.Referee_Info_Update), (8 bytes).
     Removing referee_info.o(.text.bit8TObit16), (28 bytes).
     Removing referee_info.o(.ARM.exidx.text.bit8TObit16), (8 bytes).
@@ -5221,7 +5220,7 @@ Removing Unused input sections from the image.
     Removing arm_common_tables.o(.constdata), (2052 bytes).
     Removing arm_common_tables.o(.constdata), (1026 bytes).
 
-1861 unused section(s) (total 322248 bytes) removed from the image.
+1861 unused section(s) (total 322238 bytes) removed from the image.
 
 ==============================================================================
 

@@ -67,7 +67,6 @@
 ".\hal_template\stm32f4xx_hal_tim_ex.o"
 ".\hal_template\stm32f4xx_hal_uart.o"
 "..\Middlewares\ST\ARM\DSP\Lib\arm_cortexM4lf_math.lib"
-"..\Middlewares\ST\ARM\DSP\Lib\arm_cortexM4l_math.lib"
 ".\hal_template\usb_device.o"
 ".\hal_template\usbd_desc.o"
 ".\hal_template\usbd_cdc_if.o"

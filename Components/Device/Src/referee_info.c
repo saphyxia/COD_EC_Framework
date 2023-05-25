@@ -20,7 +20,7 @@
 /**
  * @brief Referee_RxDMA MultiBuffer
  */
-uint8_t REFEREE_MultiRx_Buf[2][100];
+uint8_t REFEREE_MultiRx_Buf[2][REFEREE_RXFRAME_LENGTH];
 
 /**
  * @brief Referee structure variable
@@ -36,33 +36,34 @@ uint8_t bit16TObit8(uint8_t index_need,int16_t bit16);
 
 void Referee_Info_Update(uint8_t *Buff,Referee_Info_TypeDef *referee)
 { 
-  if(Buff[referee->index] == 0xA5 || verify_CRC8_check_sum(&Buff[referee->index],FrameHeader_Length) == true)
+  switch (bit8TObit16(&Buff[referee->index+FrameHeader_Length]))
   {
-    switch (bit8TObit16(&Buff[referee->index+FrameHeader_Length]))
-    {
-      case GAME_STATUS_ID:
-        referee->game_status.game_type = Buff[referee->index+FrameHeader_Length+CMDID_Length] & 0xF0 >> 4;
-        referee->game_status.game_progress = Buff[referee->index+FrameHeader_Length+CMDID_Length] & 0x0F;
-        referee->game_status.stage_remain_time = bit8TObit16(&Buff[referee->index+FrameHeader_Length+CMDID_Length+1]);
-      break;
+    case GAME_STATUS_ID:
+      referee->game_status.game_type = Buff[referee->index+FrameHeader_Length+CMDID_Length] & 0xF0 >> 4;
+      referee->game_status.game_progress = Buff[referee->index+FrameHeader_Length+CMDID_Length] & 0x0F;
+      referee->game_status.stage_remain_time = bit8TObit16(&Buff[referee->index+FrameHeader_Length+CMDID_Length+1]);
+    break;
 
-      case EVENE_DATA_ID:
-        referee->site_event.site.event_type = bit8TObit32(&Buff[referee->index+FrameHeader_Length+CMDID_Length]);
-      break;
+    case EVENE_DATA_ID:
+      referee->site_event.site.event_type = bit8TObit32(&Buff[referee->index+FrameHeader_Length+CMDID_Length]);
+    break;
 
-      case DART_REMAINING_TIME_ID:
-        referee->dart_remaining.dart_remaining_time = Buff[referee->index+FrameHeader_Length+CMDID_Length];
-      break;
+    case DART_REMAINING_TIME_ID:
+      referee->dart_remaining.dart_remaining_time = Buff[referee->index+FrameHeader_Length+CMDID_Length];
+    break;
 
-      case DART_CLIENT_CMD_ID:
-        referee->dart_client_cmd.dart_launch_opening_status = Buff[referee->index+FrameHeader_Length+CMDID_Length];
-        referee->dart_client_cmd.dart_attack_target = Buff[referee->index+FrameHeader_Length+CMDID_Length+1];
-        referee->dart_client_cmd.target_change_time = bit8TObit16(&Buff[referee->index+FrameHeader_Length+CMDID_Length+2]);
-        referee->dart_client_cmd.operate_launch_cmd_time = bit8TObit16(&Buff[referee->index+FrameHeader_Length+CMDID_Length+4]);
-      break;
-      
-      default:break;
-    }
+    case DART_CLIENT_CMD_ID:
+      referee->dart_client_cmd.dart_launch_opening_status = Buff[referee->index+FrameHeader_Length+CMDID_Length];
+      referee->dart_client_cmd.dart_attack_target = Buff[referee->index+FrameHeader_Length+CMDID_Length+1];
+      referee->dart_client_cmd.target_change_time = bit8TObit16(&Buff[referee->index+FrameHeader_Length+CMDID_Length+2]);
+      referee->dart_client_cmd.operate_launch_cmd_time = bit8TObit16(&Buff[referee->index+FrameHeader_Length+CMDID_Length+4]);
+    break;
+
+    case AERIAL_ENERGY_ID:
+      referee->aerial_energy.attack_time = Buff[referee->index+FrameHeader_Length+CMDID_Length];
+    break;
+
+    default:break;
   }
 }
 

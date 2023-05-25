@@ -21,6 +21,9 @@
 #include "stdbool.h"
 
 /* Exported defines ----------------------------------------------------------*/
+
+#define REFEREE_RXFRAME_LENGTH  100
+
 /**
  * @brief Referee Communication protocol format
  */
