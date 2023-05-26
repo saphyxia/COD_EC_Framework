@@ -16,6 +16,10 @@
 #ifndef REFEREE_INFO_H
 #define REFEREE_INFO_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* Includes ------------------------------------------------------------------*/
 #include "stdint.h"
 #include "stdbool.h"
@@ -55,12 +59,14 @@
 #define BULLET_REMAINING_ID               0x0208U  /*!< bullet remain data */
 #define RFID_STATUS_ID                    0x0209U  /*!< RFID status data */
 #define DART_CLIENT_CMD_ID                0x020AU  /*!< DART Client cmd data */
+#define GROUND_POSITION_ID                0x020BU  /*!< ground robot position */
 
 #define INTERACTIVE_DATA_ID               0x0301U  /*!< robot interactive data */
 #define CUSTOM_CONTROLLER_ID              0x0302U  /*!< custom controller data */
 #define MINIMAP_INTERACTIVE_ID            0x0303U  /*!< mini map interactive data */
 #define KEYMOUSE_INFO_ID                  0x0304U  /*!< key mouse data according the image transmission */
 #define MINIMAP_RECV_ID                   0x0305U  /*!< mini map receive data */
+#define MAP_SENTRY_DATA_ID                0x0307U  /*!< mini map sentry path */
 
 /**
  * @brief Robot id
@@ -612,7 +618,6 @@ typedef struct
   ext_dart_client_cmd_t dart_client_cmd;
   aerial_robot_energy_t aerial_energy;
   ground_robot_position_t ground_robot_positio;
-  map_sentry_data_t map_sentry;
 
   ext_game_robot_HP_t robot_HP;
   ext_game_robot_status_t robot_status;

@@ -16,6 +16,9 @@
 #ifndef DEVICE_BMI088_H
 #define DEVICE_BMI088_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "config.h"

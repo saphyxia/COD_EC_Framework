@@ -16,6 +16,9 @@
 #ifndef BSP_MCU_H
 #define BSP_MCU_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "stdint.h"

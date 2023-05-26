@@ -16,6 +16,9 @@
 #ifndef BSP_UART_H
 #define BSP_UART_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "stdint.h"

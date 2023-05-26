@@ -17,6 +17,9 @@
 #ifndef DEVICE_MOTOR_H
 #define DEVICE_MOTOR_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "config.h"

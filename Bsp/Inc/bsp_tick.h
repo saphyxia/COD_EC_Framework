@@ -16,6 +16,9 @@
 #ifndef BSP_TICK_H
 #define BSP_TICK_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "stdint.h"

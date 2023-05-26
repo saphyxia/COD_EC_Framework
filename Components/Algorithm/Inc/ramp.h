@@ -16,6 +16,9 @@
 #ifndef RAMP_H
 #define RAMP_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "config.h"

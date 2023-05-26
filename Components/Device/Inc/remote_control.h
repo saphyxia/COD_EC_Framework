@@ -16,6 +16,9 @@
 #ifndef REMOTE_CONTROL_H
 #define REMOTE_CONTROL_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "config.h"

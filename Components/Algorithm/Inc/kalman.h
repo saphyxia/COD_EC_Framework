@@ -16,6 +16,9 @@
 #ifndef KALMAN_FILTER_H
 #define KALMAN_FILTER_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "stdint.h"

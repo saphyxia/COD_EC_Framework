@@ -16,6 +16,9 @@
 #ifndef BSP_TIM_H
 #define BSP_TIM_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "stdint.h"

@@ -16,6 +16,9 @@
 #ifndef BSP_SPI_H
 #define BSP_SPI_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "stdint.h"
