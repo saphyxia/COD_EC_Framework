@@ -16,10 +16,6 @@
 #ifndef REFEREE_INFO_H
 #define REFEREE_INFO_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /* Includes ------------------------------------------------------------------*/
 #include "stdint.h"
 #include "stdbool.h"

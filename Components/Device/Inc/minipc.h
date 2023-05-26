@@ -16,9 +16,6 @@
 #ifndef DEVICE_MINIPC_H
 #define DEVICE_MINIPC_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "stdint.h"
