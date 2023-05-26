@@ -100,7 +100,7 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
         /* Judge the minimum yaw armor */
         yaw_diff_min = fabsf(SolveTrajectory->armorlock_yaw - SolveTrajectory->target_posure[0].yaw);
         temp_yaw_diff= fabsf(SolveTrajectory->armorlock_yaw - SolveTrajectory->target_posure[1].yaw);
-        if (temp_yaw_diff < yaw_diff_min)
+        if (temp_yaw_diff <= yaw_diff_min)
         {
             yaw_diff_min = temp_yaw_diff;
             index = 1;
@@ -116,13 +116,17 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
             SolveTrajectory->target_posure[i].y = MiniPCRxData->y - SolveTrajectory->r2 * sin(SolveTrajectory->yaw_calc + i * 2.f*PI/3.f);
             SolveTrajectory->target_posure[i].z = MiniPCRxData->z ;
             SolveTrajectory->target_posure[i].yaw = SolveTrajectory->yaw_calc + i * 2.f*PI/3.f;
+            if(fabsf(SolveTrajectory->target_posure[i].yaw) > 2*PI)
+            {
+                SolveTrajectory->target_posure[i].yaw -= SolveTrajectory->target_posure[i].yaw/fabs(SolveTrajectory->target_posure[i].yaw)*2*PI;
+            }
         }
         /* select the minimum yaw armor */
         yaw_diff_min = fabsf(SolveTrajectory->centerlock_yaw  - SolveTrajectory->target_posure[0].yaw);
         for (uint8_t i = 1; i<3; i++) 
         {
             temp_yaw_diff = fabsf(SolveTrajectory->centerlock_yaw  - SolveTrajectory->target_posure[i].yaw);
-            if (temp_yaw_diff < yaw_diff_min)
+            if (temp_yaw_diff <= yaw_diff_min)
             {
                 yaw_diff_min = temp_yaw_diff;
                 index = i;
@@ -143,6 +147,10 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
             SolveTrajectory->target_posure[i].y = MiniPCRxData->y - r*sin(SolveTrajectory->yaw_calc + i * PI/2.f);
             SolveTrajectory->target_posure[i].z = use_1 ? MiniPCRxData->z : (MiniPCRxData->z + SolveTrajectory->dz);
             SolveTrajectory->target_posure[i].yaw = SolveTrajectory->yaw_calc + i * PI/2.f;
+            if(fabsf(SolveTrajectory->target_posure[i].yaw) > 2*PI)
+            {
+                SolveTrajectory->target_posure[i].yaw -= SolveTrajectory->target_posure[i].yaw/fabs(SolveTrajectory->target_posure[i].yaw)*2*PI;
+            }
             use_1 = !use_1;
         }
 
@@ -153,7 +161,7 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
         for (uint8_t i = 1; i<4; i++)
         {
             arm_sqrt_f32(SolveTrajectory->target_posure[i].x * SolveTrajectory->target_posure[i].x + SolveTrajectory->target_posure[i].y * SolveTrajectory->target_posure[i].y,&temp_dis_diff);
-            if (temp_dis_diff < dis_diff_min)
+            if (temp_dis_diff <= dis_diff_min)
             {
                 dis_diff_min = temp_dis_diff;
                 index = i;
@@ -165,7 +173,7 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
         for (uint8_t i = 1; i<4; i++) 
         {
             temp_yaw_diff = fabsf(SolveTrajectory->centerlock_yaw - SolveTrajectory->target_posure[i].yaw);
-            if (temp_yaw_diff < yaw_diff_min)
+            if (temp_yaw_diff <= yaw_diff_min)
             {
                 yaw_diff_min = temp_yaw_diff;
                 index = i;

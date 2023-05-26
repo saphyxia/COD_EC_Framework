@@ -64,12 +64,12 @@
 /**
  * @brief the vertical distance of yaw axis to the muzzle(m)
  */
-#define Camera_Muzzle_vertical   0.21265f
+#define Camera_Muzzle_vertical   0.f
 
 /**
  * @brief the horizontal distance of yaw axis to the muzzle(m)
  */
-#define Camera_Muzzle_horizontal 0.19133f
+#define Camera_Muzzle_horizontal 0.f
 
 /**
  * @brief the bias time of system(s), contains the communication delay and trigger delay
