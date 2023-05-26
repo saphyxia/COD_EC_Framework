@@ -34,7 +34,7 @@ extern void BSP_CAN_Init(void);
 /**
   * @brief  USER function to transmit the Specifies message.
   */
-extern void USER_CAN_TxMessage(CAN_TypeDef *Instance,uint32_t StdId,uint8_t data[8]);
+extern void USER_CAN_TxMessage(CAN_TypeDef *Instance,uint32_t StdId,uint8_t data[8],uint8_t length);
 
 #endif //BSP_CAN_H
 

@@ -102,7 +102,7 @@ void BSP_CAN_Init(void)
 	* @param  data: pointer to the CAN transmit data
   * @retval None
   */
-void USER_CAN_TxMessage(CAN_TypeDef *Instance,uint32_t StdId,uint8_t data[],uint8_t length)
+void USER_CAN_TxMessage(CAN_TypeDef *Instance,uint32_t StdId,uint8_t data[8],uint8_t length)
 {
   static uint32_t TxMailbox = 0;
 	
@@ -163,11 +163,11 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
   /* judge the instance of receive frame data */
   if(hcan->Instance == CAN1)
   {
-    CAN1_RxFifo0RxHandler(USER_CAN_RxInstance.StdId,USER_CAN_RxFrameData);
+    CAN1_RxFifo0RxHandler(&USER_CAN_RxInstance.StdId,USER_CAN_RxFrameData);
   }
   else if(hcan->Instance == CAN2)
   {
-    CAN2_RxFifo0RxHandler(USER_CAN_RxInstance.StdId,USER_CAN_RxFrameData);
+    CAN2_RxFifo0RxHandler(&USER_CAN_RxInstance.StdId,USER_CAN_RxFrameData);
   }
 }
 //------------------------------------------------------------------------------

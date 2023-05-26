@@ -35,27 +35,27 @@
  * @brief Cmd id
  */
 #define GAME_STATUS_ID                    0x0001U  /*!< game status data */
-#define GAME_RESULT_ID                    0x0002U  /*!< game result data */
-#define GAME_ROBOTHP_ID                   0x0003U  /*!< robot HP data */
-#define DART_STATUS_ID                    0x0004U  /*!< dart robot shoot status */
+// #define GAME_RESULT_ID                    0x0002U  /*!< game result data */
+// #define GAME_ROBOTHP_ID                   0x0003U  /*!< robot HP data */
+// #define DART_STATUS_ID                    0x0004U  /*!< dart robot shoot status */
 
-#define EVENE_DATA_ID                     0x0101U  /*!< site event data */
-#define SUPPLY_ACTION_ID                  0x0102U  /*!< supply station action data */
-#define SUPPLY_BOOKING_ID                 0x0103U  /*!< booking supply data */
-#define REFEREE_WARNING_ID                0x0104U  /*!< referee warning data */
-#define DART_REMAINING_TIME_ID            0x0105U  /*!< dart shoot countdown */
+// #define EVENE_DATA_ID                     0x0101U  /*!< site event data */
+// #define SUPPLY_ACTION_ID                  0x0102U  /*!< supply station action data */
+// #define SUPPLY_BOOKING_ID                 0x0103U  /*!< booking supply data */
+// #define REFEREE_WARNING_ID                0x0104U  /*!< referee warning data */
+// #define DART_REMAINING_TIME_ID            0x0105U  /*!< dart shoot countdown */
 
 #define ROBOT_STATUS_ID                   0x0201U  /*!< robot status data */
 #define REAL_POWER_HEAT_ID                0x0202U  /*!< real power heat data */
-#define ROBOT_POSITION_ID                 0x0203U  /*!< robot position data */
-#define ROBOT_BUFF_ID                     0x0204U  /*!< robot buff data */
-#define AERIAL_ENERGY_ID                  0x0205U  /*!< aerial robot energy data */
-#define ROBOT_HURT_ID                     0x0206U  /*!< robot hurt data */
+// #define ROBOT_POSITION_ID                 0x0203U  /*!< robot position data */
+// #define ROBOT_BUFF_ID                     0x0204U  /*!< robot buff data */
+// #define AERIAL_ENERGY_ID                  0x0205U  /*!< aerial robot energy data */
+// #define ROBOT_HURT_ID                     0x0206U  /*!< robot hurt data */
 #define REAL_SHOOT_DATA_ID                0x0207U  /*!< real robot shoot data */
-#define BULLET_REMAINING_ID               0x0208U  /*!< bullet remain data */
+// #define BULLET_REMAINING_ID               0x0208U  /*!< bullet remain data */
 #define RFID_STATUS_ID                    0x0209U  /*!< RFID status data */
-#define DART_CLIENT_CMD_ID                0x020AU  /*!< DART Client cmd data */
-#define GROUND_POSITION_ID                0x020BU  /*!< ground robot position */
+// #define DART_CLIENT_CMD_ID                0x020AU  /*!< DART Client cmd data */
+// #define GROUND_POSITION_ID                0x020BU  /*!< ground robot position */
 
 #define INTERACTIVE_DATA_ID               0x0301U  /*!< robot interactive data */
 #define CUSTOM_CONTROLLER_ID              0x0302U  /*!< custom controller data */
@@ -69,44 +69,44 @@
  */
 #define ROBOT_RED_HERO_ID                 0x0001U
 #define ROBOT_RED_ENGINEER_ID             0x0002U
-#define ROBOT_RED_3_INFANTEY              0x0003U
-#define ROBOT_RED_4_INFANTEY              0x0004U
-#define ROBOT_RED_5_INFANTEY              0x0005U
-#define ROBOT_RED_AERIAL_INFANTEY         0x0006U
-#define ROBOT_RED_SENTEY_INFANTEY         0x0007U
-#define ROBOT_RED_DART_INFANTEY           0x0008U
-#define ROBOT_RED_RADAR_INFANTEY          0x0009U
-#define ROBOT_RED_OUTPOST_INFANTEY        0x0010U
-#define ROBOT_RED_BASE_INFANTEY           0x0011U
+#define ROBOT_RED_3_INFANTEY_ID           0x0003U
+#define ROBOT_RED_4_INFANTEY_ID           0x0004U
+#define ROBOT_RED_5_INFANTEY_ID           0x0005U
+#define ROBOT_RED_AERIAL_INFANTEY_ID      0x0006U
+#define ROBOT_RED_SENTEY_INFANTEY_ID      0x0007U
+#define ROBOT_RED_DART_INFANTEY_ID        0x0008U
+#define ROBOT_RED_RADAR_INFANTEY_ID       0x0009U
+#define ROBOT_RED_OUTPOST_INFANTEY_ID     0x0010U
+#define ROBOT_RED_BASE_INFANTEY_ID        0x0011U
 
 #define ROBOT_BLUE_HERO_ID                0x0101U
 #define ROBOT_BLUE_ENGINEER_ID            0x0102U
-#define ROBOT_BLUE_3_INFANTEY             0x0103U
-#define ROBOT_BLUE_4_INFANTEY             0x0104U
-#define ROBOT_BLUE_5_INFANTEY             0x0105U
-#define ROBOT_BLUE_AERIAL_INFANTEY        0x0106U
-#define ROBOT_BLUE_SENTEY_INFANTEY        0x0107U
-#define ROBOT_BLUE_DART_INFANTEY          0x0108U
-#define ROBOT_BLUE_RADAR_INFANTEY         0x0109U
-#define ROBOT_BLUE_OUTPOST_INFANTEY       0x0110U
-#define ROBOT_BLUE_BASE_INFANTEY          0x0111U
+#define ROBOT_BLUE_3_INFANTEY_ID          0x0103U
+#define ROBOT_BLUE_4_INFANTEY_ID          0x0104U
+#define ROBOT_BLUE_5_INFANTEY_ID          0x0105U
+#define ROBOT_BLUE_AERIAL_INFANTEY_ID     0x0106U
+#define ROBOT_BLUE_SENTEY_INFANTEY_ID     0x0107U
+#define ROBOT_BLUE_DART_INFANTEY_ID       0x0108U
+#define ROBOT_BLUE_RADAR_INFANTEY_ID      0x0109U
+#define ROBOT_BLUE_OUTPOST_INFANTEY_ID    0x0110U
+#define ROBOT_BLUE_BASE_INFANTEY_ID       0x0111U
 
 /**
  * @brief client id
  */
 #define CLIENT_RED_HERO_ID                0x0101U
 #define CLIENT_RED_ENGINEER_ID            0x0102U
-#define CLIENT_RED_3_INFANTEY             0x0103U
-#define CLIENT_RED_4_INFANTEY             0x0104U
-#define CLIENT_RED_5_INFANTEY             0x0105U
-#define CLIENT_RED_AERIAL_INFANTEY        0x0106U
+#define CLIENT_RED_3_INFANTEY_ID          0x0103U
+#define CLIENT_RED_4_INFANTEY_ID          0x0104U
+#define CLIENT_RED_5_INFANTEY_ID          0x0105U
+#define CLIENT_RED_AERIAL_INFANTEY_ID     0x0106U
 
 #define CLIENT_BLUE_HERO_ID               0x0165U
 #define CLIENT_BLUE_ENGINEER_ID           0x0166U
-#define CLIENT_BLUE_3_INFANTEY            0x0167U
-#define CLIENT_BLUE_4_INFANTEY            0x0168U
-#define CLIENT_BLUE_5_INFANTEY            0x0169U
-#define CLIENT_BLUE_AERIAL_INFANTEY       0x016AU
+#define CLIENT_BLUE_3_INFANTEY_ID         0x0167U
+#define CLIENT_BLUE_4_INFANTEY_ID         0x0168U
+#define CLIENT_BLUE_5_INFANTEY_ID         0x0169U
+#define CLIENT_BLUE_AERIAL_INFANTEY_ID    0x016AU
 
 /* Exported types ------------------------------------------------------------*/
 /* cancel byte alignment */
@@ -208,10 +208,8 @@ typedef struct
 /**
  * @brief typedef structure that contains the information of site event data, id: 0x0101U
  */
-typedef struct
+typedef union
 {
-  union
-  {
     /**
      * @brief the event of site
               bit 0:  status of supply station 1 recovery buff point, 1 is occupied
@@ -241,7 +239,7 @@ typedef struct
     uint32_t base_shield : 1;
     uint32_t outpost_status : 1;
     uint32_t reserved : 19; 
-  }site;
+
 } ext_event_data_t;
 
 /**
@@ -369,17 +367,22 @@ typedef struct
 /**
  * @brief typedef structure that contains the information of robot buff data, id: 0x0204U
  */
-typedef struct
+typedef union
 {
-  /**
-   * @brief robot buff data
-   *        bit 0: robot HP recovery status
-   *        bit 1: muzzle cooling quicken
-   *        bit 2: robot defense bonus
-   *        bit 3: robot Attack bonus
-   *        bit 4-8: reserved
-   */
- uint8_t power_rune_buff;
+    /**
+     * @brief robot buff data
+     *        bit 0: robot HP recovery status
+     *        bit 1: muzzle cooling quicken
+     *        bit 2: robot defense bonus
+     *        bit 3: robot Attack bonus
+     *        bit 4-8: reserved
+     */
+    uint8_t power_rune_buff;
+    uint8_t HP_recovery:1;
+    uint8_t cooling_quickly:1;
+    uint8_t defense_bonus:1;
+    uint8_t attack_bonus:1; 
+    uint8_t reserved : 4; 
 }ext_robot_buff_t;
 
 /**
@@ -447,13 +450,13 @@ typedef struct
 /**
  * @brief typedef structure that contains the information of RFID status, id: 0x0209U
  */
-typedef struct
+typedef union
 {
   /**
    * @brief RFID status
             bit 0:  status of RFID in base buff point
             bit 1:  status of RFID in heights buff point
-            bit 2:  status of RFID in energy station hit point
+            bit 2:  status of RFID in energy buff hit point
             bit 3:  status of RFID in flying slope buff point
             bit 4:  status of RFID in outpost buff point
             bit 6:  status of RFID in recovery buff point
@@ -461,6 +464,14 @@ typedef struct
             bit 8-31: reserved 
    */
  uint32_t rfid_status;
+ uint32_t basebuff_status : 1;
+ uint32_t heightsbuff_status : 1;
+ uint32_t energyhitbuff_status : 1;
+ uint32_t flyslopebuff_status : 1;
+ uint32_t outpostbuff_status : 1;
+ uint32_t HPrecoverybuff_status : 1;
+ uint32_t rescuecardbuff_status : 1;
+ uint32_t reserved : 25;
 } ext_rfid_status_t;
 
 /**
