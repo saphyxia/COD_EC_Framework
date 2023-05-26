@@ -127,11 +127,11 @@
 /**
  * @brief the index of yaw accel update
  */
-#define IMU_ACCEL_INDEX_YAW   2U
+#define IMU_ACCEL_INDEX_YAW   0U
 /**
  * @brief the index of roll accel update
  */
-#define IMU_ACCEL_INDEX_ROLL   0U
+#define IMU_ACCEL_INDEX_ROLL   2U
 
 
 #endif //ROBOT_CONFIG_H

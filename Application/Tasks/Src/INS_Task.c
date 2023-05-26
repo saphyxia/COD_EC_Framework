@@ -103,9 +103,9 @@ void INS_Task(void const * argument)
     BMI088_Info_Update(&BMI088_Info);
 
     /* accel measurement LPF2p */
-    INS_Info.accel[0] = LowPassFilter2p_Update(&INS_AcceLPF2p[0],BMI088_Info.accel[0]);
-    INS_Info.accel[1] = LowPassFilter2p_Update(&INS_AcceLPF2p[1],BMI088_Info.accel[1]);
-    INS_Info.accel[2] = LowPassFilter2p_Update(&INS_AcceLPF2p[2],BMI088_Info.accel[2]);
+    INS_Info.accel[IMU_ACCEL_INDEX_PITCH] = LowPassFilter2p_Update(&INS_AcceLPF2p[0],BMI088_Info.accel[0]);
+    INS_Info.accel[IMU_ACCEL_INDEX_YAW]   = LowPassFilter2p_Update(&INS_AcceLPF2p[1],BMI088_Info.accel[1]);
+    INS_Info.accel[IMU_ACCEL_INDEX_ROLL]  = LowPassFilter2p_Update(&INS_AcceLPF2p[2],BMI088_Info.accel[2]);
 		
     /* Update the INS gyro in radians */
 		memcpy(INS_Info.gyro,BMI088_Info.gyro,sizeof(INS_Info.gyro));

@@ -25,13 +25,24 @@ static CAN_RxHeaderTypeDef USER_CAN_RxInstance;
 /**
  * @brief the array that contains the Information of CAN Receive data.
  */
-static uint8_t CAN_RxFrameData[8];
+static uint8_t USER_CAN_RxFrameData[8];
 
 /**
  * @brief the structure that contains the Information of CAN Transmit.
  */
-static CAN_TxHeaderTypeDef USER_CAN_TxInstance={
+static CAN_TxHeaderTypeDef CAN1_FrameTxInstance={
 		.DLC = 0x08,
+    .IDE = CAN_ID_STD,
+    .RTR = CAN_RTR_DATA,
+};
+
+/**
+ * @brief the structure that contains the Information of CAN Transmit.
+ */
+static CAN_TxHeaderTypeDef CAN2_FrameTxInstance={
+		.DLC = 0x08,
+    .IDE = CAN_ID_STD,
+    .RTR = CAN_RTR_DATA,
 };
 
 /**
@@ -91,44 +102,52 @@ void BSP_CAN_Init(void)
 	* @param  data: pointer to the CAN transmit data
   * @retval None
   */
-void USER_CAN_TxMessage(CAN_TypeDef *Instance,uint32_t StdId,uint8_t data[8])
+void USER_CAN_TxMessage(CAN_TypeDef *Instance,uint32_t StdId,uint8_t data[],uint8_t length)
 {
   static uint32_t TxMailbox = 0;
-
-	/* Update the StdID */
-	USER_CAN_TxInstance.StdId = StdId;
 	
   /* Add a message to the first free Tx mailbox and activate the corresponding transmission request. */
 	if(Instance == CAN1)
 	{
-		HAL_CAN_AddTxMessage(&hcan1, &USER_CAN_TxInstance, data, &TxMailbox);
+    CAN1_FrameTxInstance.StdId = StdId;
+    CAN1_FrameTxInstance.DLC = length;
+		HAL_CAN_AddTxMessage(&hcan1, &CAN1_FrameTxInstance, data, &TxMailbox);
 	}
 	else if(Instance == CAN2)
 	{
-		HAL_CAN_AddTxMessage(&hcan2, &USER_CAN_TxInstance, data, &TxMailbox);
+    CAN2_FrameTxInstance.StdId = StdId;
+    CAN2_FrameTxInstance.DLC = length;
+		HAL_CAN_AddTxMessage(&hcan2, &CAN2_FrameTxInstance, data, &TxMailbox);
 	}
 }
 //------------------------------------------------------------------------------
 
 /**
-  * @brief  USER function to converting the received message.
+  * @brief  USER function to converting the CAN1 received message.
 	* @param  Instance: pointer to the CAN Register base address
 	* @param  StdId: Specifies the standard identifier.
 	* @param  data: array that contains the received massage.
   * @retval None
   */
-static void USER_CAN_RxMessageHandler(CAN_TypeDef *Instance,uint32_t *StdId,uint8_t data[8])
+static void CAN1_RxFifo0RxHandler(uint32_t *StdId,uint8_t data[8])
 {
-  if(Instance == CAN1)
-  {
 
-  }
-  else if(Instance == CAN2)
-  {
-
-  }
 }
 //------------------------------------------------------------------------------
+
+/**
+  * @brief  USER function to converting the CAN2 received message.
+	* @param  Instance: pointer to the CAN Register base address
+	* @param  StdId: Specifies the standard identifier.
+	* @param  data: array that contains the received massage.
+  * @retval None
+  */
+static void CAN2_RxFifo0RxHandler(uint32_t *StdId,uint8_t data[8])
+{
+
+}
+//------------------------------------------------------------------------------
+
 
 /**
   * @brief  Rx FIFO 0 message pending callback.
@@ -139,11 +158,16 @@ static void USER_CAN_RxMessageHandler(CAN_TypeDef *Instance,uint32_t *StdId,uint
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
   /* Get an CAN frame from the Rx FIFO zone into the message RAM. */
-  HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &USER_CAN_RxInstance, CAN_RxFrameData);
-		
-  /* update the receive data */
-  USER_CAN_RxMessageHandler(hcan->Instance,&USER_CAN_RxInstance.StdId,CAN_RxFrameData);
+  HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &USER_CAN_RxInstance, USER_CAN_RxFrameData);
+
+  /* judge the instance of receive frame data */
+  if(hcan->Instance == CAN1)
+  {
+    CAN1_RxFifo0RxHandler(USER_CAN_RxInstance.StdId,USER_CAN_RxFrameData);
+  }
+  else if(hcan->Instance == CAN2)
+  {
+    CAN2_RxFifo0RxHandler(USER_CAN_RxInstance.StdId,USER_CAN_RxFrameData);
+  }
 }
 //------------------------------------------------------------------------------
-
-
