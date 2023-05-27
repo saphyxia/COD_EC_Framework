@@ -62,21 +62,6 @@
 #define Bullet_Coefficient  0.038f
 
 /**
- * @brief the vertical distance of yaw axis to the muzzle(m)
- */
-#define Camera_Muzzle_vertical   0.f
-
-/**
- * @brief the horizontal distance of yaw axis to the muzzle(m)
- */
-#define Camera_Muzzle_horizontal 0.f
-
-/**
- * @brief the bias time of system(s), contains the communication delay and trigger delay
- */
-#define FireSystem_BiasTime  0.2f
-
-/**
  * @brief the half width of little armor
  */
 #define LittleArmor_HalfWidth   0.07f

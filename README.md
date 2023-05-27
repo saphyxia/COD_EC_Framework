@@ -70,8 +70,7 @@ HAL-Template
 
 * 模块参考[弹道解算](https://github.com/CodeAlanqian/SolveTrajectory)。
 
-* 在`./Application/API/Inc/config.h`中存在待测参数：
-  * Bullet_Coefficient: 弹道系数；
+* 在`./Application/Tasks/src/Vision_Task.c`中存在待测参数：
   * Camera_Muzzle_vertical：相机相对yaw轴的垂直距离，单位/m；
   * Camera_Muzzle_horizontal：相机相对yaw轴的前推距离，单位/m；
   * FireSystem_BiasTime：系统造成的总延时：通信延时和击发延时等，单位/s；

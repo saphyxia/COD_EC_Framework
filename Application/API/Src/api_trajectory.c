@@ -75,7 +75,7 @@ void SolveTrajectory_Update(SolveTrajectory_Typedef *SolveTrajectory,float picth
 void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_ReceivePacket_Typedef *MiniPCRxData,SolveTrajectory_Typedef *SolveTrajectory)
 {
     /* calculate the timedelay */
-    float timeDelay = FireSystem_BiasTime + SolveTrajectory->bullet_time;
+    float timeDelay = SolveTrajectory->FireSystem_BiasTime + SolveTrajectory->bullet_time;
 
     /* calculate the yaw linear prediction */
     SolveTrajectory->yaw_calc += SolveTrajectory->yawgyro_calc * timeDelay;
@@ -191,16 +191,16 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
     arm_sqrt_f32((MiniPCTxData->aim_x) * (MiniPCTxData->aim_x) + (MiniPCTxData->aim_y) * (MiniPCTxData->aim_y),&SolveTrajectory->armor_distance);
 
     /* calculate the gimbal target posture,lock the armor */
-    SolveTrajectory->armorlock_pitch = Trajectory_Picth_Update( SolveTrajectory->armor_distance - Camera_Muzzle_horizontal,
-                                    SolveTrajectory->target_posure[index].z + Camera_Muzzle_vertical, SolveTrajectory);
+    SolveTrajectory->armorlock_pitch = Trajectory_Picth_Update( SolveTrajectory->armor_distance - SolveTrajectory->Camera_Muzzle_horizontal,
+                                    SolveTrajectory->target_posure[index].z + SolveTrajectory->Camera_Muzzle_vertical, SolveTrajectory);
     SolveTrajectory->armorlock_yaw = (float)(atan2(MiniPCTxData->aim_y, MiniPCTxData->aim_x));
 
     /* calculate the distance to center */
     arm_sqrt_f32((MiniPCRxData->x) * (MiniPCRxData->x) + (MiniPCRxData->y) * (MiniPCRxData->y),&SolveTrajectory->center_distance);
 
     /* calculate the gimbal target posture,lock the center */
-    SolveTrajectory->centerlock_pitch = Trajectory_Picth_Update( SolveTrajectory->center_distance - Camera_Muzzle_horizontal,
-                                    MiniPCRxData->z + Camera_Muzzle_vertical, SolveTrajectory);
+    SolveTrajectory->centerlock_pitch = Trajectory_Picth_Update( SolveTrajectory->center_distance - SolveTrajectory->Camera_Muzzle_horizontal,
+                                    MiniPCRxData->z + SolveTrajectory->Camera_Muzzle_vertical, SolveTrajectory);
     SolveTrajectory->centerlock_yaw = (float)(atan2(MiniPCRxData->y, MiniPCRxData->x));
 }
 //------------------------------------------------------------------------------

@@ -24,7 +24,11 @@
 /**
  * @brief structure that contains the information for the solved trajectory.
  */
-SolveTrajectory_Typedef SolveTrajectory;
+SolveTrajectory_Typedef SolveTrajectory={
+  .Camera_Muzzle_vertical = 0.119f,
+  .Camera_Muzzle_horizontal = 0.02f,
+  .FireSystem_BiasTime = 0.15f,
+};
 
 /**
  * @brief structure that contains the information for the Vision.
