@@ -95,7 +95,7 @@ void Vision_Task(void const * argument)
     }
 
     /* Judge the fire acception */
-    if(Vision_Info.yawerror < Vision_Info.Fire_Yaw_Threshold)
+    if(Vision_Info.yawerror < Vision_Info.Fire_Yaw_Threshold && Vision_Info.IF_Aiming_Enable == true)
     {
       Vision_Info.IF_Fire_Accept = true;
     }
