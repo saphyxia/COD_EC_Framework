@@ -34,8 +34,10 @@ static void USART_RxDMA_MultiBufferStart(UART_HandleTypeDef *, uint32_t *, uint3
   */
 void BSP_USART_Init(void)
 {
+#if REMOTE_FRAME_USART_CAN
   /* Starts the remote control multi_buffer DMA Transfer with interrupt enabled. */
 	USART_RxDMA_MultiBufferStart(&huart3,(uint32_t *)&(huart3.Instance->DR),(uint32_t *)SBUS_MultiRx_Buf[0],(uint32_t *)SBUS_MultiRx_Buf[1],SBUS_RX_BUF_NUM);
+#endif
 }
 //------------------------------------------------------------------------------
 
@@ -139,12 +141,14 @@ static void USER_USART3_RxHandler(UART_HandleTypeDef *huart,uint16_t Size)
   */
 void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart,uint16_t Size)
 {
-
+	
+#if REMOTE_FRAME_USART_CAN
 	if(huart->Instance == USART3)
 	{
 		USER_USART3_RxHandler(huart,Size);
 	}
-
+#endif
+	
   /* reset the Reception Type */
 	huart->ReceptionType = HAL_UART_RECEPTION_TOIDLE;
 	

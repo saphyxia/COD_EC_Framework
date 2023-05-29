@@ -108,7 +108,7 @@
 /**
  * @brief the index of pitch accel update
  */
-#define IMU_ACCEL_INDEX_PITCH  0U
+#define IMU_ACCEL_INDEX_PITCH  1U
 /**
  * @brief the index of yaw accel update
  */
@@ -116,8 +116,15 @@
 /**
  * @brief the index of roll accel update
  */
-#define IMU_ACCEL_INDEX_ROLL   1U
+#define IMU_ACCEL_INDEX_ROLL   0U
 
+/* Remote reslove constants -----------------------------------------------*/
+/**
+ * @brief the flag of remote control receive frame data
+ * @note  0: CAN
+ *        1: USART
+ */
+#define REMOTE_FRAME_USART_CAN   1U
 
 #endif //ROBOT_CONFIG_H
 
