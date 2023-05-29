@@ -122,5 +122,15 @@ typedef struct
 }RMD_L9025_Info_Typedef;
 
 /* Exported functions prototypes ---------------------------------------------*/
+/**
+  * @brief  Update the DJI motor Information
+  */
+extern void DJI_Motor_Info_Update(uint32_t *StdId, uint8_t *rxBuf,DJI_Motor_Info_Typedef *DJI_Motor);
+
+/**
+  * @brief  Update the RMD motor Information
+	*/
+extern void RMD_Motor_Info_Update(uint32_t *StdId, uint8_t *rxBuf,RMD_L9025_Info_Typedef *RMD_Motor);
+
 
 #endif //DEVICE_MOTOR_H
