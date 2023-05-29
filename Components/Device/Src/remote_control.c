@@ -98,14 +98,14 @@ void Remote_Message_Moniter(Remote_Info_Typedef  *remote_ctrl)
   /* Juege the device status */
   if(remote_ctrl->online_cnt <= 0x32U)
   {
+    /* clear the data */
+    memset(remote_ctrl,0,sizeof(Remote_Info_Typedef));
+
     /* reset the online count */
     remote_ctrl->online_cnt = 0xFAU;
 		
     /* set the lost flag */
 		remote_ctrl->rc_lost = true;
-		
-    /* clear the data */
-    memset(remote_ctrl,0,sizeof(Remote_Info_Typedef));
   }
   else if(remote_ctrl->online_cnt > 0)
   {

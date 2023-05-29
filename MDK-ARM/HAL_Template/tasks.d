@@ -1,17 +1,16 @@
-./hal_template/tasks.o: \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\tasks.c \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stddef.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
-  ..\Core\Inc\FreeRTOSConfig.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\deprecated_definitions.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F\portmacro.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\timers.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\stack_macros.h
+.\hal_template\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/tasks.c
+.\hal_template\tasks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\hal_template\tasks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\hal_template\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+.\hal_template\tasks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\hal_template\tasks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\hal_template\tasks.o: ../Core/Inc/FreeRTOSConfig.h
+.\hal_template\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+.\hal_template\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+.\hal_template\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+.\hal_template\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+.\hal_template\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+.\hal_template\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+.\hal_template\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+.\hal_template\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
+.\hal_template\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/stack_macros.h

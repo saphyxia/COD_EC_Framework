@@ -27,12 +27,12 @@
 void Detect_Task(void const * argument)
 {
   /* USER CODE BEGIN Detect_Task */
-  TickType_t systick = 0;
+//  TickType_t systick = 0;
 
   /* Infinite loop */
   for(;;)
   {
-    systick = osKernelSysTick();
+//    systick = osKernelSysTick();
 
     /* remote control moniter */
     Remote_Message_Moniter(&remote_ctrl);

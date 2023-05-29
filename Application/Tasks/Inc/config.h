@@ -108,15 +108,15 @@
 /**
  * @brief the index of pitch accel update
  */
-#define IMU_ACCEL_INDEX_PITCH  1U
+#define IMU_ACCEL_INDEX_PITCH  0U
 /**
  * @brief the index of yaw accel update
  */
-#define IMU_ACCEL_INDEX_YAW   0U
+#define IMU_ACCEL_INDEX_YAW   2U
 /**
  * @brief the index of roll accel update
  */
-#define IMU_ACCEL_INDEX_ROLL   2U
+#define IMU_ACCEL_INDEX_ROLL   1U
 
 
 #endif //ROBOT_CONFIG_H

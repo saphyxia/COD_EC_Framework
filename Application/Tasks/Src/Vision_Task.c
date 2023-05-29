@@ -18,8 +18,6 @@
 #include "INS_Task.h"
 #include "api_trajectory.h"
 
-
-
 /* Private variables -----------------------------------------------------------*/
 /**
  * @brief structure that contains the information for the solved trajectory.
@@ -47,12 +45,12 @@ Vision_Info_Typedef Vision_Info = {
 void Vision_Task(void const * argument)
 {
   /* USER CODE BEGIN Vision_Task */
-  TickType_t systick = 0;
+//  TickType_t systick = 0;
 
   /* Infinite loop */
   for(;;)
   {
-    systick = osKernelSysTick();
+//    systick = osKernelSysTick();
 
     /* received minipc tracking , Enable the vision aiming */
     Vision_Info.IF_Aiming_Enable = (MiniPC_ReceivePacket.tracking == true);
@@ -107,7 +105,7 @@ void Vision_Task(void const * argument)
     /* transmit the minipc frame data */
     MiniPC_SendFrameInfo(&MiniPC_SendPacket);
 
-    osDelayUntil(&systick,2);
+    osDelay(2);
   }
   /* USER CODE END Vision_Task */
 }
