@@ -131,7 +131,7 @@ float f_PID_Calculate(PID_Info_TypeDef *Pid, float target,float measure)
 	Pid->Err[1] = Pid->Err[0];
 	Pid->Err[0] = Pid->target - Pid->measure;
 		
-  if(fabsf(Pid->Err[0]) > Pid->param.Deadband)
+  if(fabsf(Pid->Err[0]) >= Pid->param.Deadband)
   {
 		/* update the pid controller output */
 		if(Pid->type == PID_POSITION)
