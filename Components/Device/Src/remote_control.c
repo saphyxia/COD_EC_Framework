@@ -20,7 +20,10 @@
 /**
  * @brief remote control structure variable
  */
-Remote_Info_Typedef remote_ctrl;
+Remote_Info_Typedef remote_ctrl={
+	.rc_lost = true,
+	.online_cnt = 0xFAU,
+};
 
 /**
  * @brief remote control usart RxDMA MultiBuffer

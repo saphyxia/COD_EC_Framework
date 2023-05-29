@@ -57,12 +57,12 @@ void DJI_Motor_Info_Update(uint32_t *StdId, uint8_t *rxBuf,DJI_Motor_Info_Typede
     if(DJI_Motor->CANFrame.RxStdId > DJI_RxFrame_MIDDLE)
     {
       DJI_Motor->CANFrame.TxStdId = DJI_TxFrame_HIGH;
-      DJI_Motor->CANFrame.FrameIndex = DJI_Motor->CANFrame.RxStdId - DJI_RxFrame_MIDDLE - 0x01U;
+      DJI_Motor->CANFrame.FrameIndex = 2*(DJI_Motor->CANFrame.RxStdId - DJI_RxFrame_MIDDLE - 0x01U);
     }
     else if(DJI_Motor->CANFrame.RxStdId > DJI_TxFrame_LOW)
     {
       DJI_Motor->CANFrame.TxStdId = DJI_TxFrame_LOW; 
-      DJI_Motor->CANFrame.FrameIndex = DJI_Motor->CANFrame.RxStdId - DJI_TxFrame_LOW - 0x01U;
+      DJI_Motor->CANFrame.FrameIndex = 2*(DJI_Motor->CANFrame.RxStdId - DJI_TxFrame_LOW - 0x01U);
     }
   }
 	
