@@ -79,6 +79,15 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
 
     /* calculate the yaw linear prediction */
     SolveTrajectory->yaw_calc += SolveTrajectory->yawgyro_calc * timeDelay;
+	
+		if(SolveTrajectory->yawgyro_calc > 0)
+		{
+			SolveTrajectory->sign_yawgyro = -1;
+		}
+		else
+		{
+			SolveTrajectory->sign_yawgyro = 1;
+		}
 
     /* the index of target armor */
     uint8_t index = 0; 
@@ -91,8 +100,8 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
     {
         for (uint8_t i = 0; i<2; i++) 
         {
-            SolveTrajectory->target_posure[i].x = MiniPCRxData->x - SolveTrajectory->r1*cos(SolveTrajectory->yaw_calc + i * PI);
-            SolveTrajectory->target_posure[i].y = MiniPCRxData->y - SolveTrajectory->r1*sin(SolveTrajectory->yaw_calc + i * PI);
+            SolveTrajectory->target_posure[i].x = MiniPCRxData->x - SolveTrajectory->r1*cos(SolveTrajectory->yaw_calc + SolveTrajectory->sign_yawgyro * i * PI);
+            SolveTrajectory->target_posure[i].y = MiniPCRxData->y - SolveTrajectory->r1*sin(SolveTrajectory->yaw_calc + SolveTrajectory->sign_yawgyro * i * PI);
             SolveTrajectory->target_posure[i].z = MiniPCRxData->z;
             SolveTrajectory->target_posure[i].yaw = SolveTrajectory->yaw_calc + i * PI;
         }
@@ -112,8 +121,8 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
         /* store the armor posure */
         for (uint8_t i = 0; i<3; i++)
         {
-            SolveTrajectory->target_posure[i].x = MiniPCRxData->x - SolveTrajectory->r2 * cos(SolveTrajectory->yaw_calc + i * 2.f*PI/3.f);
-            SolveTrajectory->target_posure[i].y = MiniPCRxData->y - SolveTrajectory->r2 * sin(SolveTrajectory->yaw_calc + i * 2.f*PI/3.f);
+            SolveTrajectory->target_posure[i].x = MiniPCRxData->x - SolveTrajectory->r2 * cos(SolveTrajectory->yaw_calc + SolveTrajectory->sign_yawgyro * i * 2.f*PI/3.f);
+            SolveTrajectory->target_posure[i].y = MiniPCRxData->y - SolveTrajectory->r2 * sin(SolveTrajectory->yaw_calc + SolveTrajectory->sign_yawgyro * i * 2.f*PI/3.f);
             SolveTrajectory->target_posure[i].z = MiniPCRxData->z ;
             SolveTrajectory->target_posure[i].yaw = SolveTrajectory->yaw_calc + i * 2.f*PI/3.f;
             if(fabsf(SolveTrajectory->target_posure[i].yaw) > 2*PI)
@@ -143,8 +152,8 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
         for (uint8_t i = 0; i<4; i++)
         {
             float r = use_1 ? SolveTrajectory->r1 : SolveTrajectory->r2;
-            SolveTrajectory->target_posure[i].x = MiniPCRxData->x - r*cos(SolveTrajectory->yaw_calc + i * PI/2.f);
-            SolveTrajectory->target_posure[i].y = MiniPCRxData->y - r*sin(SolveTrajectory->yaw_calc + i * PI/2.f);
+            SolveTrajectory->target_posure[i].x = MiniPCRxData->x - r*cos(SolveTrajectory->yaw_calc + SolveTrajectory->sign_yawgyro * i * PI/2.f);
+            SolveTrajectory->target_posure[i].y = MiniPCRxData->y - r*sin(SolveTrajectory->yaw_calc + SolveTrajectory->sign_yawgyro * i * PI/2.f);
             SolveTrajectory->target_posure[i].z = use_1 ? MiniPCRxData->z : (MiniPCRxData->z + SolveTrajectory->dz);
             SolveTrajectory->target_posure[i].yaw = SolveTrajectory->yaw_calc + i * PI/2.f;
             if(fabsf(SolveTrajectory->target_posure[i].yaw) > 2*PI)
