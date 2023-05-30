@@ -55,7 +55,6 @@ typedef struct
     float r2;             /*!< Distance of target center to armor plates in sides */
     float dz;             /*!< unknown */
     uint8_t armors_num;   /*!< the num of armor */
-	
 		int8_t sign_yawgyro;	/*!< the sign of yawgyro */
 
     float armorlock_yaw;      /*!< gimbal target yaw angle,lock the armor */
