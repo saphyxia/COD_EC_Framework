@@ -40,8 +40,8 @@ typedef struct
  */
 typedef struct
 {
-    float Camera_Muzzle_vertical;    /*!< the vertical distance of yaw axis to the muzzle(m) */
-    float Camera_Muzzle_horizontal;  /*!< the horizontal distance of yaw axis to the muzzle(m) */
+    float Camera_Yaw_Vertical;    /*!< the vertical distance of yaw axis to the camera(m) */
+    float Camera_Yaw_Horizontal;  /*!< the horizontal distance of yaw axis to the camera(m) */
     float FireSystem_BiasTime;       /*!< the bias time of system(s), contains the communication delay and trigger delay */
 
     float bullet_speed;   /*!< referee bullet speed */

@@ -53,7 +53,7 @@
 // #define ROBOT_HURT_ID                     0x0206U  /*!< robot hurt data */
 #define REAL_SHOOT_DATA_ID                0x0207U  /*!< real robot shoot data */
 // #define BULLET_REMAINING_ID               0x0208U  /*!< bullet remain data */
-#define RFID_STATUS_ID                    0x0209U  /*!< RFID status data */
+//#define RFID_STATUS_ID                    0x0209U  /*!< RFID status data */
 // #define DART_CLIENT_CMD_ID                0x020AU  /*!< DART Client cmd data */
 // #define GROUND_POSITION_ID                0x020BU  /*!< ground robot position */
 
@@ -617,24 +617,53 @@ typedef struct
 typedef struct 
 {
   uint8_t index;
-  
+#ifdef GAME_STATUS_ID
   ext_game_status_t game_status;
+#endif
+#ifdef EVENE_DATA_ID
   ext_event_data_t site_event;
-
+#endif
+	
+#ifdef DART_REMAINING_TIME_ID
   ext_dart_remaining_time_t dart_remaining;
+#endif
+#ifdef DART_CLIENT_CMD_ID
   ext_dart_client_cmd_t dart_client_cmd;
+#endif
+#ifdef AERIAL_ENERGY_ID
   aerial_robot_energy_t aerial_energy;
-  ground_robot_position_t ground_robot_positio;
-
+#endif
+#ifdef GROUND_POSITION_ID
+  ground_robot_position_t ground_robot_position;
+#endif
+	
+#ifdef GAME_ROBOTHP_ID
   ext_game_robot_HP_t robot_HP;
+#endif
+#ifdef ROBOT_STATUS_ID
   ext_game_robot_status_t robot_status;
+#endif
+#ifdef REAL_POWER_HEAT_ID
   ext_power_heat_data_t power_heat;
+#endif
+#ifdef ROBOT_POSITION_ID
   ext_robot_position_t robot_position;
+#endif
+#ifdef ROBOT_BUFF_ID
   ext_robot_buff_t robot_buff;
+#endif
+#ifdef ROBOT_HURT_ID
   ext_robot_hurt_t robot_hurt;
+#endif
+#ifdef REAL_SHOOT_DATA_ID
   ext_shoot_data_t shoot_data;
+#endif
+#ifdef BULLET_REMAINING_ID
   ext_bullet_remaining_t bullet_remaining;
+#endif
+#ifdef RFID_STATUS_ID
   ext_rfid_status_t RFID_Status;
+#endif
 
 }Referee_Info_TypeDef;
 
@@ -645,12 +674,12 @@ typedef struct
 /**
  * @brief Referee_RxDMA MultiBuffer
  */
-uint8_t REFEREE_MultiRx_Buf[2][100];
+extern uint8_t REFEREE_MultiRx_Buf[2][100];
 
 /**
  * @brief Referee structure variable
  */
-Referee_Info_TypeDef Referee_Info;
+extern Referee_Info_TypeDef Referee_Info;
 
 
 /* Exported functions prototypes ---------------------------------------------*/

@@ -20,10 +20,12 @@
   * @brief  report the microsecond haltick
   * @param  none
   * @note   the cubemx recommended to switch the system time base to a timer other than SysTick, 
-  *         so there will be two sets of time bases in the system, 1.SysTick for RTOS 2.HalTick for HAL
+  *         so there will be two sets of time bases in the system, 
+	*					1.SysTick for RTOS 
+	* 				2.HalTick for HAL
   *         SysTick uses the SysTick of the cortex-m4 kernel (SysTick->VAL will be updated after starting the task scheduler)
   *         HalTick uses TIM2 in this project (TIM2->CNT can provide microsecond delay)
-  *         # delay_us and delay_ms will not cause task scheduling (blocking type)
+  *         functions void Delay_us(void) and void Delay_ms(void) will not cause task scheduling (blocking type)
   * @retval haltick
   */
 static uint32_t Haltick(void)

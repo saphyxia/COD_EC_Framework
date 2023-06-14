@@ -71,9 +71,15 @@ float LowPassFilter1p_Update(LowPassFilter1p_Info_TypeDef *lpf,float input)
   */
 void LowPassFilter2p_Init(LowPassFilter2p_Info_TypeDef *lpf,float alpha[3])
 {
-  memcpy(lpf->alpha,alpha,sizeof(lpf->alpha));
+	lpf->alpha[0] = alpha[0];
+	lpf->alpha[1] = alpha[1];
+	lpf->alpha[2] = alpha[2];
+
   lpf->input = 0;
-  memset(lpf->output,0,sizeof(lpf->output));
+	
+	lpf->output[0] = 0;
+	lpf->output[1] = 0;
+	lpf->output[2] = 0;
 }
 //------------------------------------------------------------------------------
 

@@ -23,8 +23,8 @@
  * @brief structure that contains the information for the solved trajectory.
  */
 SolveTrajectory_Typedef SolveTrajectory={
-  .Camera_Muzzle_vertical = 0.119f,
-  .Camera_Muzzle_horizontal = 0.02f,
+  .Camera_Yaw_Vertical = 0.119f,
+  .Camera_Yaw_Horizontal = 0.02f,
   .FireSystem_BiasTime = 0.15f,
 };
 

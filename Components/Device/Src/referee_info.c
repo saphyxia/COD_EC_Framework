@@ -28,11 +28,11 @@ uint8_t REFEREE_MultiRx_Buf[2][REFEREE_RXFRAME_LENGTH];
 Referee_Info_TypeDef Referee_Info;
 
 /* Private function prototypes -----------------------------------------------*/
-static uint32_t bit8TObit32(uint8_t change_info[4]);
-static float bit8TOfloat32(uint8_t change_info[4]);
-static uint8_t bit32TObit8(uint8_t index_need,uint32_t bit32);
-static int16_t bit8TObit16(uint8_t change_info[2]);
-static uint8_t bit16TObit8(uint8_t index_need,int16_t bit16);
+static uint32_t bit8TObit32(uint8_t [4]);
+static float bit8TOfloat32(uint8_t [4]);
+static uint8_t bit32TObit8(uint8_t ,uint32_t );
+static int16_t bit8TObit16(uint8_t [2]);
+static uint8_t bit16TObit8(uint8_t ,int16_t );
 
 void Referee_Info_Update(uint8_t *Buff,Referee_Info_TypeDef *referee)
 {
@@ -41,8 +41,8 @@ void Referee_Info_Update(uint8_t *Buff,Referee_Info_TypeDef *referee)
 
 #ifdef GAME_STATUS_ID
     case GAME_STATUS_ID:
-      referee->game_status.game_type         = Buff[referee->index + FrameHeader_Length + CMDID_Length] & 0xF0 >> 4;
-      referee->game_status.game_progress     = Buff[referee->index + FrameHeader_Length + CMDID_Length] & 0x0F;
+      referee->game_status.game_type         = (Buff[referee->index + FrameHeader_Length + CMDID_Length] & 0x0F);
+      referee->game_status.game_progress     = (Buff[referee->index + FrameHeader_Length + CMDID_Length] & 0xF0) >> 4;
       referee->game_status.stage_remain_time = bit8TObit16(&Buff[referee->index + FrameHeader_Length + CMDID_Length + 1]);
     break;
 #endif
@@ -97,9 +97,9 @@ void Referee_Info_Update(uint8_t *Buff,Referee_Info_TypeDef *referee)
       referee->robot_status.shooter_id1_42mm_cooling_limit = bit8TObit16(&Buff[referee->index + FrameHeader_Length + CMDID_Length + 20]);
       referee->robot_status.shooter_id1_42mm_speed_limit   = bit8TObit16(&Buff[referee->index + FrameHeader_Length + CMDID_Length + 22]);
       referee->robot_status.chassis_power_limit        = bit8TObit16(&Buff[referee->index + FrameHeader_Length + CMDID_Length + 24]);
-      referee->robot_status.mains_power_gimbal_output  = Buff[referee->index + FrameHeader_Length + CMDID_Length + 26] & 0x80 >> 7;
-      referee->robot_status.mains_power_chassis_output = Buff[referee->index + FrameHeader_Length + CMDID_Length + 26] & 0x40 >> 6;
-      referee->robot_status.mains_power_shooter_output = Buff[referee->index + FrameHeader_Length + CMDID_Length + 26] & 0x20 >> 5;
+      referee->robot_status.mains_power_gimbal_output  = (Buff[referee->index + FrameHeader_Length + CMDID_Length + 26] & 0x01);
+      referee->robot_status.mains_power_chassis_output = (Buff[referee->index + FrameHeader_Length + CMDID_Length + 26] & 0x02) >> 1;
+      referee->robot_status.mains_power_shooter_output = (Buff[referee->index + FrameHeader_Length + CMDID_Length + 26] & 0x04) >> 2;
     break;
 #endif
 
@@ -138,8 +138,8 @@ void Referee_Info_Update(uint8_t *Buff,Referee_Info_TypeDef *referee)
 
 #ifdef ROBOT_HURT_ID
     case ROBOT_HURT_ID:
-      referee->robot_hurt.armor_id  = Buff[referee->index + FrameHeader_Length + CMDID_Length] & 0xF0 >> 4;
-      referee->robot_hurt.hurt_type = Buff[referee->index + FrameHeader_Length + CMDID_Length] & 0x0F;
+      referee->robot_hurt.armor_id  = (Buff[referee->index + FrameHeader_Length + CMDID_Length] & 0x0F);
+      referee->robot_hurt.hurt_type = (Buff[referee->index + FrameHeader_Length + CMDID_Length] & 0xF0) >> 4;
     break;
 #endif
 
@@ -177,22 +177,23 @@ void Referee_Info_Update(uint8_t *Buff,Referee_Info_TypeDef *referee)
 
 #ifdef GROUND_POSITION_ID
     case GROUND_POSITION_ID:
-      referee->ground_robot_positio.hero_x       = bit8TOfloat32(&Buff[referee->index + FrameHeader_Length + CMDID_Length]);
-      referee->ground_robot_positio.hero_y       = bit8TOfloat32(&Buff[referee->index + FrameHeader_Length + CMDID_Length + 4]);
-      referee->ground_robot_positio.engineer_x   = bit8TOfloat32(&Buff[referee->index + FrameHeader_Length + CMDID_Length + 8]);
-      referee->ground_robot_positio.engineer_y   = bit8TOfloat32(&Buff[referee->index + FrameHeader_Length + CMDID_Length + 12]);
-      referee->ground_robot_positio.standard_3_x = bit8TOfloat32(&Buff[referee->index + FrameHeader_Length + CMDID_Length + 16]);
-      referee->ground_robot_positio.standard_3_y = bit8TOfloat32(&Buff[referee->index + FrameHeader_Length + CMDID_Length + 20]);
-      referee->ground_robot_positio.standard_4_x = bit8TOfloat32(&Buff[referee->index + FrameHeader_Length + CMDID_Length + 24]);
-      referee->ground_robot_positio.standard_4_y = bit8TOfloat32(&Buff[referee->index + FrameHeader_Length + CMDID_Length + 28]);
-      referee->ground_robot_positio.standard_5_x = bit8TOfloat32(&Buff[referee->index + FrameHeader_Length + CMDID_Length + 32]);
-      referee->ground_robot_positio.standard_5_y = bit8TOfloat32(&Buff[referee->index + FrameHeader_Length + CMDID_Length + 36]);
+      referee->ground_robot_position.hero_x       = bit8TOfloat32(&Buff[referee->index + FrameHeader_Length + CMDID_Length]);
+      referee->ground_robot_position.hero_y       = bit8TOfloat32(&Buff[referee->index + FrameHeader_Length + CMDID_Length + 4]);
+      referee->ground_robot_position.engineer_x   = bit8TOfloat32(&Buff[referee->index + FrameHeader_Length + CMDID_Length + 8]);
+      referee->ground_robot_position.engineer_y   = bit8TOfloat32(&Buff[referee->index + FrameHeader_Length + CMDID_Length + 12]);
+      referee->ground_robot_position.standard_3_x = bit8TOfloat32(&Buff[referee->index + FrameHeader_Length + CMDID_Length + 16]);
+      referee->ground_robot_position.standard_3_y = bit8TOfloat32(&Buff[referee->index + FrameHeader_Length + CMDID_Length + 20]);
+      referee->ground_robot_position.standard_4_x = bit8TOfloat32(&Buff[referee->index + FrameHeader_Length + CMDID_Length + 24]);
+      referee->ground_robot_position.standard_4_y = bit8TOfloat32(&Buff[referee->index + FrameHeader_Length + CMDID_Length + 28]);
+      referee->ground_robot_position.standard_5_x = bit8TOfloat32(&Buff[referee->index + FrameHeader_Length + CMDID_Length + 32]);
+      referee->ground_robot_position.standard_5_y = bit8TOfloat32(&Buff[referee->index + FrameHeader_Length + CMDID_Length + 36]);
     break;
 #endif
 
     default:break;
   }
 }
+//------------------------------------------------------------------------------
 
 /**
  * @brief  transform the bit8 to bit32
