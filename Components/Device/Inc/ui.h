@@ -1,8 +1,8 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file           : UI.h
-  * @brief          : UI functions 
+  * @file           : ui.h
+  * @brief          : ui functions 
   * @author         : Yan Yuanbin
   * @date           : 2023/04/27
   * @version        : v1.0

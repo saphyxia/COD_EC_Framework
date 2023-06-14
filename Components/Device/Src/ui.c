@@ -13,7 +13,7 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
-#include "UI.h"
+#include "ui.h"
 #include "referee_info.h"
 #include "stm32f4xx.h"
 #include "crc.h"

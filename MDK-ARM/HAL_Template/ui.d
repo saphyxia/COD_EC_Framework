@@ -1,5 +1,5 @@
 .\hal_template\ui.o: ..\Components\Device\Src\ui.c
-.\hal_template\ui.o: ../Components/Device/Inc/UI.h
+.\hal_template\ui.o: ../Components/Device/Inc/ui.h
 .\hal_template\ui.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\hal_template\ui.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\hal_template\ui.o: ../Components/Device/Inc/referee_info.h
