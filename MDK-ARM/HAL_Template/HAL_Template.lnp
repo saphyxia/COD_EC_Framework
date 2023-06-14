@@ -22,6 +22,7 @@
 ".\hal_template\motor.o"
 ".\hal_template\referee_info.o"
 ".\hal_template\remote_control.o"
+".\hal_template\ui.o"
 ".\hal_template\main.o"
 ".\hal_template\gpio.o"
 ".\hal_template\freertos.o"

@@ -31,6 +31,8 @@
 #define CMDID_Length          2U   /*!< the length of CMD ID */
 #define CRC16_Length          2U   /*!< the length of CRC ID */
 
+#define Minimum_Frame_Length  10U /*!< the Minimum length of Referee received frame data */
+
 /**
  * @brief Cmd id
  */
@@ -526,25 +528,25 @@ typedef struct
   uint8_t mark_sentry_progress;
 }radar_mark_data_t;
 
-/**
- * @brief typedef structure that contains the information of robot interactive data, id: 0x0301U
- */
-typedef struct
-{
-  /**
-   * @brief data cmd id
-   *        0x0200-0x02ff: robot interactive
-   *        0x0100: client delete graph
-   *        0x0101: client draw one graph
-   *        0x0102: client draw two graph
-   *        0x0103: client draw five graph
-   *        0x0104: client draw seven graph
-   *        0x0110: client draw char graph 
-  */ 
-  uint16_t data_cmd_id;
-  uint16_t sender_ID;
-  uint16_t receiver_ID;
-}ext_student_interactive_header_data_t;
+///**
+// * @brief typedef structure that contains the information of robot interactive data, id: 0x0301U
+// */
+//typedef struct
+//{
+//  /**
+//   * @brief data cmd id
+//   *        0x0200-0x02ff: robot interactive
+//   *        0x0100: client delete graph
+//   *        0x0101: client draw one graph
+//   *        0x0102: client draw two graph
+//   *        0x0103: client draw five graph
+//   *        0x0104: client draw seven graph
+//   *        0x0110: client draw char graph 
+//  */ 
+//  uint16_t data_cmd_id;
+//  uint16_t sender_ID;
+//  uint16_t receiver_ID;
+//}ext_student_interactive_header_data_t;
 
 /**
  * @brief typedef structure that contains the information of custom controller interactive, id: 0x0302U
@@ -617,6 +619,8 @@ typedef struct
 typedef struct 
 {
   uint8_t index;
+	uint16_t datalength;
+	
 #ifdef GAME_STATUS_ID
   ext_game_status_t game_status;
 #endif
@@ -683,5 +687,6 @@ extern Referee_Info_TypeDef Referee_Info;
 
 
 /* Exported functions prototypes ---------------------------------------------*/
+extern void Referee_Frame_Update(uint8_t *Buff);
 
 #endif //REFEREE_INFO_H

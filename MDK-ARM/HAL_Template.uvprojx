@@ -529,6 +529,11 @@
               <FileType>1</FileType>
               <FilePath>..\Components\Device\Src\remote_control.c</FilePath>
             </File>
+            <File>
+              <FileName>ui.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\Device\Src\ui.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

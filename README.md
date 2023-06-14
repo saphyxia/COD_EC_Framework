@@ -98,6 +98,29 @@ HAL-Template
   ```
   函数解算得出云台期望姿态。
   
+### 裁判系统
+
+* 使用STM32串口DMA实现裁判系统数据交互
+  * 数据接收使用双缓存循环模式
+  * 数据发送使用单缓存普通模式
+
+* 在`./Components/Device/Src/Referee_info.c`中封装了适配[RoboMaster 裁判系统串口协议附录 V1.4](https://rm-static.djicdn.com/tem/17348/RoboMaster%20%E8%A3%81%E5%88%A4%E7%B3%BB%E7%BB%9F%E4%B8%B2%E5%8F%A3%E5%8D%8F%E8%AE%AE%E9%99%84%E5%BD%95%20V1.4%EF%BC%8820220805%EF%BC%89.pdf)及[RoboMaster 裁判系统串口协议附录 V1.4 增补修订说明](https://rm-static.djicdn.com/tem/17348/RoboMaster%20%E8%A3%81%E5%88%A4%E7%B3%BB%E7%BB%9F%E4%B8%B2%E5%8F%A3%E5%8D%8F%E8%AE%AE%E9%99%84%E5%BD%95%20V1.4%20%E5%A2%9E%E8%A1%A5%E4%BF%AE%E8%AE%A2%E8%AF%B4%E6%98%8E%EF%BC%8820230330%EF%BC%89.pdf)的通信解码函数，其在`./BSP/bsp_uart.c`中的
+
+  ```C
+  void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart,uint16_t Size)
+  ```
+
+  串口传输完成回调函数中调用，以实现裁判系统的数据更新。
+  
+* 在`./Components/Device/Src/ui.c`中封装了适配[RoboMaster 裁判系统串口协议附录 V1.4](https://rm-static.djicdn.com/tem/17348/RoboMaster%20%E8%A3%81%E5%88%A4%E7%B3%BB%E7%BB%9F%E4%B8%B2%E5%8F%A3%E5%8D%8F%E8%AE%AE%E9%99%84%E5%BD%95%20V1.4%EF%BC%8820220805%EF%BC%89.pdf)的客户端绘制UI所需通信编码函数，用户可调用此类函数实现客户端绘制***自定义UI***的通信数据帧编码，并利用
+
+  ```C
+  HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size)
+  ```
+
+  函数以串口DMA的形式，向裁判系统链路发送相关通信数据帧。
+
+
 ## 贡献
 
 * 完善项目过程中，请尽量遵循以下设计原则和规范：

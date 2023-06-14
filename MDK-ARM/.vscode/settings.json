@@ -36,6 +36,7 @@
         "bsp_mcu.h": "c",
         "bsp_spi.h": "c",
         "bsp_tick.h": "c",
-        "bsp_tim.h": "c"
+        "bsp_tim.h": "c",
+        "ui.h": "c"
     }
 }

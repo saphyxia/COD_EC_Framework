@@ -44,3 +44,4 @@
 .\hal_template\bsp_uart.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\hal_template\bsp_uart.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\hal_template\bsp_uart.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\hal_template\bsp_uart.o: ../Components/Device/Inc/referee_info.h

@@ -16,6 +16,7 @@
 #include "bsp_uart.h"
 #include "usart.h"
 #include "remote_control.h"
+#include "referee_info.h"
 
 /* Private variables ---------------------------------------------------------*/
 
@@ -38,6 +39,9 @@ void BSP_USART_Init(void)
   /* Starts the remote control multi_buffer DMA Transfer with interrupt enabled. */
 	USART_RxDMA_MultiBufferStart(&huart3,(uint32_t *)&(huart3.Instance->DR),(uint32_t *)SBUS_MultiRx_Buf[0],(uint32_t *)SBUS_MultiRx_Buf[1],SBUS_RX_BUF_NUM);
 #endif
+
+  /* Starts the Referee multi_buffer DMA Transfer with interrupt enabled. */
+	USART_RxDMA_MultiBufferStart(&huart1,(uint32_t *)&(huart1.Instance->DR),(uint32_t *)REFEREE_MultiRx_Buf[0],(uint32_t *)REFEREE_MultiRx_Buf[1],REFEREE_RXFRAME_LENGTH);
 }
 //------------------------------------------------------------------------------
 
@@ -89,6 +93,49 @@ static void USART_RxDMA_MultiBufferStart(UART_HandleTypeDef *huart, uint32_t *Sr
   __HAL_DMA_ENABLE(huart->hdmarx);
 }
 //------------------------------------------------------------------------------
+
+/**
+  * @brief  USER USART1 Reception Event Callback.
+  * @param  huart UART handle
+  * @param  Size  Number of data available in application reception buffer (indicates a position in
+  *               reception buffer until which, data are available)
+  * @retval None
+  */
+static void USER_USART1_RxHandler(UART_HandleTypeDef *huart,uint16_t Size)
+{
+  /* Current memory buffer used is Memory 0 */
+  if(((((DMA_Stream_TypeDef  *)huart->hdmarx->Instance)->CR) & DMA_SxCR_CT ) == RESET)
+  {
+			//Disable DMA 
+			__HAL_DMA_DISABLE(huart->hdmarx);
+
+			huart->hdmarx->Instance->CR |= DMA_SxCR_CT;
+      /* reset the receive count */
+      __HAL_DMA_SET_COUNTER(huart->hdmarx,REFEREE_RXFRAME_LENGTH);
+
+      if(Size >= Minimum_Frame_Length)
+      {
+        Referee_Frame_Update(REFEREE_MultiRx_Buf[0]);
+				memset(REFEREE_MultiRx_Buf[0],0,REFEREE_RXFRAME_LENGTH);
+      }
+  }
+  /* Current memory buffer used is Memory 1 */
+  else
+  {
+			//Disable DMA 
+			__HAL_DMA_DISABLE(huart->hdmarx);
+
+			huart->hdmarx->Instance->CR &= ~(DMA_SxCR_CT);
+      /* reset the receive count */
+      __HAL_DMA_SET_COUNTER(huart->hdmarx,REFEREE_RXFRAME_LENGTH);
+		
+      if(Size >= Minimum_Frame_Length)
+      {
+        Referee_Frame_Update(REFEREE_MultiRx_Buf[1]);
+				memset(REFEREE_MultiRx_Buf[1],0,REFEREE_RXFRAME_LENGTH);
+      }
+  }
+}
 
 /**
   * @brief  USER USART3 Reception Event Callback.
@@ -148,6 +195,11 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart,uint16_t Size)
 		USER_USART3_RxHandler(huart,Size);
 	}
 #endif
+	
+	else if(huart->Instance == USART1)
+	{
+		USER_USART1_RxHandler(huart,Size);
+	}
 	
   /* reset the Reception Type */
 	huart->ReceptionType = HAL_UART_RECEPTION_TOIDLE;
