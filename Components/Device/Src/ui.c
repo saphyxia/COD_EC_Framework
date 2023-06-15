@@ -19,7 +19,6 @@
 #include "crc.h"
 #include "string.h"
 #include "math.h"
-#include "arm_math.h"
 #include "config.h"
 
 /* Exported variables ---------------------------------------------------------*/
@@ -63,7 +62,7 @@ void UI_FrameInfo_Update(void)
     
     case 2:
 
-	break;
+		break;
 
     case 3:
         /* update the graphic operate */
@@ -79,8 +78,6 @@ void UI_FrameInfo_Update(void)
   UI_TxFrame_Info.Frame_Update_flag++;
   UI_TxFrame_Info.Operate_Update_flag++;
 }
-
-
 
 /**
   * @brief  print the char graphic in the client

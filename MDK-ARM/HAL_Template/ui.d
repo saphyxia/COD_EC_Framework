@@ -41,7 +41,5 @@
 .\hal_template\ui.o: ../Components/Algorithm/Inc/crc.h
 .\hal_template\ui.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\hal_template\ui.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-.\hal_template\ui.o: ../Middlewares/ST/ARM/DSP/Inc/arm_math.h
-.\hal_template\ui.o: ../Drivers/CMSIS/Include/core_cm4.h
 .\hal_template\ui.o: ../Application/Tasks/Inc/config.h
 .\hal_template\ui.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
