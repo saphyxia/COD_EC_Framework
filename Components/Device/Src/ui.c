@@ -41,7 +41,31 @@ UI_FRAME_INFO_Typedef UI_TxFrame_Info;
 static char empty_char[30]   = {"                              "};
 
 /* Private function prototypes ------------------------------------------------*/
-
+static void Char_Graphic(ext_client_string_t* graphic,
+                    const char* name,
+                    uint32_t operate_tpye,
+                    uint32_t layer,
+                    uint32_t color,
+                    uint32_t size,
+                    uint32_t length,
+                    uint32_t width,
+                    uint32_t start_x,
+                    uint32_t start_y,
+                    const char *character);
+static void Figure_Graphic(graphic_data_struct_t* graphic,
+									const char* name,
+									uint32_t operate_tpye,
+									uint32_t graphic_tpye,
+									uint32_t layer,
+									uint32_t color,
+									uint32_t start_angle,
+									uint32_t end_angle,
+									uint32_t width,
+									uint32_t start_x,
+									uint32_t start_y,
+									uint32_t radius,
+									uint32_t end_x,
+									uint32_t end_y);
 
 
 void UI_FrameInfo_Update(void)
@@ -124,11 +148,11 @@ static void Char_Graphic(ext_client_string_t* graphic,
 	data_struct->end_x = 0;
 	data_struct->end_y = 0;
 	memcpy(graphic->data,empty_char,19);
-    memcpy(graphic->data,character,length);
+  memcpy(graphic->data,character,length);
 }
 
 /**
-  * @brief  print the char graphic in the client
+  * @brief  print the figure graphic in the client
   * @param  graphic: pointer the structure of ext_client_string_t that 
   *                  contains the information of frame data.
   * @param  name: pointer the graphic name
