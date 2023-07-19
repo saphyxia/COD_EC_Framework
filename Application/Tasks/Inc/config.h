@@ -80,43 +80,24 @@
 #define IMU_Calibration_ENABLE  1U
 
 /**
- * @brief the index of pitch angle update
+ * @brief the index of IMU angle
  */
-#define IMU_ANGLE_INDEX_PITCH  1U
-/**
- * @brief the index of yaw angle update
- */
-#define IMU_ANGLE_INDEX_YAW   0U
-/**
- * @brief the index of roll angle update
- */
-#define IMU_ANGLE_INDEX_ROLL   2U
+typedef enum
+{
+  IMU_ANGLE_INDEX_YAW = 0U,
+  IMU_ANGLE_INDEX_PITCH = 1U,
+  IMU_ANGLE_INDEX_ROLL = 2U,
+}IMU_ANGLE_INDEX_e;
 
 /**
- * @brief the index of pitch gyro update
+ * @brief the index of IMU accel/gyro
  */
-#define IMU_GYRO_INDEX_PITCH  1U
-/**
- * @brief the index of yaw gyro update
- */
-#define IMU_GYRO_INDEX_YAW   2U
-/**
- * @brief the index of roll gyro update
- */
-#define IMU_GYRO_INDEX_ROLL   0U
-
-/**
- * @brief the index of pitch accel update
- */
-#define IMU_ACCEL_INDEX_PITCH  1U
-/**
- * @brief the index of yaw accel update
- */
-#define IMU_ACCEL_INDEX_YAW   2U
-/**
- * @brief the index of roll accel update
- */
-#define IMU_ACCEL_INDEX_ROLL   0U
+typedef enum
+{
+  IMU_ACCEL_GYRO_INDEX_ROLL = 0U,
+  IMU_ACCEL_GYRO_INDEX_PITCH = 1U,
+  IMU_ACCEL_GYRO_INDEX_YAW = 2U,
+}IMU_ACCEL_GYRO_INDEX_e;
 
 /* Remote reslove constants -----------------------------------------------*/
 /**

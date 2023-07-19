@@ -103,9 +103,9 @@ void INS_Task(void const * argument)
     BMI088_Info_Update(&BMI088_Info);
 
     /* accel measurement LPF2p */
-    INS_Info.accel[IMU_ACCEL_INDEX_PITCH] = LowPassFilter2p_Update(&INS_AcceLPF2p[0],BMI088_Info.accel[IMU_ACCEL_INDEX_PITCH]);
-    INS_Info.accel[IMU_ACCEL_INDEX_YAW]   = LowPassFilter2p_Update(&INS_AcceLPF2p[2],BMI088_Info.accel[IMU_ACCEL_INDEX_YAW]);
-    INS_Info.accel[IMU_ACCEL_INDEX_ROLL]  = LowPassFilter2p_Update(&INS_AcceLPF2p[1],BMI088_Info.accel[IMU_ACCEL_INDEX_ROLL]);
+    INS_Info.accel[IMU_ACCEL_GYRO_INDEX_PITCH] = LowPassFilter2p_Update(&INS_AcceLPF2p[0],BMI088_Info.accel[IMU_ACCEL_GYRO_INDEX_PITCH]);
+    INS_Info.accel[IMU_ACCEL_GYRO_INDEX_YAW]   = LowPassFilter2p_Update(&INS_AcceLPF2p[2],BMI088_Info.accel[IMU_ACCEL_GYRO_INDEX_YAW]);
+    INS_Info.accel[IMU_ACCEL_GYRO_INDEX_ROLL]  = LowPassFilter2p_Update(&INS_AcceLPF2p[1],BMI088_Info.accel[IMU_ACCEL_GYRO_INDEX_ROLL]);
 		
     /* Update the INS gyro in radians */
 		memcpy(INS_Info.gyro,BMI088_Info.gyro,sizeof(INS_Info.gyro));
@@ -134,9 +134,9 @@ void INS_Task(void const * argument)
 		INS_Info.yaw_tolangle = INS_Info.yaw_angle + INS_Info.YawRoundCount*360.f;
 		
     /* Update the INS gyro in degrees */
-    INS_Info.pit_gyro = INS_Info.gyro[IMU_GYRO_INDEX_PITCH]*RadiansToDegrees;
-    INS_Info.yaw_gyro = INS_Info.gyro[IMU_GYRO_INDEX_YAW]*RadiansToDegrees;
-    INS_Info.rol_gyro = INS_Info.gyro[IMU_GYRO_INDEX_ROLL]*RadiansToDegrees;
+    INS_Info.pit_gyro = INS_Info.gyro[IMU_ACCEL_GYRO_INDEX_PITCH]*RadiansToDegrees;
+    INS_Info.yaw_gyro = INS_Info.gyro[IMU_ACCEL_GYRO_INDEX_YAW]*RadiansToDegrees;
+    INS_Info.rol_gyro = INS_Info.gyro[IMU_ACCEL_GYRO_INDEX_ROLL]*RadiansToDegrees;
 		
 		if(systick%5 == 0)
 		{

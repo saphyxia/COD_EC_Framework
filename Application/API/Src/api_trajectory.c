@@ -36,12 +36,12 @@ static float Trajectory_Picth_Update(float ,float ,SolveTrajectory_Typedef *);
  *          contains the information of solved trajectory.
  * @param  picth: current pitch angle
  * @param  yaw: current yaw amngle 
- * @param  target_yaw: minipc receive target yaw angle
- * @param  v_yaw: minipc receive yaw gyro 
- * @param  r1: minipc received Distance of target center to front and rear armor plates
- * @param  r2: minipc received Distance of target center to armor plates in sides
- * @param  dz: minipc receive unknown
- * @param  armors_num: the num of armor
+ * @param  target_yaw: target yaw angle from minipc
+ * @param  v_yaw: minipc receive yaw gyro from minipc
+ * @param  r1: Distance of target center to front and rear armor plates form minipc
+ * @param  r2: Distance of target center to armor plates in sides form minipc
+ * @param  dz: error of armor height form minipc
+ * @param  armors_num: the num of armor form minipc
  * @retval none
  */
 void SolveTrajectory_Update(SolveTrajectory_Typedef *SolveTrajectory,float picth,float yaw,float target_yaw,float v_yaw,float r1,float r2,float dz,float bullet_speed,float armors_num)
@@ -227,13 +227,13 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
  */
 static float Trajectory_BulletModel(float distance,float bullet_k,float bullet_speed,float *bullet_Time,float pitchangle)
 {
-    float Height = 0.f;
+    float height = 0.f;
 
     *bullet_Time = (float)((exp(bullet_k * distance)- 1.f) / (bullet_k * bullet_speed * cos(pitchangle)));
 
-    Height = (float)(bullet_speed * arm_sin_f32(pitchangle) * *bullet_Time - GravityAccel * *bullet_Time * *bullet_Time / 2.f);
+    height = (float)(bullet_speed * arm_sin_f32(pitchangle) * *bullet_Time - GravityAccel * *bullet_Time * *bullet_Time / 2.f);
 
-    return Height;
+    return height;
 }
 //------------------------------------------------------------------------------
 
