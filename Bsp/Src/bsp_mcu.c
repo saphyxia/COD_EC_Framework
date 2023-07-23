@@ -28,6 +28,7 @@ void MCU_Init(void)
 {
   /* ----------------------- BSP Init ----------------------- */
   Bsp_Tim_Init();
+	BSP_DWT_Init(168);
   BSP_CAN_Init();
   BSP_USART_Init();
 	MX_USB_DEVICE_Init();
