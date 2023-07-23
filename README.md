@@ -74,8 +74,8 @@ HAL-Template
   * Camera_Yaw_Vertical：相机相对yaw轴的垂直距离，单位/m；
   * Camera_Yaw_Horizontal：相机相对yaw轴的前推距离，单位/m；
   * Time_Offset：通信延时和击发延时等，用户自行估测，单位/s；
-  * Armor_Yaw_Limit：装甲板选择判定阈值，单位rad
-  * Armor_Yaw_Limit_Offset：装甲板选择判定阈值偏置，单位rad
+  * Armor_Yaw_Limit：装甲板选择判定阈值，单位rad；
+  * Armor_Yaw_Limit_Offset：装甲板选择判定阈值偏置，单位rad；
   
 * 解算部分在`./Application/Tasks/Src/Vision_Task.c`中以500Hz的频率进行，
 
@@ -93,7 +93,7 @@ HAL-Template
                                    SolveTrajectory_Typedef *SolveTrajectory)
     ```
     函数解算得出云台期望姿态。
-  
+
 ### 裁判系统
 
 * 使用STM32串口DMA实现裁判系统数据交互
