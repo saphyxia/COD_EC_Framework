@@ -4,8 +4,8 @@
   * @file           : api_trajectory.c
   * @brief          : solve trajectory
   * @author         : Yan Yuanbin
-  * @date           : 2023/05/21
-  * @version        : v1.0
+  * @date           : 2023/07/23
+  * @version        : v2.1
   ******************************************************************************
   * @attention      : see https://github.com/chenjunnn/rm_auto_aim
   ******************************************************************************
