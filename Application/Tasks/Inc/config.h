@@ -46,14 +46,6 @@
 #define DegreesToRadians 0.01745329251f
 
 /* Vision reslove constants -------------------------------------------------*/
-
-/**
- * @brief  Decision Marking mode
- *         0: select the minimum yaw armor
- *         1: select the minimum distance armor
- */
-#define Yaw_Distance_Decision  0
-
 /**
  * @brief ballistic coefficient
  * @note  17mm: 0.038

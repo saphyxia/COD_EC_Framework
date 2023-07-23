@@ -73,7 +73,9 @@ HAL-Template
 * 在`./Application/Tasks/src/Vision_Task.c`中存在待测参数：
   * Camera_Yaw_Vertical：相机相对yaw轴的垂直距离，单位/m；
   * Camera_Yaw_Horizontal：相机相对yaw轴的前推距离，单位/m；
-  * FireSystem_BiasTime：系统造成的总延时：通信延时和击发延时等，单位/s；
+  * Time_Offset：通信延时和击发延时等，用户自行估测，单位/s；
+  * Armor_Yaw_Limit：装甲板选择判定阈值，单位rad
+  * Armor_Yaw_Limit_Offset：装甲板选择判定阈值偏置，单位rad
   
 * 解算部分在`./Application/Tasks/Src/Vision_Task.c`中以500Hz的频率进行，
 
@@ -81,22 +83,16 @@ HAL-Template
     void SolveTrajectory_Update(SolveTrajectory_Typedef *SolveTrajectory,
                                 float picth,
                                 float yaw,
-                                float target_yaw,
-                                float v_yaw,
-                                float r1,
-                                float r2,
-                                float dz,
-                                float bullet_speed,
-                                float armor_num)
+                                float bullet_speed)
     ```
     函数更新弹道解算参数时，**请根据云台RoboMaster开发板C型的安装位置调整输入的位姿数据**，即在`./Application/API/Inc/config.h`中修改`IMU reslove constants`栏相关宏定义，此处与云台控制相对应，若后者正常则无需修改。
     
-  ```c
-  void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,
-                                 MiniPC_ReceivePacket_Typedef *MiniPCRxData,
-                                 SolveTrajectory_Typedef *SolveTrajectory)
-  ```
-  函数解算得出云台期望姿态。
+    ```c
+    void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,
+                                   MiniPC_ReceivePacket_Typedef *MiniPCRxData,
+                                   SolveTrajectory_Typedef *SolveTrajectory)
+    ```
+    函数解算得出云台期望姿态。
   
 ### 裁判系统
 

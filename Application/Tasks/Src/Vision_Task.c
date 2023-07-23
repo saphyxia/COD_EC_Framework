@@ -25,15 +25,15 @@
 SolveTrajectory_Typedef SolveTrajectory={
   .Camera_Yaw_Vertical = 0.119f,
   .Camera_Yaw_Horizontal = 0.02f,
-  .FireSystem_BiasTime = 0.15f,
+  .Time_Offset = 0.15f,
+	.Armor_Yaw_Limit = 0.005f,
+	.Armor_Yaw_Limit_Offset = 0.001f,
 };
 
 /**
  * @brief structure that contains the information for the Vision.
  */
-Vision_Info_Typedef Vision_Info = {
-  .Fire_Yaw_Threshold = 0.2f,
-};
+Vision_Info_Typedef Vision_Info;
 
 /* USER CODE BEGIN Header_Vision_Task */
 /**
@@ -61,46 +61,17 @@ void Vision_Task(void const * argument)
     MiniPC_SendPacket.roll  = INS_Info.angle[IMU_ANGLE_INDEX_ROLL];
 
     /* update the solve trajectory */
-		SolveTrajectory_Update(&SolveTrajectory,-MiniPC_SendPacket.pitch,MiniPC_SendPacket.yaw,MiniPC_ReceivePacket.yaw,MiniPC_ReceivePacket.v_yaw,MiniPC_ReceivePacket.r1,MiniPC_ReceivePacket.r2,MiniPC_ReceivePacket.dz,18.f,MiniPC_ReceivePacket.armors_num);
+		SolveTrajectory_Update(&SolveTrajectory,-MiniPC_SendPacket.pitch,MiniPC_SendPacket.yaw,30.f);
 
     /* transform the solved trajetory */
     SolveTrajectory_Transform(&MiniPC_SendPacket,&MiniPC_ReceivePacket,&SolveTrajectory);
 
-    /* 4 is normal armor num */
-    if(MiniPC_ReceivePacket.armors_num == 4)
-    {
-			/* Update the Gimbal target posture in degrees,lock the armor */
-			Vision_Info.target_Pitch = SolveTrajectory.armorlock_pitch * RadiansToDegrees;
-			Vision_Info.target_Yaw = SolveTrajectory.armorlock_yaw * RadiansToDegrees;
-		}
-    /* 3 is outpost armor num */
-    else if(MiniPC_ReceivePacket.armors_num == 3)
-    {
-      /* refresh target posture, lock the center of outpost */
-      Vision_Info.target_Pitch = SolveTrajectory.centerlock_pitch * RadiansToDegrees;
-      Vision_Info.target_Yaw = SolveTrajectory.centerlock_yaw * RadiansToDegrees;
-    }
-		/* calculate the yaw angle error */
-    Vision_Info.yawerror = fabs(SolveTrajectory.armorlock_yaw - MiniPC_SendPacket.yaw) * RadiansToDegrees;
+		/* update the gimbal target pose */
+    Vision_Info.target_Pitch = SolveTrajectory.armorlock_pitch * RadiansToDegrees;
+    Vision_Info.target_Yaw = SolveTrajectory.armorlock_yaw * RadiansToDegrees;
 		
-    /* auto threshold */
-    if(MiniPC_ReceivePacket.id == 1 || MiniPC_ReceivePacket.armors_num ==2)
-    {
-      Vision_Info.Fire_Yaw_Threshold = fabsf(atan2f(LargeArmor_HalfWidth,SolveTrajectory.armor_distance)) * RadiansToDegrees;
-    }else
-    {
-      Vision_Info.Fire_Yaw_Threshold = fabsf(atan2f(LittleArmor_HalfWidth,SolveTrajectory.armor_distance)) * RadiansToDegrees;
-    }
-
-    /* Judge the fire acception */
-    if(Vision_Info.yawerror < Vision_Info.Fire_Yaw_Threshold && Vision_Info.IF_Aiming_Enable == true)
-    {
-      Vision_Info.IF_Fire_Accept = true;
-    }
-    else
-    {
-      Vision_Info.IF_Fire_Accept = false;
-    }
+		/* update the fire control flag */
+		Vision_Info.IF_Fire_Accept = (SolveTrajectory.control_status == 2 && Vision_Info.IF_Aiming_Enable == true);
 
     /* transmit the minipc frame data */
     MiniPC_SendFrameInfo(&MiniPC_SendPacket);
