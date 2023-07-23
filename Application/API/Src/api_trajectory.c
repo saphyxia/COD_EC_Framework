@@ -38,10 +38,10 @@ static float Trajectory_Picth_Update(float ,float ,SolveTrajectory_Typedef *);
  * @param  yaw: current yaw amngle 
  * @param  target_yaw: target yaw angle from minipc
  * @param  v_yaw: minipc receive yaw gyro from minipc
- * @param  r1: Distance of target center to front and rear armor plates form minipc
- * @param  r2: Distance of target center to armor plates in sides form minipc
- * @param  dz: error of armor height form minipc
- * @param  armors_num: the num of armor form minipc
+ * @param  r1: Distance of target center to front and rear armor plates from minipc
+ * @param  r2: Distance of target center to armor plates in sides from minipc
+ * @param  dz: error of armor height from minipc
+ * @param  armors_num: the num of armor from minipc
  * @retval none
  */
 void SolveTrajectory_Update(SolveTrajectory_Typedef *SolveTrajectory,float picth,float yaw,float target_yaw,float v_yaw,float r1,float r2,float dz,float bullet_speed,float armors_num)
@@ -248,7 +248,7 @@ static float Trajectory_BulletModel(float distance,float bullet_k,float bullet_s
 static float Trajectory_Picth_Update(float distance,float height,SolveTrajectory_Typedef *SolveTrajectory)
 {
     float z_temp = 0.f,dz = 0.f;
-    float Height_calc = 0.f,pitchangle = 0.f;
+    float height_calc = 0.f,pitchangle = 0.f;
 
     /* store the height of target armor */
     z_temp = height;
@@ -260,10 +260,10 @@ static float Trajectory_Picth_Update(float distance,float height,SolveTrajectory
         pitchangle = (float)atan2(z_temp,distance);
 
         /* Calculate the Bullet Model offset */
-        Height_calc = Trajectory_BulletModel(distance,Bullet_Coefficient,SolveTrajectory->bullet_speed,&SolveTrajectory->bullet_time,pitchangle);
+        height_calc = Trajectory_BulletModel(distance,Bullet_Coefficient,SolveTrajectory->bullet_speed,&SolveTrajectory->bullet_time,pitchangle);
 
         /* calculate the difference of height */
-        dz = 0.3f*(height - Height_calc);
+        dz = 0.3f*(height - height_calc);
         
         /* height points compensation */
         z_temp += dz;

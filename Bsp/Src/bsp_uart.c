@@ -47,8 +47,8 @@ void BSP_USART_Init(void)
 
 /**
   * @brief  Starts the multi_buffer DMA Transfer with interrupt enabled.
-  * @param  huart       pointer to a UART_HandleTypeDef structure that contains
-  *                     the configuration information for the specified USART Stream.  
+  * @param  huart      pointer to a UART_HandleTypeDef structure that contains
+  *                    the configuration information for the specified USART Stream.  
   * @param  SrcAddress pointer to The source memory Buffer address
   * @param  DstAddress pointer to The destination memory Buffer address
   * @param  SecondMemAddress pointer to The second memory Buffer address in case of multi buffer Transfer  

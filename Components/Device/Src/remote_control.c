@@ -119,20 +119,6 @@ void Remote_Message_Moniter(Remote_Info_Typedef  *remote_ctrl)
 //------------------------------------------------------------------------------
 
 /**
-  * @brief  report the status of keyboard
-  * @param  KeyBoard_Status: flag of the keyboard status 
-  * @retval the status of keyboard
-  */
-KeyBoard_Status_e Key_Status(bool KeyBoard_Status)
-{
-  /* update the key status */
-  Key_Status_Update(&KeyBoard_Info,KeyBoard_Status);
-
-  return KeyBoard_Info.Status;
-}
-//------------------------------------------------------------------------------
-
-/**
   * @brief  Update the status of keyboard
   * @param  KeyInfo: pointer to a KeyBoard_Info_Typedef structure that
   *         contains the information for the keyboard.

@@ -11,7 +11,8 @@
                 "_UNICODE"
             ],
             "compilerPath": "C:\\Toolchains\\MinGW\\bin\\gcc.exe",
-            "intelliSenseMode": "windows-msvc-x64"
+            "intelliSenseMode": "windows-msvc-x64",
+            "configurationProvider": "cmsis-csolution"
         }
     ],
     "version": 4
