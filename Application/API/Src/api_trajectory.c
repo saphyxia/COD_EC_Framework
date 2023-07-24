@@ -151,10 +151,10 @@ void SolveTrajectory_Transform(MiniPC_SendPacket_Typedef *MiniPCTxData,MiniPC_Re
         if (SolveTrajectory->control_status == 1) 
         {
             /* balance/hero(large armor plate) : other(small armor plate) */
-            ALLOW_ERROR_DISTANCE = (MiniPCRxData->armors_num == 2 || MiniPCRxData->id == 1) ? 0.04f : 0.01f;
+            ALLOW_ERROR_DISTANCE = (MiniPCRxData->armors_num == 2 || MiniPCRxData->id == 1) ? LargeArmor_HalfWidth : LittleArmor_HalfWidth;
 
             /* Scale threshold based on distance */
-            allow_error_angle = ALLOW_ERROR_DISTANCE / SolveTrajectory->armor_distance;
+            allow_error_angle =  atan2(SolveTrajectory->armor_distance,ALLOW_ERROR_DISTANCE);
 
             /* calculate the yaw angle diff */
             yaw_diff = SolveTrajectory->armorlock_yaw-SolveTrajectory->current_yaw;
