@@ -93,6 +93,8 @@ HAL-Template
                                    SolveTrajectory_Typedef *SolveTrajectory)
     ```
     函数解算得出云台期望姿态。
+    
+    测试视频见[0.25倍速击打200血量英雄机器人](./assets/test_video/0.25倍速击打200血量英雄机器人.mp4)
 
 ### 裁判系统
 
