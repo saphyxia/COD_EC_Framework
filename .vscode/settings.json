@@ -1,0 +1,17 @@
+{
+    "files.associations": {
+        "cmsis_os.h": "c",
+        "freertos.h": "c",
+        "projdefs.h": "c",
+        "freertosconfig.h": "c",
+        "pro_gpio.h": "c",
+        "imu_task.h": "c",
+        "pid.h": "c",
+        "bmi088.h": "c",
+        "stm32f4xx.h": "c",
+        "pro_tick.h": "c",
+        "pro_tim.h": "c",
+        "tim.h": "c",
+        "timer.h": "c"
+    }
+}
