@@ -12,6 +12,10 @@
         "pro_tick.h": "c",
         "pro_tim.h": "c",
         "tim.h": "c",
-        "timer.h": "c"
+        "timer.h": "c",
+        "kalman.h": "c",
+        "quaternion.h": "c",
+        "arm_math.h": "c",
+        "lpf.h": "c"
     }
 }

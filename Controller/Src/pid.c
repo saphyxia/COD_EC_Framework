@@ -131,7 +131,7 @@ float f_PID_Calculate(PID_Info_TypeDef *pid, float target,float measure)
   pid->target = target;
   pid->measure = measure;
 
-  /* update the error */
+  /* update the errors */
 	pid->err[2] = pid->err[1];
 	pid->err[1] = pid->err[0];
 	pid->err[0] = pid->target - pid->measure;

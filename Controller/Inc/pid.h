@@ -84,7 +84,7 @@ typedef struct _PID_TypeDef
 
 	float target;       /*!< target value */
 	float measure;      /*!< measurement value */
-  float err[3];       /*!< Error;previous Error;previous previous Error */
+  float err[3];       /*!< Error;previous Error;penultimate Error */
 	float integral;     /*!< Integral */
 
 	PID_Parameter_Typedef param;            /*!< parameters of pid */

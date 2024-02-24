@@ -1,5 +1,8 @@
 --cpu=Cortex-M4.fp.sp
 ".\cod_ec_framework\imu_task.o"
+".\cod_ec_framework\kalman.o"
+".\cod_ec_framework\quaternion.o"
+".\cod_ec_framework\lpf.o"
 ".\cod_ec_framework\timer.o"
 ".\cod_ec_framework\bmi088.o"
 ".\cod_ec_framework\pid.o"
