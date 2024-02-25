@@ -28,7 +28,7 @@ COD_EC_Framework
 
 * 参考[哈尔滨工程大学创梦之翼战队惯导姿态解算项目](https://github.com/WangHongxi2001/RoboMaster-C-Board-INS-Example)。
 
-* 详情见[IMU.md](.\Docs\IMU.md)
+* 详情见[IMU.md](./Docs/IMU.md)
 
 ## 贡献
 
