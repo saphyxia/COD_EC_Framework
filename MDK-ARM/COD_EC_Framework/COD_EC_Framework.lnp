@@ -43,7 +43,6 @@
 ".\cod_ec_framework\stm32f4xx_hal_tim.o"
 ".\cod_ec_framework\stm32f4xx_hal_tim_ex.o"
 "..\Middlewares\ST\ARM\DSP\Lib\arm_cortexM4lf_math.lib"
-"..\Middlewares\ST\ARM\DSP\Lib\arm_cortexM4l_math.lib"
 --strict --scatter ".\COD_EC_Framework\COD_EC_Framework.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

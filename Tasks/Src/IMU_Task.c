@@ -63,7 +63,7 @@ static float QuatEKF_Data_P[36]= {100000, 0.1, 0.1, 0.1, 0.1, 0.1,
 /**
   * @brief parameters of Heat Power PID.
   */
-static float HeatPower_PID_Param[PID_PARAMETER_NUM]={1600,20,0,0,0,20000};
+static float HeatPower_PID_Param[PID_PARAMETER_NUM]={1600,20,0,0,0,10000};
 
 /**
   * @brief Instance structure of Heat Power PID.
@@ -76,7 +76,7 @@ PID_Info_TypeDef HeatPower_PID;
 Quat_Info_Typedef Quat_Info;
 
 /**
-  * @brief  Control BMI088 Heat Power
+  * @brief  Update BMI088 Heat Power PWM
   * @param  temp  measure temperature of the BMI088 
   * @retval none
   */
@@ -84,7 +84,7 @@ static void BMI088_HeatPower_Control(float temp)
 {
 	f_PID_Calculate(&HeatPower_PID,40.f,temp);
 	
-	VAL_LIMIT(HeatPower_PID.Output,0,20000);
+	VAL_LIMIT(HeatPower_PID.Output,0,10000);
 
 	Heat_Power_Control((uint16_t)HeatPower_PID.Output);
 }
@@ -98,7 +98,7 @@ static void IMU_Task_Init(void)
 	// update bmi088 informations
 	BMI088_Info_Update(&BMI088_Info);
 	
-  /* Initializes the Second order lowpass filter  */
+  /* Initializes the filter output */
   SecondOrderLowpass_Init(&BMI088_Accel_Slpf[0],Accel_Slpf_alpha,BMI088_Info.accel[IMU_ACCEL_GYRO_INDEX_PITCH]);
   SecondOrderLowpass_Init(&BMI088_Accel_Slpf[1],Accel_Slpf_alpha,BMI088_Info.accel[IMU_ACCEL_GYRO_INDEX_YAW])  ;
   SecondOrderLowpass_Init(&BMI088_Accel_Slpf[2],Accel_Slpf_alpha,BMI088_Info.accel[IMU_ACCEL_GYRO_INDEX_ROLL]) ;
@@ -176,7 +176,7 @@ void IMU_Task(void const * argument)
     IMU_Info.yaw_gyro = IMU_Info.gyro[IMU_ACCEL_GYRO_INDEX_YAW]*RadiansToDegrees;
     IMU_Info.rol_gyro = IMU_Info.gyro[IMU_ACCEL_GYRO_INDEX_ROLL]*RadiansToDegrees;
 
-		if(ticks%5 == 0)
+		if(ticks%2 == 0)
 		{
 			BMI088_HeatPower_Control(BMI088_Info.temperature);
 		}
