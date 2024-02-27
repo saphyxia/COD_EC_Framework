@@ -19,13 +19,6 @@
 
          ![image-20240225124345921](./assets/image-20240225124345921.png)
 
-2. malloc函数申请内存失败
-     在startup_stm32f407xx.s中默认分配的堆空间只有`0x0200`个字节，而在初始化扩展卡尔曼滤波器时所需要的空间超过了0x0200，需要在STM32CubeMX的[Project Manager]/[Project]/[Linker Settings]栏修改`Minimum Heap Size`的值以达到使用需求，修改后可在startup_stm32f407xx.s文件中的`Heap_Size`体现。
-
-     ![image-20240225123902045](./assets/image-20240225123902045.png)
-
-     ![image-20240225124009103](./assets/image-20240225124009103.png)
-
 ## 陀螺仪积分均值补偿
 
 1. 使能积分
