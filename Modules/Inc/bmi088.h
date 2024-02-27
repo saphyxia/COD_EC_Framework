@@ -20,7 +20,7 @@
 
 /* Exported defines -----------------------------------------------------------*/
 #define BMI088_USE_SPI 
-#define IMU_Calibration_ENABLE 0
+#define IMU_Calibration_ENABLE 1
 
 #define BMI088_TEMP_FACTOR 0.125f
 #define BMI088_TEMP_OFFSET 23.0f

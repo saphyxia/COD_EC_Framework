@@ -7,7 +7,7 @@
   * @brief          : Header for kalman.c file.
   * 
   ******************************************************************************
-  * @attention      : none
+  * @attention      : 1. fix user_malloc, allocate space in freertos heap(configTOTAL_HEAP_SIZE) instead of SRAM heap
   *
   ******************************************************************************
   */
@@ -18,10 +18,11 @@
 #include "stdbool.h"
 #include "stdlib.h"
 #include "arm_math.h"
+#include "cmsis_os.h"
 
 /* Exported defines -----------------------------------------------------------*/
 /**
- * @brief allocates space for an object
+ * @brief allocate space for an object
  */
 #ifndef user_malloc
   #ifdef _CMSIS_OS_H

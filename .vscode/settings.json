@@ -16,6 +16,8 @@
         "kalman.h": "c",
         "quaternion.h": "c",
         "arm_math.h": "c",
-        "lpf.h": "c"
+        "lpf.h": "c",
+        "task.h": "c",
+        "portable.h": "c"
     }
 }
