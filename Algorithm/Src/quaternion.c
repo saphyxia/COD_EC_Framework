@@ -8,6 +8,12 @@
   * @date           : 2024/02/23
   * @version        : 1.2.2
   * @attention      : none
+  * 
+  * rotation matrix
+  * 1−2q2^2−2q3^2 2q1q2−2q0q3 2q1q3+2q0q2 
+  * 2q1q2+2q0q3 1−2q1^2−2q3^2 2q2q3−2q0q1 
+  * 2q1q3−2q0q2 2q2q3+2q0q1 1−2q1^2−2q2^2
+  * 
   ******************************************************************************
   */
 /* USER CODE END Header */
@@ -130,17 +136,17 @@ static void QuatEKF_H_Update(Kalman_Info_TypeDef *kf)
 static bool QuatEKF_ChiSqrtTest(Kalman_Info_TypeDef *kf)
 {
   /* calc_matrix[0] = inverse(H·Pminus(k)·HT + R)·(z(k) - h(xhatminus)) */
-  kf->matrix.calc_matrix[0].numRows = kf->matrix.calc_matrix[1].numRows;
-  kf->matrix.calc_matrix[0].numCols = 1;
-  kf->ErrorStatus = Matrix_Multiply(&kf->matrix.calc_matrix[1], &kf->matrix.calc_vector[1], &kf->matrix.calc_matrix[0]);
+  kf->mat.calc_matrix[0].numRows = kf->mat.calc_matrix[1].numRows;
+  kf->mat.calc_matrix[0].numCols = 1;
+  kf->ErrorStatus = Matrix_Multiply(&kf->mat.calc_matrix[1], &kf->mat.calc_vector[1], &kf->mat.calc_matrix[0]);
 
   /* calc_vector[0] = (z(k) - h(xhatminus)' */
-  kf->matrix.calc_vector[0].numRows = 1;
-  kf->matrix.calc_vector[0].numCols = kf->matrix.calc_matrix[1].numRows;
-  kf->ErrorStatus = Matrix_Transpose(&kf->matrix.calc_matrix[1], &kf->matrix.calc_vector[0]);
+  kf->mat.calc_vector[0].numRows = 1;
+  kf->mat.calc_vector[0].numCols = kf->mat.calc_matrix[1].numRows;
+  kf->ErrorStatus = Matrix_Transpose(&kf->mat.calc_matrix[1], &kf->mat.calc_vector[0]);
 
   /* ChiSquare_Matrix = (z(k) - h(xhatminus)'·inverse(H·Pminus·HT + R)·(z(k) - h(xhatminus)) */
-  kf->ErrorStatus = Matrix_Multiply(&kf->matrix.calc_vector[0], &kf->matrix.calc_matrix[0], &kf->ChiSquareTest.ChiSquare_Matrix);
+  kf->ErrorStatus = Matrix_Multiply(&kf->mat.calc_vector[0], &kf->mat.calc_matrix[0], &kf->ChiSquareTest.ChiSquare_Matrix);
 
   /* rk is smaller,filter converg */ 
   if (kf->ChiSquareTest.ChiSquare_Data[0] < 0.5f * kf->ChiSquareTest.ChiSquareTestThresholds)
@@ -202,29 +208,29 @@ static bool QuatEKF_ChiSqrtTest(Kalman_Info_TypeDef *kf)
 static void QuatEKF_xhat_Update(Kalman_Info_TypeDef *kf)
 {
   /* HT */
-  kf->ErrorStatus = Matrix_Transpose(&kf->matrix.H,&kf->matrix.HT);
+  kf->ErrorStatus = Matrix_Transpose(&kf->mat.H,&kf->mat.HT);
 
   /* calc_matrix[0] = H·Pminus(k) */
-  kf->matrix.calc_matrix[0].numRows = kf->matrix.H.numRows;
-  kf->matrix.calc_matrix[0].numCols = kf->matrix.Pminus.numCols;
-  kf->ErrorStatus = Matrix_Multiply(&kf->matrix.H, &kf->matrix.Pminus, &kf->matrix.calc_matrix[0]);
+  kf->mat.calc_matrix[0].numRows = kf->mat.H.numRows;
+  kf->mat.calc_matrix[0].numCols = kf->mat.Pminus.numCols;
+  kf->ErrorStatus = Matrix_Multiply(&kf->mat.H, &kf->mat.Pminus, &kf->mat.calc_matrix[0]);
 
   /* calc_matrix[1] = H·Pminus(k)·HT */
-  kf->matrix.calc_matrix[1].numRows = kf->matrix.calc_matrix[0].numRows;
-  kf->matrix.calc_matrix[1].numCols = kf->matrix.HT.numCols;
-  kf->ErrorStatus = Matrix_Multiply(&kf->matrix.calc_matrix[0], &kf->matrix.HT, &kf->matrix.calc_matrix[1]); 
+  kf->mat.calc_matrix[1].numRows = kf->mat.calc_matrix[0].numRows;
+  kf->mat.calc_matrix[1].numCols = kf->mat.HT.numCols;
+  kf->ErrorStatus = Matrix_Multiply(&kf->mat.calc_matrix[0], &kf->mat.HT, &kf->mat.calc_matrix[1]); 
   
   /* K_d = H·Pminus(k)·HT + R */
-  kf->matrix.K_d.numRows = kf->matrix.R.numRows;
-  kf->matrix.K_d.numCols = kf->matrix.R.numCols;
-  kf->ErrorStatus = Matrix_Add(&kf->matrix.calc_matrix[1], &kf->matrix.R, &kf->matrix.K_d);
+  kf->mat.S.numRows = kf->mat.R.numRows;
+  kf->mat.S.numCols = kf->mat.R.numCols;
+  kf->ErrorStatus = Matrix_Add(&kf->mat.calc_matrix[1], &kf->mat.R, &kf->mat.S);
 
   /* calc_matrix[1] = inverse(H·Pminus(k)·HT + R) */
-  kf->ErrorStatus = Matrix_Inverse(&kf->matrix.K_d, &kf->matrix.calc_matrix[1]);
+  kf->ErrorStatus = Matrix_Inverse(&kf->mat.S, &kf->mat.calc_matrix[1]);
 
   /* direction of gravity indicated by algorithm */
-  kf->matrix.calc_vector[0].numRows = kf->matrix.H.numRows;
-  kf->matrix.calc_vector[0].numCols = 1;
+  kf->mat.calc_vector[0].numRows = kf->mat.H.numRows;
+  kf->mat.calc_vector[0].numCols = 1;
   /* calc_vector[0][0] = 2.f*(q1*q3 - q0*q2) */
   /* calc_vector[0][1] = 2.f*(q0*q1 + q2*q3) */
   /* calc_vector[0][2] = q0^2.f - q1^2.f - q2^2.f + q3^2.f */
@@ -243,9 +249,9 @@ static void QuatEKF_xhat_Update(Kalman_Info_TypeDef *kf)
 	}
 	
   /* calc_vector[1] = z(k) - h(xhat'(k)) */
-  kf->matrix.calc_vector[1].numRows = kf->matrix.z.numRows;
-  kf->matrix.calc_vector[1].numCols = 1;
-  kf->ErrorStatus = Matrix_Subtract(&kf->matrix.z, &kf->matrix.calc_vector[0], &kf->matrix.calc_vector[1]);
+  kf->mat.calc_vector[1].numRows = kf->mat.z.numRows;
+  kf->mat.calc_vector[1].numCols = 1;
+  kf->ErrorStatus = Matrix_Subtract(&kf->mat.z, &kf->mat.calc_vector[0], &kf->mat.calc_vector[1]);
 
   /* Chi Square root Test */
   if(QuatEKF_ChiSqrtTest(kf)==true)
@@ -254,14 +260,14 @@ static void QuatEKF_xhat_Update(Kalman_Info_TypeDef *kf)
   }
 
   /* calc_matrix[0] = Pminus(k)·HT */
-  kf->matrix.calc_matrix[0].numRows = kf->matrix.Pminus.numRows;
-  kf->matrix.calc_matrix[0].numCols = kf->matrix.HT.numCols;
-  kf->ErrorStatus = Matrix_Multiply(&kf->matrix.Pminus, &kf->matrix.HT, &kf->matrix.calc_matrix[0]);
+  kf->mat.calc_matrix[0].numRows = kf->mat.Pminus.numRows;
+  kf->mat.calc_matrix[0].numCols = kf->mat.HT.numCols;
+  kf->ErrorStatus = Matrix_Multiply(&kf->mat.Pminus, &kf->mat.HT, &kf->mat.calc_matrix[0]);
 
   /* k = Pminus·HT·inverse(H·Pminus·HT + R) */
-  kf->ErrorStatus = Matrix_Multiply(&kf->matrix.calc_matrix[0], &kf->matrix.calc_matrix[1], &kf->matrix.K);
+  kf->ErrorStatus = Matrix_Multiply(&kf->mat.calc_matrix[0], &kf->mat.calc_matrix[1], &kf->mat.K);
 	
-	for(uint8_t i = 0; i < kf->matrix.K.numCols*kf->matrix.K.numRows; i++)
+	for(uint8_t i = 0; i < kf->mat.K.numCols*kf->mat.K.numRows; i++)
 	{
 		kf->pdata.K[i] *= kf->pdata.calc_vector[0][0];
 	}
@@ -285,9 +291,9 @@ static void QuatEKF_xhat_Update(Kalman_Info_TypeDef *kf)
   }
 
   /* calc_vector[0] = K(k)·(z(k) - H·xhat'(k)) */
-  kf->matrix.calc_vector[0].numRows = kf->matrix.K.numRows;
-  kf->matrix.calc_vector[0].numCols = 1;
-  kf->ErrorStatus = Matrix_Multiply(&kf->matrix.K, &kf->matrix.calc_vector[1], &kf->matrix.calc_vector[0]);
+  kf->mat.calc_vector[0].numRows = kf->mat.K.numRows;
+  kf->mat.calc_vector[0].numCols = 1;
+  kf->ErrorStatus = Matrix_Multiply(&kf->mat.K, &kf->mat.calc_vector[1], &kf->mat.calc_vector[0]);
 
   if(kf->ChiSquareTest.result)
   {
@@ -296,7 +302,7 @@ static void QuatEKF_xhat_Update(Kalman_Info_TypeDef *kf)
   }
   kf->pdata.calc_vector[0][3] = 0;
 
-  kf->ErrorStatus = Matrix_Add(&kf->matrix.xhatminus, &kf->matrix.calc_vector[0], &kf->matrix.xhat);
+  kf->ErrorStatus = Matrix_Add(&kf->mat.xhatminus, &kf->mat.calc_vector[0], &kf->mat.xhat);
 }
 //------------------------------------------------------------------------------
 
@@ -320,8 +326,14 @@ void QuatEKF_Init(Quat_Info_Typedef *quat,float Q1,float Q2,float R,float *pdata
   quat->pdata_A = pdata_A;
   quat->pdata_P = pdata_P;
 
-  /* Initializes the Extended kalman filter */
+  /* Initialize the Extended kalman filter */
   Kalman_Filter_Init(&quat->QuatEKF,6,0,3);
+
+  /* Initializes the relation matrix */
+  quat->relation.numRows = 3;
+  quat->relation.numCols = 3;
+  quat->relation.pData = (float *)user_malloc(quat->QuatEKF.sizeof_float * quat->relation.numRows * quat->relation.numCols);
+  memset(quat->relation.pData, 0, quat->QuatEKF.sizeof_float * quat->relation.numRows * quat->relation.numCols);
 
   /* Initializes the chi square test */
   quat->QuatEKF.ChiSquareTest.TestFlag = false;
@@ -442,6 +454,19 @@ void QuatEKF_Update(Quat_Info_Typedef *quat,float gyro[3],float accel[3],float d
   quat->offsets[0] = quat->QuatEKF.Output[4];
   quat->offsets[1] = quat->QuatEKF.Output[5];
   quat->offsets[2] = 0.f;
+
+  /* Update the relation matrix */
+  quat->relation.pData[0] = 1 - 2.f*quat->quat[2]*quat->quat[2] - 2.f*quat->quat[3]*quat->quat[3];
+  quat->relation.pData[1] = 2.f*quat->quat[1]*quat->quat[2] - 2.f*quat->quat[0]*quat->quat[3];
+  quat->relation.pData[2] = 2.f*quat->quat[1]*quat->quat[3] + 2.f*quat->quat[0]*quat->quat[2];
+
+  quat->relation.pData[3] = 2.f*quat->quat[1]*quat->quat[2] + 2.f*quat->quat[0]*quat->quat[3];
+  quat->relation.pData[4] = 1 - 2.f*quat->quat[1]*quat->quat[1] - 2.f*quat->quat[3]*quat->quat[3];
+  quat->relation.pData[5] = 2.f*quat->quat[2]*quat->quat[3] - 2.f*quat->quat[0]*quat->quat[1];
+
+  quat->relation.pData[6] = 2.f*quat->quat[1]*quat->quat[3] - 2.f*quat->quat[0]*quat->quat[2];
+  quat->relation.pData[7] = 2.f*quat->quat[2]*quat->quat[3] + 2.f*quat->quat[0]*quat->quat[1];
+  quat->relation.pData[8] = 1 - 2.f*quat->quat[1]*quat->quat[1] + 2.f*quat->quat[2]*quat->quat[2];
   
 	/* get angle in radians */
   quat->angle[0] = atan2f(2.f*(quat->quat[0]*quat->quat[3] + quat->quat[1]*quat->quat[2]), 2.f*(quat->quat[0]*quat->quat[0] + quat->quat[1]*quat->quat[1])-1.f);

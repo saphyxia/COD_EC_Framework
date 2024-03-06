@@ -18,6 +18,8 @@
         "arm_math.h": "c",
         "lpf.h": "c",
         "task.h": "c",
-        "portable.h": "c"
+        "portable.h": "c",
+        "bmi088_reg.h": "c",
+        "velocity_fusion.h": "c"
     }
 }

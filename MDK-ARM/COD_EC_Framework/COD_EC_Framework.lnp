@@ -11,6 +11,7 @@
 ".\cod_ec_framework\freertos.o"
 ".\cod_ec_framework\spi.o"
 ".\cod_ec_framework\tim.o"
+".\cod_ec_framework\usart.o"
 ".\cod_ec_framework\stm32f4xx_it.o"
 ".\cod_ec_framework\stm32f4xx_hal_msp.o"
 ".\cod_ec_framework\stm32f4xx_hal_timebase_tim.o"
@@ -42,6 +43,7 @@
 ".\cod_ec_framework\stm32f4xx_hal_spi.o"
 ".\cod_ec_framework\stm32f4xx_hal_tim.o"
 ".\cod_ec_framework\stm32f4xx_hal_tim_ex.o"
+".\cod_ec_framework\stm32f4xx_hal_uart.o"
 "..\Middlewares\ST\ARM\DSP\Lib\arm_cortexM4lf_math.lib"
 --strict --scatter ".\COD_EC_Framework\COD_EC_Framework.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols

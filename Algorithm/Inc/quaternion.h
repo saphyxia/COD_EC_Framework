@@ -28,10 +28,11 @@ typedef struct
 
   float quat[4];       /*!< quaternion value */
   float offsets[3];    /*!< offsets of Gyro */
+  matrix relation;     /*!< relation matrix */
 
   float Q1,Q2,R;       /*!< data of process and measurement noise */
-  float *pdata_A;      /*!< point to the data of state transition */
-  float *pdata_P;      /*!< point to the data of posteriori covariance */
+  float *pdata_A;      /*!< point to data of state transition */
+  float *pdata_P;      /*!< point to data of posteriori covariance */
   Kalman_Info_TypeDef QuatEKF;  /*!< Extended Kalman Filter */
 
   float accel[3];      /*!< data of accel */

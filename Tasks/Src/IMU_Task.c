@@ -110,9 +110,6 @@ static void IMU_Task_Init(void)
 	QuatEKF_Init(&Quat_Info,10.f, 0.001f, 1000000.f,QuatEKF_Data_A,QuatEKF_Data_P);
 }
 
-uint32_t FreeHeapSize = 0;
-uint32_t MinimumEverFreeHeapSize = 0;
-
 /* USER CODE BEGIN Header_IMU_Task */
 /**
 * @brief Function implementing the IMUTask thread.
@@ -183,9 +180,6 @@ void IMU_Task(void const * argument)
 		{
 			BMI088_HeatPower_Control(BMI088_Info.temperature);
 		}
-		
-		FreeHeapSize = xPortGetFreeHeapSize();
-		MinimumEverFreeHeapSize = xPortGetMinimumEverFreeHeapSize();
 
     // Delay the task until 1 ms
     osDelayUntil(&ticks,1);
