@@ -1,11 +1,5 @@
-./cod_ec_framework/bmi088.o: ..\Modules\Src\bmi088.c \
-  ..\Modules\Inc\bmi088.h C:\Keil_v5\ARM\ARMCLANG\include\stdint.h \
-  C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h ..\Modules\Inc\bmi088_reg.h \
-  ..\Bsp\Inc\bsp_timebase.h ..\Bsp\Inc\bsp_tim.h ..\Core\Inc\spi.h \
-  ..\Core\Inc\main.h ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
-  ..\Core\Inc\stm32f4xx_hal_conf.h \
-  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \
-  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h \
+./cod_ec_framework/bsp_timebase.o: ..\Bsp\Src\bsp_timebase.c \
+  ..\Bsp\Inc\bsp_timebase.h C:\Keil_v5\ARM\ARMCLANG\include\stdint.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h \
   ..\Drivers\CMSIS\Include\core_cm4.h \
@@ -16,6 +10,10 @@
   C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h \
   C:\EC\WorkSpace\COD_EC_Framework\Drivers\CMSIS\Include\mpu_armv7.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h \
+  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
+  ..\Core\Inc\stm32f4xx_hal_conf.h \
+  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \
+  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h \
   C:\Keil_v5\ARM\ARMCLANG\include\stddef.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc_ex.h \

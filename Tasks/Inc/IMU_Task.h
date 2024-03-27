@@ -4,26 +4,29 @@
 /**
   ******************************************************************************
   * @file           : IMU_Task.h
-  * @brief          : Header for IMU_Task.c file.
+  * @brief          : Prototypes of attitude algorithm
+  *                   based on Mahony and Extended Kalman Filter.
   * 
   ******************************************************************************
   * @attention      : none
   *
+  * Copyright 2024 COD USTL.
+  * All rights reserved.
+  *
   ******************************************************************************
   */
-/* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "stdint.h"
 
 /**
- * @brief radian system rotation degrees system , 180.f/PI
+ * @brief radian to degrees , 180.f/PI
  */
 #define RadiansToDegrees 57.295779513f
 
 /* Exported types ------------------------------------------------------------*/
 
 /**
- * @brief enum index of IMU angle
+ * @brief index of angle
  */
 typedef enum
 {
@@ -33,7 +36,7 @@ typedef enum
 }IMU_ANGLE_INDEX_e;
 
 /**
- * @brief enum index of IMU accel/gyro
+ * @brief index of accel/gyro
  */
 typedef enum
 {

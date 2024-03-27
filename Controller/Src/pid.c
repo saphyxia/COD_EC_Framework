@@ -2,12 +2,16 @@
 /**
   ******************************************************************************
   * File Name          : pid.c
-  * Description        : Code for pid controller
+  * Description        : Implementation of pid
   ******************************************************************************
   * @author         : YuanBin Yan
   * @date           : 2024/02/22
   * @version        : 1.2.2
   * @attention      : none
+  *
+  * Copyright 2024 COD USTL.
+  * All rights reserved.
+  *
   ******************************************************************************
   */
 /* USER CODE END Header */

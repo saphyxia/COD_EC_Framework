@@ -2,20 +2,24 @@
 /**
   ******************************************************************************
   * File Name          : kalman.c
-  * Description        : Code for kalman filter
+  * Description        : Implementation of kalman filter.
   ******************************************************************************
   * @author         : YuanBin Yan
   * @date           : 2024/02/23
   * @version        : 1.2.2
   * @attention      : 1. fix comment of kalman formula
-  * @note Adaptive kalman filter:
+  * Adaptive kalman filter:
   *       1.xhatminus(k) = A·xhat(k-1) + B·u(k)
   *       2.Pminus(k) = A·P(k-1)·AT + Q
-  *         R(k) = alpha·R(k-1)+(1-alpha)·(e(k)·e(k)T + H·Pminus(k)·HT)
+  *       * R(k) = alpha·R(k-1)+(1-alpha)·(e(k)·e(k)T + H·Pminus(k)·HT)
   *       3.K(k) = Pminus(k)·HT/(H·Pminus(k)·HT + R)
   *       4.xhat(k) = xhatminus(k) + K(k)·(z(k) - H·xhatminus(k))
   *       5.P(k) = (I - K(k)·H)·Pminus(k)
-  *         Q(k) = alpha·Q(k-1)+(1-alpha)·(K(k)·r(k)·r(k)T·K(k)T)
+  *       * Q(k) = alpha·Q(k-1)+(1-alpha)·(K(k)·r(k)·r(k)T·K(k)T)
+  *
+  * Copyright 2024 COD USTL.
+  * All rights reserved.
+  *
   ******************************************************************************
   */
 /* USER CODE END Header */
@@ -214,7 +218,6 @@ static void Kalman_Input_Update(Kalman_Info_TypeDef *kf)
   }
 }
 //------------------------------------------------------------------------------
-
 
 /**
   * @brief Update the priori state estimate

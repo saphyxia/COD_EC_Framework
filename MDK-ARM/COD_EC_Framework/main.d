@@ -46,6 +46,7 @@
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\semphr.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\event_groups.h \
-  ..\Core\Inc\spi.h ..\Core\Inc\tim.h ..\Core\Inc\usart.h \
-  ..\Core\Inc\gpio.h ..\Modules\Inc\timer.h ..\Modules\Inc\bmi088.h \
-  C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h ..\Modules\Inc\bmi088_reg.h
+  ..\Core\Inc\dma.h ..\Core\Inc\spi.h ..\Core\Inc\tim.h \
+  ..\Core\Inc\usart.h ..\Core\Inc\gpio.h ..\Bsp\Inc\bsp_tim.h \
+  ..\Modules\Inc\bmi088.h C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h \
+  ..\Modules\Inc\bmi088_reg.h

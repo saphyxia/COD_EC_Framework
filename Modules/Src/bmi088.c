@@ -2,19 +2,24 @@
 /**
   ******************************************************************************
   * File Name          : BMI088.c
-  * Description        : Code for BMI088
+  * Description        : Implementation of communication with BMI088
   ******************************************************************************
   * @author         : YuanBin Yan
   * @date           : 2024/02/23
   * @version        : 1.2.2
   * @attention      : 1. fix bmi088 initialize status refresh error
+  *
+  * Copyright 2024 COD USTL.
+  * All rights reserved.
+  *
   ******************************************************************************
   */
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
 #include "bmi088.h"
-#include "timer.h"
+#include "bsp_timebase.h"
+#include "bsp_tim.h"
 #include "spi.h"
 #include "main.h"
 

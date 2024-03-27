@@ -1,13 +1,16 @@
-#ifndef __TIMER_H
-#define __TIMER_H
+#ifndef __BSP_TIM_H
+#define __BSP_TIM_H
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file           : timer.h
-  * @brief          : Header for timer.c file.
+  * @file           : bsp_tim.h
+  * @brief          : Prototypes of PWM signal generation.
   * 
   ******************************************************************************
   * @attention      : none
+  *
+  * Copyright 2024 COD USTL.
+  * All rights reserved.
   *
   ******************************************************************************
   */
@@ -19,27 +22,11 @@
 
 /* Exported functions prototypes ---------------------------------------------*/
 /**
-  * @brief  microsecond delay
-  * @param  us: delay tick value 
-  * @retval none
-  */
-extern void Delay_us(uint32_t us);
-//------------------------------------------------------------------------------
-
-/**
-  * @brief  millisecond delay
-  * @param  ms: delay tick value
-  * @retval none
-  */
-extern void Delay_ms(uint32_t ms);
-//------------------------------------------------------------------------------
-
-/**
   * @brief  Starts the PWM signal generation.
   * @param  None
   * @retval None
   */
-extern void TIM_PWM_Start(void);
+extern void TIM_PWM_Init(void);
 //------------------------------------------------------------------------------
 
 /**

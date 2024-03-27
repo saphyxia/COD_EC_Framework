@@ -2,12 +2,16 @@
 /**
   ******************************************************************************
   * File Name          : lpf.c
-  * Description        : Code for Low-pass filter
+  * Description        : Implementation of Low-pass filter.
   ******************************************************************************
   * @author         : YuanBin Yan
   * @date           : 2024/02/24
   * @version        : 1.2.2
   * @attention      : none
+  *
+  * Copyright 2024 COD USTL.
+  * All rights reserved.
+  *
   ******************************************************************************
   */
 /* USER CODE END Header */

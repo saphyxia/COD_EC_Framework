@@ -2,13 +2,17 @@
 /**
   ******************************************************************************
   * File Name          : IMU_Task.c
-  * Description        : Code for IMU task
-  *                      using Mahony algorithm and Extended Kalman Filter
+  * Description        : Implementation of attitude algorithm
+  *                      based on Mahony and Extended Kalman Filter
   ******************************************************************************
   * @author         : YuanBin Yan
   * @date           : 2024/02/22
   * @version        : 1.2.2
   * @attention      : 1. fix the usage error of osDelayUntil
+  *
+  * Copyright 2024 COD USTL.
+  * All rights reserved.
+  *
   ******************************************************************************
   */
 /* USER CODE END Header */
@@ -19,7 +23,7 @@
 #include "quaternion.h"
 #include "lpf.h"
 #include "pid.h"
-#include "timer.h"
+#include "bsp_tim.h"
 
 /**
   * @brief Instance structure of IMU.
@@ -124,8 +128,8 @@ void IMU_Task(void const * argument)
   // Initialize the IMU Task
   IMU_Task_Init();
 
-  // Holds the time at which the task was last unblocked.
-  TickType_t ticks = 0;
+  // Holds the time at the task was last unblocked.
+	TickType_t ticks = 0;
 
   // Initialize the time.
   // Will be update in function osDelayUntil.

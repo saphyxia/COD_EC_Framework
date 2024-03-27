@@ -4,10 +4,13 @@
 /**
   ******************************************************************************
   * @file           : kalman.h
-  * @brief          : Header for kalman.c file.
+  * @brief          : Prototypes of kalman filter.
   * 
   ******************************************************************************
-  * @attention      : 1. fix user_malloc, allocate space in freertos heap(configTOTAL_HEAP_SIZE) instead of SRAM heap
+  * @attention      : 1. redefine user_malloc, allocate space in freertos heap(configTOTAL_HEAP_SIZE) instead of SRAM heap
+  *
+  * Copyright 2024 COD USTL.
+  * All rights reserved.
   *
   ******************************************************************************
   */

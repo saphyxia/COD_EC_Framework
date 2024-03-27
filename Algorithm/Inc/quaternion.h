@@ -4,10 +4,13 @@
 /**
   ******************************************************************************
   * @file           : quaternion.h
-  * @brief          : Header for quaternion.c file.
+  * @brief          : Prototypes for quaternion attitude algorithm.
   * 
   ******************************************************************************
   * @attention      : none
+  *
+  * Copyright 2024 COD USTL.
+  * All rights reserved.
   *
   ******************************************************************************
   */
@@ -27,7 +30,7 @@ typedef struct
   bool init; /*!< Initialize flag */
 
   float quat[4];       /*!< quaternion value */
-  float offsets[3];    /*!< offsets of Gyro */
+  float biasgyro[3];   /*!< bias of gyro */
   matrix relation;     /*!< relation matrix */
 
   float Q1,Q2,R;       /*!< data of process and measurement noise */

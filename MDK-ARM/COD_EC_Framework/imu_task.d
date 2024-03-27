@@ -27,4 +27,4 @@
   C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h \
   C:\Keil_v5\ARM\ARMCLANG\include\string.h \
   C:\Keil_v5\ARM\ARMCLANG\include\math.h ..\Algorithm\Inc\lpf.h \
-  ..\Controller\Inc\pid.h ..\Modules\Inc\timer.h
+  ..\Controller\Inc\pid.h ..\Bsp\Inc\bsp_tim.h

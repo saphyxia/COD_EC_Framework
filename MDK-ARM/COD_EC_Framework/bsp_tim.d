@@ -1,7 +1,5 @@
-./cod_ec_framework/bmi088.o: ..\Modules\Src\bmi088.c \
-  ..\Modules\Inc\bmi088.h C:\Keil_v5\ARM\ARMCLANG\include\stdint.h \
-  C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h ..\Modules\Inc\bmi088_reg.h \
-  ..\Bsp\Inc\bsp_timebase.h ..\Bsp\Inc\bsp_tim.h ..\Core\Inc\spi.h \
+./cod_ec_framework/bsp_tim.o: ..\Bsp\Src\bsp_tim.c ..\Bsp\Inc\bsp_tim.h \
+  C:\Keil_v5\ARM\ARMCLANG\include\stdint.h ..\Core\Inc\tim.h \
   ..\Core\Inc\main.h ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\Core\Inc\stm32f4xx_hal_conf.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \

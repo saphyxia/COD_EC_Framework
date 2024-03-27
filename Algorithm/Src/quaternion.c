@@ -2,7 +2,7 @@
 /**
   ******************************************************************************
   * File Name          : quaternion.c
-  * Description        : Code for attitude algorithm
+  * Description        : Implementation for quaternion attitude algorithm.
   ******************************************************************************
   * @author         : YuanBin Yan
   * @date           : 2024/02/23
@@ -13,7 +13,10 @@
   * 1−2q2^2−2q3^2 2q1q2−2q0q3 2q1q3+2q0q2 
   * 2q1q2+2q0q3 1−2q1^2−2q3^2 2q2q3−2q0q1 
   * 2q1q3−2q0q2 2q2q3+2q0q1 1−2q1^2−2q2^2
-  * 
+  *
+  * Copyright 2024 COD USTL.
+  * All rights reserved.
+  *
   ******************************************************************************
   */
 /* USER CODE END Header */
@@ -140,12 +143,12 @@ static bool QuatEKF_ChiSqrtTest(Kalman_Info_TypeDef *kf)
   kf->mat.calc_matrix[0].numCols = 1;
   kf->ErrorStatus = Matrix_Multiply(&kf->mat.calc_matrix[1], &kf->mat.calc_vector[1], &kf->mat.calc_matrix[0]);
 
-  /* calc_vector[0] = (z(k) - h(xhatminus)' */
+  /* calc_vector[0] = (z(k) - h(xhatminus)T */
   kf->mat.calc_vector[0].numRows = 1;
   kf->mat.calc_vector[0].numCols = kf->mat.calc_matrix[1].numRows;
   kf->ErrorStatus = Matrix_Transpose(&kf->mat.calc_matrix[1], &kf->mat.calc_vector[0]);
 
-  /* ChiSquare_Matrix = (z(k) - h(xhatminus)'·inverse(H·Pminus·HT + R)·(z(k) - h(xhatminus)) */
+  /* ChiSquare_Matrix = (z(k) - h(xhatminus)T·inverse(H·Pminus·HT + R)·(z(k) - h(xhatminus)) */
   kf->ErrorStatus = Matrix_Multiply(&kf->mat.calc_vector[0], &kf->mat.calc_matrix[0], &kf->ChiSquareTest.ChiSquare_Matrix);
 
   /* rk is smaller,filter converg */ 
@@ -372,10 +375,10 @@ void QuatEKF_Update(Quat_Info_Typedef *quat,float gyro[3],float accel[3],float d
   /* store the system latency */
   quat->QuatEKF.dt = dt;
 
-  /* offsets to gyro */
-  quat->gyro[0] = gyro[0] - quat->offsets[0];
-  quat->gyro[1] = gyro[1] - quat->offsets[1];
-  quat->gyro[2] = gyro[2] - quat->offsets[2];
+  /* biasgyro to gyro */
+  quat->gyro[0] = gyro[0] - quat->biasgyro[0];
+  quat->gyro[1] = gyro[1] - quat->biasgyro[1];
+  quat->gyro[2] = gyro[2] - quat->biasgyro[2];
 
   /* gyroInvNorm = 1.f/(gyro[0]^2.f + gyro[1]^2.f + gyro[2]^2.f) */
   quat->gyroInvNorm = Fast_InverseSqrt(quat->gyro[0]*quat->gyro[0]+quat->gyro[1]*quat->gyro[1]+quat->gyro[2]*quat->gyro[2]);
@@ -451,9 +454,9 @@ void QuatEKF_Update(Quat_Info_Typedef *quat,float gyro[3],float accel[3],float d
   quat->quat[1]    = quat->QuatEKF.Output[1];
   quat->quat[2]    = quat->QuatEKF.Output[2];
   quat->quat[3]    = quat->QuatEKF.Output[3];
-  quat->offsets[0] = quat->QuatEKF.Output[4];
-  quat->offsets[1] = quat->QuatEKF.Output[5];
-  quat->offsets[2] = 0.f;
+  quat->biasgyro[0] = quat->QuatEKF.Output[4];
+  quat->biasgyro[1] = quat->QuatEKF.Output[5];
+  quat->biasgyro[2] = 0.f;
 
   /* Update the relation matrix */
   quat->relation.pData[0] = 1 - 2.f*quat->quat[2]*quat->quat[2] - 2.f*quat->quat[3]*quat->quat[3];
