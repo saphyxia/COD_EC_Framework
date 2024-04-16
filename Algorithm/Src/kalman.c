@@ -11,11 +11,9 @@
   * Adaptive kalman filter:
   *       1.xhatminus(k) = A·xhat(k-1) + B·u(k)
   *       2.Pminus(k) = A·P(k-1)·AT + Q
-  *       * R(k) = alpha·R(k-1)+(1-alpha)·(e(k)·e(k)T + H·Pminus(k)·HT)
   *       3.K(k) = Pminus(k)·HT/(H·Pminus(k)·HT + R)
   *       4.xhat(k) = xhatminus(k) + K(k)·(z(k) - H·xhatminus(k))
   *       5.P(k) = (I - K(k)·H)·Pminus(k)
-  *       * Q(k) = alpha·Q(k-1)+(1-alpha)·(K(k)·r(k)·r(k)T·K(k)T)
   *
   * Copyright 2024 COD USTL.
   * All rights reserved.
@@ -60,34 +58,6 @@ void Kalman_Filter_Init(Kalman_Info_TypeDef *kf,uint8_t xhatSize,uint8_t uSize,u
   /* Initialize the ChiSquare matrix */
   memset(kf->ChiSquareTest.ChiSquare_Data,0,sizeof(kf->ChiSquareTest.ChiSquare_Data));
   Matrix_Init(&kf->ChiSquareTest.ChiSquare_Matrix, 1, 1, (float *)kf->ChiSquareTest.ChiSquare_Data);
-  
-  if(true == kf->Adaptive_NoiseCov.Adaptive_Enable)
-  {
-    kf->Adaptive_NoiseCov.r.numRows = kf->zSize;
-    kf->Adaptive_NoiseCov.r.numCols = 1;
-    kf->Adaptive_NoiseCov.r.pData = (float *)user_malloc(kf->sizeof_float * zSize);
-    memset(kf->Adaptive_NoiseCov.r.pData, 0, kf->sizeof_float * zSize);
-
-    kf->Adaptive_NoiseCov.e.numRows = kf->zSize;
-    kf->Adaptive_NoiseCov.e.numCols = 1;
-    kf->Adaptive_NoiseCov.e.pData = (float *)user_malloc(kf->sizeof_float * zSize);
-    memset(kf->Adaptive_NoiseCov.e.pData, 0, kf->sizeof_float * zSize);
-
-    kf->Adaptive_NoiseCov.temp_vector.numRows = 1;
-    kf->Adaptive_NoiseCov.temp_vector.numCols = kf->zSize;
-    kf->Adaptive_NoiseCov.temp_vector.pData = (float *)user_malloc(kf->sizeof_float * zSize);
-    memset(kf->Adaptive_NoiseCov.temp_vector.pData, 0, kf->sizeof_float * zSize);
-
-    kf->Adaptive_NoiseCov.temp_matrix[0].numRows = kf->xhatSize;
-    kf->Adaptive_NoiseCov.temp_matrix[0].numCols = kf->xhatSize;
-    kf->Adaptive_NoiseCov.temp_matrix[0].pData = (float *)user_malloc(kf->sizeof_float * kf->xhatSize * kf->xhatSize);
-    memset(kf->Adaptive_NoiseCov.temp_matrix[0].pData, 0, kf->sizeof_float * kf->xhatSize * kf->xhatSize);
-
-    kf->Adaptive_NoiseCov.temp_matrix[1].numRows = kf->xhatSize;
-    kf->Adaptive_NoiseCov.temp_matrix[1].numCols = kf->xhatSize;
-    kf->Adaptive_NoiseCov.temp_matrix[1].pData = (float *)user_malloc(kf->sizeof_float * kf->xhatSize * kf->xhatSize);
-    memset(kf->Adaptive_NoiseCov.temp_matrix[1].pData, 0, kf->sizeof_float * kf->xhatSize * kf->xhatSize);
-  }
 
   /* Initialize the measurement Input */
   kf->MeasureInput = (float *)user_malloc(kf->sizeof_float * zSize);
@@ -316,36 +286,6 @@ static void Kalman_K_Update(Kalman_Info_TypeDef *kf)
   kf->mat.calc_matrix[1].numCols = kf->mat.HT.numCols;
   kf->ErrorStatus = Matrix_Multiply(&kf->mat.calc_matrix[0], &kf->mat.HT, &kf->mat.calc_matrix[1]);  
 
-  if(true == kf->Adaptive_NoiseCov.Adaptive_Enable)
-  {
-    /* e(k)=z(k)-xhatminus(k) */
-    kf->ErrorStatus = Matrix_Subtract(&kf->mat.z,&kf->mat.xhatminus,&kf->Adaptive_NoiseCov.e);
-
-    /* e(k)T */
-    kf->ErrorStatus = Matrix_Transpose(&kf->Adaptive_NoiseCov.e,&kf->Adaptive_NoiseCov.temp_vector);
-
-    /* temp_matrix[1] = e(k)·e(k)T */
-    kf->Adaptive_NoiseCov.temp_matrix[1].numRows = kf->Adaptive_NoiseCov.e.numRows;
-    kf->Adaptive_NoiseCov.temp_matrix[1].numCols = kf->Adaptive_NoiseCov.temp_vector.numCols;
-    kf->ErrorStatus = Matrix_Multiply(&kf->Adaptive_NoiseCov.e,&kf->Adaptive_NoiseCov.temp_vector,&kf->Adaptive_NoiseCov.temp_matrix[1]);
-
-    /* temp_matrix[0] = e(k)·e(k)T + H·Pminus(k)·HT */
-    kf->ErrorStatus = Matrix_Add(&kf->Adaptive_NoiseCov.temp_matrix[1],&kf->mat.calc_matrix[1],&kf->Adaptive_NoiseCov.temp_matrix[0]);
-
-    kf->mat.calc_matrix[0].numRows = kf->mat.R.numRows;
-    kf->mat.calc_matrix[0].numCols = kf->mat.R.numCols; 
-
-    /* alpha·R(k-1), (1-alpha)·(e(k)·e(k)T + H·Pminus(k)·HT) */
-    for(uint8_t i=0;i < (kf->zSize*kf->zSize);i++)
-    {
-      kf->pdata.calc_matrix[0][i] = kf->Adaptive_NoiseCov.alpha*kf->pdata.R[i];
-      kf->Adaptive_NoiseCov.temp_matrix[0].pData[i] *= (1.f-kf->Adaptive_NoiseCov.alpha);
-    }
-    
-    /* R(k) = alpha·R(k-1)+(1-alpha)·(e(k)·e(k)T + H·Pminus(k)·HT) */
-    kf->ErrorStatus = Matrix_Add(&kf->mat.calc_matrix[0],&kf->Adaptive_NoiseCov.temp_matrix[0],&kf->mat.R);
-  }
-
   /* S = H·Pminus(k)·HT + R */
   kf->mat.S.numRows = kf->mat.R.numRows;
   kf->mat.S.numCols = kf->mat.R.numCols;
@@ -396,51 +336,6 @@ static void Kalman_xhat_Update(Kalman_Info_TypeDef *kf)
 
   /* xhat(k) = xhatminus(k) + K(k)·(z(k) - H·xhatminus(k)) */
   kf->ErrorStatus = Matrix_Add(&kf->mat.xhatminus, &kf->mat.calc_vector[0], &kf->mat.xhat); 
-
-  if(true == kf->Adaptive_NoiseCov.Adaptive_Enable)
-  {
-    /* r(k)=z(k)-xhat(k) */
-    kf->ErrorStatus = Matrix_Subtract(&kf->mat.z,&kf->mat.xhat,&kf->Adaptive_NoiseCov.r);
-
-    /* r(k)T */
-    kf->ErrorStatus = Matrix_Transpose(&kf->Adaptive_NoiseCov.r,&kf->Adaptive_NoiseCov.temp_vector);
-
-    /* temp_matrix[1] = r(k)·r(k)T */
-    kf->Adaptive_NoiseCov.temp_matrix[1].numRows = kf->Adaptive_NoiseCov.r.numRows;
-    kf->Adaptive_NoiseCov.temp_matrix[1].numCols = kf->Adaptive_NoiseCov.temp_vector.numCols;
-    kf->ErrorStatus = Matrix_Multiply(&kf->Adaptive_NoiseCov.r,&kf->Adaptive_NoiseCov.temp_vector,&kf->Adaptive_NoiseCov.temp_matrix[1]);
-
-    /* calc_matrix[1] = K(k)·r(k)·r(k)T */
-    kf->mat.calc_matrix[1].numRows = kf->mat.K.numCols;
-    kf->mat.calc_matrix[1].numCols = kf->Adaptive_NoiseCov.temp_matrix[1].numRows;
-    kf->ErrorStatus = Matrix_Multiply(&kf->mat.K,&kf->Adaptive_NoiseCov.temp_matrix[1],&kf->mat.calc_matrix[1]);
-
-    /* temp_matrix[1] = K(k)T */
-    kf->Adaptive_NoiseCov.temp_matrix[1].numRows = kf->mat.K.numCols;
-    kf->Adaptive_NoiseCov.temp_matrix[1].numCols = kf->mat.K.numRows;
-    kf->ErrorStatus = Matrix_Transpose(&kf->mat.K,&kf->Adaptive_NoiseCov.temp_matrix[1]);
-  
-    /* calc_matrix[0] = K(k)·r(k)·r(k)T·K(k)T */
-    kf->mat.calc_matrix[0].numRows = kf->mat.Q.numRows;
-    kf->mat.calc_matrix[0].numCols = kf->mat.Q.numCols; 
-    kf->ErrorStatus = Matrix_Multiply(&kf->mat.calc_matrix[1],&kf->Adaptive_NoiseCov.temp_matrix[1],&kf->mat.calc_matrix[0]);
-
-    /* alpha·Q(k-1), (1-alpha)·(K(k)·r(k)·r(k)T·K(k)T) */
-    for(uint8_t i=0;i < (kf->zSize*kf->zSize);i++)
-    {
-      kf->pdata.calc_matrix[1][i] = kf->Adaptive_NoiseCov.alpha*kf->pdata.Q[i];
-      kf->pdata.calc_matrix[0][i] *= (1.f-kf->Adaptive_NoiseCov.alpha);
-    }
-
-    /* Q(k) = alpha·Q(k-1)+(1-alpha)·(K(k)·r(k)·r(k)T·K(k)T) */
-    kf->ErrorStatus = Matrix_Add(&kf->mat.calc_matrix[1],&kf->mat.calc_matrix[0],&kf->mat.Q);
-
-    if(fabsf(kf->Adaptive_NoiseCov.b-kf->Adaptive_NoiseCov.alpha) > 0.001f)
-    {
-      kf->Adaptive_NoiseCov.alpha = 1.f-(1-kf->Adaptive_NoiseCov.b)/(1-pow(kf->Adaptive_NoiseCov.b,(kf->Adaptive_NoiseCov.t+1)));
-      kf->Adaptive_NoiseCov.t += kf->Adaptive_NoiseCov.dt;
-    }
-  }
 }
 //------------------------------------------------------------------------------
 /**

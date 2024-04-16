@@ -27,7 +27,7 @@
   * @param  None
   * @retval None
   */
-void TIM_PWM_Init(void)
+void BSP_PWM_Init(void)
 {
 	//Heat_Power PWM Start
 	HAL_TIM_PWM_Start(&htim10, TIM_CHANNEL_1);

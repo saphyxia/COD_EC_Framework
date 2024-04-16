@@ -20,6 +20,10 @@
         "task.h": "c",
         "portable.h": "c",
         "bmi088_reg.h": "c",
-        "velocity_fusion.h": "c"
+        "velocity_fusion.h": "c",
+        "bsp_can.h": "c",
+        "bsp_tim.h": "c",
+        "can.h": "c",
+        "motor.h": "c"
     }
 }

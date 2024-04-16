@@ -62,19 +62,6 @@ typedef struct
   bool result;   /*!< test result */
 }ChiSquareTest_Typedef;
 
-/**
- * @brief informations of forgetting factor based adaptive noise covariance.
- */
-typedef struct
-{
-  bool Adaptive_Enable;
-  matrix r;       /*!< r(k) = z(k)-xhatminus(k) */
-  matrix e;       /*!< e(k) = z(k)-xhat(k) */
-  matrix temp_vector;
-  matrix temp_matrix[2];   
-  float b,dt,t;
-  float alpha;   /*!< forgetting factor, alpha=1-(1-b)/(1-b^(t+1)), 0<b<1 */
-}Adaptive_NoiseCov_Typdef;
 
 /**
  * @brief informations of the kalman filter.
@@ -92,8 +79,6 @@ typedef struct KF_Info_TypeDef
   float *ControlInput;  /*!< pointer to control input  */
 
   ChiSquareTest_Typedef ChiSquareTest;  /*!< Chi Square Test */
-
-  Adaptive_NoiseCov_Typdef Adaptive_NoiseCov; /*!< adaptive noise covariance */
 
   /**
    * @brief Instance structure for the floating-point matrix structure.

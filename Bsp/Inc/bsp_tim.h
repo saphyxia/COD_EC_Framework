@@ -26,7 +26,7 @@
   * @param  None
   * @retval None
   */
-extern void TIM_PWM_Init(void);
+extern void BSP_PWM_Init(void);
 //------------------------------------------------------------------------------
 
 /**
