@@ -1,0 +1,46 @@
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+*.crf
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.so
+*.so.*
+
+# Executables
+*.exe
+*.out
+*.app
+*.hex
+*.axf
+
+# keil
+*.htm
+*.lnp
+*.sct
+*.dep
+*.lst
+*.uvguix.*
+DebugConfig/
+
+# vscode
+.vscode/
